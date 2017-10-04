@@ -183,52 +183,100 @@ def load_dataset(image_folder_path='dataset/frames/',
                  label_folder_path='dataset/labels/',
                  label_type='obj',
                  hand_types=['left', 'right'],
+                 with_head=False,
                  validation_split_ratio=0.2):
     
-    train_image_paths, train_labels = [], np.array([])
-    val_image_paths, val_labels = [], np.array([])
-    test_image_paths, test_labels = load_examples(image_folder_path=image_folder_path,
-                                                  label_folder_path=label_folder_path,
-                                                  data_type='test', label_type=label_type)
+    train_head_image_paths, train_hand_image_paths, train_labels = [], [], np.array([])
+    val_head_image_paths, val_hand_image_paths, val_labels = [], [], np.array([])
+    test_head_image_paths, test_hand_image_paths, test_labels = [], [], np.array([])
     
-    if 'left' in hand_types:
-        l_image_paths, l_labels = load_examples(image_folder_path=image_folder_path,
-                                                label_folder_path=label_folder_path,
-                                                data_type='train', label_type=label_type,
-                                                hand_type='left')
-
-        l_train_image_paths, l_val_image_paths, l_train_labels, l_val_labels = \
-            my_train_test_split(l_image_paths, l_labels, test_size=validation_split_ratio)
+    # -------------------------
+    # Load training data
+    # -------------------------
+    for hand_type in hand_types:
+        if with_head:
+            _head_image_paths, _hand_image_paths, _labels = load_examples(image_folder_path=image_folder_path,
+                                                                          label_folder_path=label_folder_path,
+                                                                          data_type='train',
+                                                                          label_type=label_type,
+                                                                          hand_type=hand_type,
+                                                                          with_head=True)
+        else:
+            _hand_image_paths, _labels = load_examples(image_folder_path=image_folder_path,
+                                                       label_folder_path=label_folder_path,
+                                                       data_type='train',
+                                                       label_type=label_type,
+                                                       hand_type=hand_type,
+                                                       with_head=False)
+        
+        # train_test_split for head images
+        try:
+            _train_head_image_paths, _val_head_image_paths, _, _ = \
+                my_train_test_split(_head_image_paths, _labels, test_size=validation_split_ratio)
+                
+            train_head_image_paths += _train_head_image_paths
+            val_head_image_paths += _val_head_image_paths
+        except: pass
+        
+        # train_test_split for hand images
+        _train_hand_image_paths, _val_hand_image_paths, _train_labels, _val_labels = \
+            my_train_test_split(_hand_image_paths, _labels, test_size=validation_split_ratio)
             
-        train_image_paths += l_train_image_paths
-        train_labels = np.concatenate([train_labels, l_train_labels])
-        val_image_paths += l_val_image_paths
-        val_labels = np.concatenate([val_labels, l_val_labels])
+        train_hand_image_paths += _train_hand_image_paths
+        val_hand_image_paths += _val_hand_image_paths
+        
+        train_labels = np.concatenate([train_labels, _train_labels])
+        val_labels = np.concatenate([val_labels, _val_labels])
     
-    if 'right' in hand_types:
-        r_image_paths, r_labels = load_examples(image_folder_path=image_folder_path,
-                                                label_folder_path=label_folder_path,
-                                                data_type='train', label_type=label_type,
-                                                hand_type='right')
-
-        r_train_image_paths, r_val_image_paths, r_train_labels, r_val_labels = \
-            my_train_test_split(r_image_paths, r_labels, test_size=validation_split_ratio)
-            
-           
-        train_image_paths += r_train_image_paths
-        train_labels = np.concatenate([train_labels, r_train_labels])
-        val_image_paths += r_val_image_paths
-        val_labels = np.concatenate([val_labels, r_val_labels])
+    # -------------------------
+    # Load testing data
+    # -------------------------
+    for hand_type in hand_types:
+        if with_head:
+            _test_head_image_paths, _test_hand_image_paths, _test_labels = load_examples(image_folder_path=image_folder_path,
+                                                                                         label_folder_path=label_folder_path,
+                                                                                         data_type='test',
+                                                                                         label_type=label_type,
+                                                                                         hand_type=hand_type,
+                                                                                         with_head=True)
+        else:
+            _test_hand_image_paths, _test_labels = load_examples(image_folder_path=image_folder_path,
+                                                                 label_folder_path=label_folder_path,
+                                                                 data_type='test',
+                                                                 label_type=label_type,
+                                                                 hand_type=hand_type,
+                                                                 with_head=False)
+        try: 
+            test_head_image_paths += _test_head_image_paths
+        except: pass
+        
+        test_hand_image_paths += _test_hand_image_paths
+        test_labels = np.concatenate([test_labels, _test_labels])
     
-    print('[Train] data/label: {}/{}'.format(len(train_image_paths), len(train_image_paths)))
-    print('[Validation] data/label: {}/{}'.format(len(val_image_paths), len(val_labels)))
-    print('[Test] data/label: {}/{}'.format(len(test_image_paths), len(test_labels)))
-    
+    # -------------------------
+    # Convert label to int
+    # -------------------------
     train_labels = train_labels.astype(np.int32)
     val_labels = val_labels.astype(np.int32)
     test_labels = test_labels.astype(np.int32)
     
-    return train_image_paths, train_labels, val_image_paths, val_labels, test_image_paths, test_labels
+    
+    print('-'*100)
+    print('[Train (Head)] number of image paths: {}'.format(len(train_head_image_paths)))
+    print('[Train (Hand)] number of image paths: {}'.format(len(train_hand_image_paths)))
+    print('[Train (Label)] number of labels: {}'.format(len(train_labels)))
+    print('-'*100)
+    print('[Validation (Head)] number of image paths: {}'.format(len(val_head_image_paths)))
+    print('[Validation (Hand)] number of image paths: {}'.format(len(val_hand_image_paths)))
+    print('[Validation (Label)] number of labels: {}'.format(len(val_labels)))
+    print('-'*100)
+    print('[Test (Head)] number of image paths: {}'.format(len(test_head_image_paths)))
+    print('[Test (Hand)] number of image paths: {}'.format(len(test_hand_image_paths)))
+    print('[Test (Label)] number of labels: {}'.format(len(test_labels)))
+    
+    return train_head_image_paths, train_hand_image_paths, train_labels, \
+           val_head_image_paths, val_hand_image_paths, val_labels, \
+           test_head_image_paths, test_hand_image_paths, test_labels
 
 
         
