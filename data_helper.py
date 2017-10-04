@@ -201,6 +201,14 @@ def load_dataset(image_folder_path='dataset/frames/',
                                                                           label_type=label_type,
                                                                           hand_type=hand_type,
                                                                           with_head=True)
+            
+            # train_test_split for head images
+            _train_head_image_paths, _val_head_image_paths, _, _ = \
+                my_train_test_split(_head_image_paths, _labels, test_size=validation_split_ratio)
+                
+            train_head_image_paths += _train_head_image_paths
+            val_head_image_paths += _val_head_image_paths
+            
         else:
             _hand_image_paths, _labels = load_examples(image_folder_path=image_folder_path,
                                                        label_folder_path=label_folder_path,
@@ -208,15 +216,6 @@ def load_dataset(image_folder_path='dataset/frames/',
                                                        label_type=label_type,
                                                        hand_type=hand_type,
                                                        with_head=False)
-        
-        # train_test_split for head images
-        try:
-            _train_head_image_paths, _val_head_image_paths, _, _ = \
-                my_train_test_split(_head_image_paths, _labels, test_size=validation_split_ratio)
-                
-            train_head_image_paths += _train_head_image_paths
-            val_head_image_paths += _val_head_image_paths
-        except: pass
         
         # train_test_split for hand images
         _train_hand_image_paths, _val_hand_image_paths, _train_labels, _val_labels = \
@@ -239,6 +238,9 @@ def load_dataset(image_folder_path='dataset/frames/',
                                                                                          label_type=label_type,
                                                                                          hand_type=hand_type,
                                                                                          with_head=True)
+            
+            test_head_image_paths += _test_head_image_paths
+            
         else:
             _test_hand_image_paths, _test_labels = load_examples(image_folder_path=image_folder_path,
                                                                  label_folder_path=label_folder_path,
@@ -246,9 +248,6 @@ def load_dataset(image_folder_path='dataset/frames/',
                                                                  label_type=label_type,
                                                                  hand_type=hand_type,
                                                                  with_head=False)
-        try: 
-            test_head_image_paths += _test_head_image_paths
-        except: pass
         
         test_hand_image_paths += _test_hand_image_paths
         test_labels = np.concatenate([test_labels, _test_labels])
