@@ -143,9 +143,13 @@ def my_train_test_split(image_paths, labels, test_size=0.2):
     num_lab = 0
     num_office = 0
     num_house = 0
-
+        
     for image_path in image_paths:
-        scene = image_path.split('/')[3]
+        
+        f_names = image_path.split('/')
+        frame_folder_idx = [i for i, name in enumerate(f_names) if name == 'frames'][0]
+        scene = f_names[frame_folder_idx+2]
+        
         if scene == 'lab': num_lab += 1
         elif scene == 'office': num_office += 1
         elif scene == 'house': num_house += 1
