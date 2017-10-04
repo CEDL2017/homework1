@@ -12,8 +12,10 @@ slim = tf.contrib.slim
 
 # place = ['house', 'lab', 'office']
 place = ['house']
-num = ['1', '2', '3']
-kind = ['Lhand', 'Rhand']
+# num = ['1', '2', '3']
+num = ['1']
+# kind = ['Lhand', 'Rhand']
+kind = ['Lhand']
 img_num = 0
 
 for p in place:
@@ -44,8 +46,10 @@ for p in place:
 print('count number of images:', img_num)
 
 # place = ['house', 'lab', 'office']
-num = ['1', '2', '3']
-kind = ['left', 'right']
+# num = ['1', '2', '3']
+num = ['1']
+# kind = ['left', 'right']
+kind = ['left']
 
 path = '../labels/'
 
@@ -69,7 +73,7 @@ for p in place:
 print('label data loaded, and the data size is:', len(label))
 
 # prepare image data
-img_names = tf.train.match_filenames_once('../frames/train/house/*/*hand/Image*.png')
+img_names = tf.train.match_filenames_once('../frames/train/house/1/Lhand/Image*.png')
 img_queue = tf.train.string_input_producer(img_names)
 
 img_reader = tf.WholeFileReader()
@@ -87,7 +91,7 @@ with tf.Session() as sess:
     coord = tf.train.Coordinator()
     threads = tf.train.start_queue_runners(sess = sess, coord = coord)
 #     print(sess.run(img_names))
-    
+    img_num = 2
     for i in range(img_num):
         image_tensor = sess.run([raw_img])   
         image += [image_tensor[0]]
@@ -147,39 +151,37 @@ learning_rate_decay_factor = 0.7
 num_epochs_before_decay = 2
 
 
-def load_batch(raw_image, label, batch_size, height=800, width=800, is_training=True):
-    '''
-    Loads a batch for training.
-
-    INPUTS:
-    - dataset(Dataset): a Dataset class object that is created from the get_split function
-    - batch_size(int): determines how big of a batch to train
-    - height(int): the height of the image to resize to during preprocessing
-    - width(int): the width of the image to resize to during preprocessing
-    - is_training(bool): to determine whether to perform a training or evaluation preprocessing
-
-    OUTPUTS:
-    - images(Tensor): a Tensor of the shape (batch_size, height, width, channels) that contain one batch of images
-    - labels(Tensor): the batch's labels with the shape (batch_size,) (requires one_hot_encoding).
-
-    '''
+def load_batch(raw_image, label, batch_size, height = 300, width = 300, is_training=True):
     #Perform the correct preprocessing for this image depending if it is training or evaluating
-    image = inception_preprocessing.preprocess_image(raw_image, height, width, is_training)
-
+    print('start preprocess')
+    image = inception_preprocessing.preprocess_image(tf.convert_to_tensor(raw_image),
+                                                     height, 
+                                                     width, 
+                                                     is_training)
+    print('1')
+    time.sleep(2)
     #As for the raw images, we just do a simple reshape to batch it up
     raw_image = tf.expand_dims(raw_image, 0)
+    print('2')
+    time.sleep(2)
     raw_image = tf.image.resize_nearest_neighbor(raw_image, [height, width])
+    print('3')
+    time.sleep(2)
     raw_image = tf.squeeze(raw_image)
-
+    print('4')
+    time.sleep(2)
     #Batch up the image by enqueing the tensors internally in a FIFO queue and dequeueing many elements with tf.train.batch.
-    images, raw_image, labels = tf.train.batch(
+    images, raw_images, labels = tf.train.batch(
         [image, raw_image, label],
         batch_size = batch_size,
         num_threads = 4,
         capacity = 4 * batch_size,
         allow_smaller_final_batch = True)
+    
+    print('5')
+    time.sleep(2)
 
-    return images, labels
+    return images, raw_images, labels
 
 
 if not os.path.exists(log_dir):
@@ -188,22 +190,38 @@ if not os.path.exists(log_dir):
 with tf.Graph().as_default() as graph:
     tf.logging.set_verbosity(tf.logging.INFO)
 
+    im, im1 = tf.train.batch(
+        tensors = [tf.convert_to_tensor(image), 
+                   tf.convert_to_tensor(image)],
+        batch_size = batch_size,
+        enqueue_many = True,
+        num_threads = 4,
+        capacity = 4 * batch_size,
+        allow_smaller_final_batch = True)
+
+    # im, _, lb = load_batch(raw_image = image, label = label, batch_size = batch_size)
     num_batches_per_epoch = int(img_num / batch_size)
     num_steps_per_epoch = num_batches_per_epoch
     decay_steps = int(num_epochs_before_decay * num_steps_per_epoch)
 
+    print('here, wait 5 secs')
+    time.sleep(5)
+
     #Create the model inference
     with slim.arg_scope(inception_resnet_v2_arg_scope()):
-        logits, end_points = inception_resnet_v2(image, 
+        logits, end_points = inception_resnet_v2(im, 
                                                  num_classes = num_classes, 
                                                  is_training = True)
+
+    print('Done')
+    time.sleep(5)
 
     #Define the scopes that you want to exclude for restoration
     exclude = ['InceptionResnetV2/Logits', 
                'InceptionResnetV2/AuxLogits']
     variables_to_restore = slim.get_variables_to_restore(exclude = exclude)
 
-    one_hot_labels = slim.one_hot_encoding(label, 
+    one_hot_labels = slim.one_hot_encoding(lb, 
                                            num_classes)
     loss = tf.losses.softmax_cross_entropy(onehot_labels = one_hot_labels, 
                                            logits = logits)
@@ -222,7 +240,7 @@ with tf.Graph().as_default() as graph:
     train_op = slim.learning.create_train_op(total_loss, optimizer)
     predictions = tf.argmax(end_points['Predictions'], 1)
     probabilities = end_points['Predictions']
-    accuracy, accuracy_update = tf.contrib.metrics.streaming_accuracy(predictions, labels)
+    accuracy, accuracy_update = tf.contrib.metrics.streaming_accuracy(predictions, lb)
     metrics_op = tf.group(accuracy_update, probabilities)
     
     print('Stage 1')
@@ -264,7 +282,7 @@ with tf.Graph().as_default() as graph:
                 logging.info('Current Streaming Accuracy: %s', accuracy_value)
 
                 # optionally, print your logits and predictions for a sanity check that things are going fine.
-                logits_value, probabilities_value, predictions_value, labels_value = sess.run([logits, probabilities, predictions, labels])
+                logits_value, probabilities_value, predictions_value, labels_value = sess.run([logits, probabilities, predictions, lb])
                 print('logits: \n', logits_value)
                 print('Probabilities: \n', probabilities_value)
                 print('predictions: \n', predictions_value)
