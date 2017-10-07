@@ -33,16 +33,16 @@ for p in place:
                     npic = 'Image' + npic.zfill(3) + '.png'
                     os.rename(path + '/' + pic, path + '/' + npic)
 
-for k in kind:
-    path = '../frames/train/' + 'lab' + '/' + '4' + '/' + k
-    png_list = os.listdir(path)
-    img_num += len(png_list)
-    for pic in png_list:
-        npic = pic.replace('Image', '')
-        npic = npic.replace('.png', '')
-        if int(npic) < 100:
-            npic = 'Image' + npic.zfill(3) + '.png'
-            os.rename(path + '/' + pic, path + '/' + npic)
+# for k in kind:
+#     path = '../frames/train/' + 'lab' + '/' + '4' + '/' + k
+#     png_list = os.listdir(path)
+#     img_num += len(png_list)
+#     for pic in png_list:
+#         npic = pic.replace('Image', '')
+#         npic = npic.replace('.png', '')
+#         if int(npic) < 100:
+#             npic = 'Image' + npic.zfill(3) + '.png'
+#             os.rename(path + '/' + pic, path + '/' + npic)
 
 print('number of images:', img_num)
 
@@ -110,8 +110,8 @@ obj = { 'free':0,
 
 num_classes = len(obj)
 num_epochs = 1
-batch_size = 8
-initial_learning_rate = 0.0002
+batch_size = 16
+initial_learning_rate = 0.001
 learning_rate_decay_factor = 0.7
 num_epochs_before_decay = 2
 
@@ -130,8 +130,8 @@ with tf.Graph().as_default() as graph:
     decay_steps = int(num_epochs_before_decay * num_steps_per_epoch)
 
     # prepare image FIFOQueue
-    height = 300
-    width = 300
+    height = 299
+    width = 299
     num_threads = 4
 
     image_names = tf.train.match_filenames_once('../frames/test/house/*/*hand/Image*.png')
@@ -144,7 +144,7 @@ with tf.Graph().as_default() as graph:
     image_tf = tf.image.resize_images(image_tf, [height, width])
     image_tf.set_shape((height, width, 3))
 
-    image_tf = inception_preprocessing.preprocess_image(image_tf, height, width, is_training = True)
+    # image_tf = inception_preprocessing.preprocess_image(image_tf, height, width, is_training = True)
 
     # prepare label FIFOQueue
     label_tf = tf.convert_to_tensor(label, dtype = tf.int32)
