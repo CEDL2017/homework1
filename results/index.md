@@ -19,7 +19,15 @@ Code highlights
 
 ## Installation
 * Other required packages.
+from PIL import Image #read image data
+from scipy import misc #read image data
+import numpy as np #ndarray  
+import os #get all file name in the folder
+
+
+
 * How to compile from source?
+  Tensorflow, Keras
 
 ### Results
 
