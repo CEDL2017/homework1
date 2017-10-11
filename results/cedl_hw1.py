@@ -116,39 +116,37 @@ label_path = "/Disk2/cedl/handcam/labels/"
 '''
 
 train_image_file = ['house/1/Lhand', 'house/2/Lhand', 'house/3/Lhand', 
-					'house/1/Rhand', 'house/2/Rhand', 'house/3/Rhand',
-					'lab/1/Lhand', 'lab/2/Lhand', 'lab/3/Lhand', 'lab/4/Lhand',
-					'lab/1/Rhand', 'lab/2/Rhand', 'lab/3/Rhand', 'lab/4/Rhand',
-					'office/1/Lhand', 'office/2/Lhand', 'office/3/Lhand', 
-					'office/1/Rhand', 'office/2/Rhand', 'office/3/Rhand',]
+	     	    'house/1/Rhand', 'house/2/Rhand', 'house/3/Rhand',
+		    'lab/1/Lhand', 'lab/2/Lhand', 'lab/3/Lhand', 'lab/4/Lhand',
+		    'lab/1/Rhand', 'lab/2/Rhand', 'lab/3/Rhand', 'lab/4/Rhand',
+		    'office/1/Lhand', 'office/2/Lhand', 'office/3/Lhand', 
+		    'office/1/Rhand', 'office/2/Rhand', 'office/3/Rhand',]
 
 test_image_file = ['house/1/Lhand', 'house/2/Lhand', 'house/3/Lhand', 
-					'house/1/Rhand', 'house/2/Rhand', 'house/3/Rhand',
-					'lab/1/Lhand', 'lab/2/Lhand', 'lab/3/Lhand', 'lab/4/Lhand',
-					'lab/1/Rhand', 'lab/2/Rhand', 'lab/3/Rhand', 'lab/4/Rhand',
-					'office/1/Lhand', 'office/2/Lhand', 'office/3/Lhand', 
-					'office/1/Rhand', 'office/2/Rhand', 'office/3/Rhand',]
+		   'house/1/Rhand', 'house/2/Rhand', 'house/3/Rhand',
+		   'lab/1/Lhand', 'lab/2/Lhand', 'lab/3/Lhand', 'lab/4/Lhand',
+		   'lab/1/Rhand', 'lab/2/Rhand', 'lab/3/Rhand', 'lab/4/Rhand',
+		   'office/1/Lhand', 'office/2/Lhand', 'office/3/Lhand', 
+		   'office/1/Rhand', 'office/2/Rhand', 'office/3/Rhand',]
 
 train_label_file = ['house/obj_left1.npy', 'house/obj_left2.npy', 'house/obj_left3.npy',
-					'house/obj_right1.npy', 'house/obj_right2.npy', 'house/obj_right3.npy',
-	 				'lab/obj_left1.npy', 'lab/obj_left2.npy', 'lab/obj_left3.npy', 'lab/obj_left4.npy',
-	 				'lab/obj_right1.npy', 'lab/obj_right2.npy', 'lab/obj_right3.npy', 'lab/obj_right4.npy',
- 					'office/obj_left1.npy', 'office/obj_left2.npy', 'office/obj_left3.npy',
- 					'office/obj_right1.npy', 'office/obj_right2.npy', 'office/obj_right3.npy']
+		    'house/obj_right1.npy', 'house/obj_right2.npy', 'house/obj_right3.npy',
+		    'lab/obj_left1.npy', 'lab/obj_left2.npy', 'lab/obj_left3.npy', 'lab/obj_left4.npy',
+		    'lab/obj_right1.npy', 'lab/obj_right2.npy', 'lab/obj_right3.npy', 'lab/obj_right4.npy',
+		    'office/obj_left1.npy', 'office/obj_left2.npy', 'office/obj_left3.npy',
+		    'office/obj_right1.npy', 'office/obj_right2.npy', 'office/obj_right3.npy']
 
 test_label_file = ['house/obj_left4.npy', 'house/obj_left5.npy', 'house/obj_left6.npy',
-					'house/obj_right4.npy', 'house/obj_right5.npy', 'house/obj_right6.npy',
-	 				'lab/obj_left5.npy', 'lab/obj_left6.npy', 'lab/obj_left7.npy', 'lab/obj_left8.npy',
-	 				'lab/obj_right5.npy', 'lab/obj_right6.npy', 'lab/obj_right7.npy', 'lab/obj_right8.npy',
- 					'office/obj_left4.npy', 'office/obj_left5.npy', 'office/obj_left6.npy',
- 					'office/obj_right4.npy', 'office/obj_right5.npy', 'office/obj_right6.npy']
-
+		   'house/obj_right4.npy', 'house/obj_right5.npy', 'house/obj_right6.npy',
+		   'lab/obj_left5.npy', 'lab/obj_left6.npy', 'lab/obj_left7.npy', 'lab/obj_left8.npy',
+		   'lab/obj_right5.npy', 'lab/obj_right6.npy', 'lab/obj_right7.npy', 'lab/obj_right8.npy',
+		   'office/obj_left4.npy', 'office/obj_left5.npy', 'office/obj_left6.npy',
+		   'office/obj_right4.npy', 'office/obj_right5.npy', 'office/obj_right6.npy']
 
 train_images = []
 train_labels = []
 test_images = []
 test_labels = []
-
 
 for dirPath, dirNames, fileNames in os.walk(label_path):
 	for i in range(len(train_label_file)):
@@ -192,7 +190,6 @@ with tf.name_scope('Optimizer'):
 with tf.name_scope('Accuracy_evaluation'):
 	correct_prediction = tf.equal(tf.argmax(y_logits, 1), tf.argmax(y_label, 1))
 	accuracy = tf.reduce_mean(tf.cast(correct_prediction, 'float'))
-
 
 # start training
 startTime = time()
