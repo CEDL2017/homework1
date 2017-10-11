@@ -1,4 +1,4 @@
-# Your Name <span style="color:red">(id)</span>
+# 陳冠元 (Guan-Yuan Chen) <span style="color:red">(id)</span>
 
 #Project 5: Deep Classification
 
