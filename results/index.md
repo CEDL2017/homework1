@@ -70,21 +70,18 @@ optimizer = tf.train.AdamOptimizer(LR).minimize(loss)
 
 
 ## Results
-#### Acuuracy = 51.6666667%
+#### Accuracy = 51.6666667%
 #### Loss     = 2.472317025
 <table border=1>
 <tr>
 <td>
-<img src="螢幕快照 2017-10-11 上午11.55.51.png" width="31%"/>
-<img src="螢幕快照 2017-10-11 上午11.56.08.png" width="31%"/>
-<img src="螢幕快照 2017-10-11 上午11.56.25.png" width="31%"/>
 </td>
 </tr>
 
 <tr>
 <td>
 <img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg"  width="24%"/>
+<img src="placeholder.jpg" width="24%"/>
 <img src="placeholder.jpg" width="24%"/>
 <img src="placeholder.jpg" width="24%"/>
 </td>
