@@ -86,10 +86,12 @@ optimizer = tf.train.AdamOptimizer(LR).minimize(loss)
 ## Results
 #### Validation accuracy = 0.558333333333
 #### Validation loss     = 2.1569385
-<table border=1>
+<table border=5>
 <tr>
 <td>
-<img src="螢幕快照 2017-10-11 下午8.11.21.png" width="50%"/>
+<img src="螢幕快照 2017-10-11 下午8.11.21.png" width="24%"/>
+<img src="螢幕快照 2017-10-11 下午11.03.59.png" width="24%"/>
+<img src="螢幕快照 2017-10-11 下午11.04.11.png" width="24%"/>
 </td>
 </tr>
 
