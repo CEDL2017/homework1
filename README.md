@@ -3,7 +3,7 @@
 </center>
 
 # Deep Classification
-Please see project overview, implementation details and evaluation in my [report](https://github.com/YuChunLOL/homework1/blob/master/results/index.md)
+Please see project overview, implementation details and evaluation in my [report](https://github.com/YuChunLOL/homework1/blob/master/results/index.md).
 
 ## Updates
 - 9/26/2017: provide [subset of dataset](https://drive.google.com/drive/folders/0B3fKFm-j0RqeWGdXZUNRUkpybU0?usp=sharing), separated into train/test set
