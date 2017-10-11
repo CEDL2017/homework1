@@ -7,48 +7,14 @@ from inception_resnet_v2 import inception_resnet_v2, inception_resnet_v2_arg_sco
 import os
 import time
 import subprocess
-
+import tensorflow.contrib.slim.nets
 slim = tf.contrib.slim
-
-# prepare images total number
-
-place = ['house', 'lab', 'office']
-# place = ['house']
-num = ['1', '2', '3']
-# num = num[0:1]
-kind = ['Lhand', 'Rhand']
-# kind = kind[0:1]
-img_num = 0
-
-for p in place:
-    for n in num:
-        for k in kind:
-            path = '../frames/train/' + p + '/' + n + '/' + k
-            png_list = os.listdir(path)
-            img_num += len(png_list)
-            for pic in png_list:
-                npic = pic.replace('Image', '')
-                npic = npic.replace('.png', '')
-                if int(npic) < 100:
-                    npic = 'Image' + npic.zfill(3) + '.png'
-                    os.rename(path + '/' + pic, path + '/' + npic)
-
-for k in kind:
-    path = '../frames/train/' + 'lab' + '/' + '4' + '/' + k
-    png_list = os.listdir(path)
-    img_num += len(png_list)
-    for pic in png_list:
-        npic = pic.replace('Image', '')
-        npic = npic.replace('.png', '')
-        if int(npic) < 100:
-            npic = 'Image' + npic.zfill(3) + '.png'
-            os.rename(path + '/' + pic, path + '/' + npic)
-
-print('number of images:', img_num)
+vgg = tf.contrib.slim.nets.vgg
 
 # loading labels data 
 
 place = ['house', 'lab', 'office']
+place = place[0:1]
 num = ['1', '2', '3']
 # num = num[0:1]
 kind = ['left', 'right']
@@ -85,12 +51,14 @@ for p in place:
 
 label = label.astype(int)
 print('label data loaded, and the number of labels is:', len(label))
+img_num = len(label)
 
 #State where your log file is at. If it doesn't exist, create it.
 log_dir = '../log'
 
 #State where your checkpoint file is
-checkpoint_file = '../inception_resnet_v2_2016_08_30.ckpt'
+# checkpoint_file = '../inception_resnet_v2_2016_08_30.ckpt'
+checkpoint_file = '../vgg_16.ckpt'
 
 #State the number of classes to predict:
 obj = { 'free':0,
@@ -119,10 +87,10 @@ obj = { 'free':0,
         'lamp-switch':23}
 
 num_classes = len(obj)
-num_epochs = 30
-batch_size = 16
-initial_learning_rate = 0.01
-learning_rate_decay_factor = 0.9
+num_epochs = 20
+batch_size = 32
+initial_learning_rate = 0.001
+learning_rate_decay_factor = 0.8
 num_epochs_before_decay = 2
 
 if not os.path.exists(log_dir):
@@ -140,21 +108,19 @@ with tf.Graph().as_default() as graph:
     num_steps_per_epoch = num_batches_per_epoch
     decay_steps = int(num_epochs_before_decay * num_steps_per_epoch)
 
-    # prepare image FIFOQueue
-    height = 299
-    width = 299
+    height = 224
+    width = 224
     num_threads = 4
 
-    image_names = tf.train.match_filenames_once('../frames/train/*/*/*hand/Image*.png')
+    image_names = tf.train.match_filenames_once('../frames/train/house/*/*hand/Image*.png')
     image_queue = tf.train.string_input_producer(image_names, shuffle = False)
 
     image_reader = tf.WholeFileReader()
-    _, image_value = image_reader.read(image_queue)
+    image_key, image_value = image_reader.read(image_queue)
 
     image_tf = tf.image.decode_png(image_value, channels = 3)
     image_tf = tf.image.resize_images(image_tf, [height, width])
     image_tf.set_shape((height, width, 3))
-    # image_tf = 2 * (image_tf / 255.0) - 1.0
     image_tf = tf.subtract(tf.multiply(2.0, tf.divide(image_tf, 255.0)), 1.0)
     # image_tf = inception_preprocessing.preprocess_image(image_tf, height, width, is_training = True)
 
@@ -164,31 +130,35 @@ with tf.Graph().as_default() as graph:
 
     # creating a batch of images and labels
     batch_image, batch_label = tf.train.batch([[image_tf], label_queue], 
-                                            batch_size = batch_size, 
+                                            batch_size = batch_size,
                                             num_threads = num_threads,
                                             capacity = num_threads * batch_size,
                                             enqueue_many = True,
                                             allow_smaller_final_batch = True)
 
+    print('batch prepared, total size:', img_num)
+
     #Create the model inference
-    with slim.arg_scope(inception_resnet_v2_arg_scope()):
-        logits, end_points = inception_resnet_v2(batch_image, 
-                                                 num_classes = num_classes, 
-                                                 is_training = True)
+    # with slim.arg_scope(inception_resnet_v2_arg_scope()):
+    #     logits, end_points = inception_resnet_v2(batch_image, 
+    #                                              num_classes = num_classes, 
+    #                                              is_training = True)
 
-    #Define the scopes that you want to exclude for restoration
-    exclude = ['InceptionResnetV2/AuxLogits',
-               'InceptionResnetV2/Logits']
-    variables_to_restore = slim.get_variables_to_restore(exclude = exclude)
-    one_hot_labels = slim.one_hot_encoding(batch_label, 
-                                           num_classes)
+    predictions, end_points = vgg.vgg_16(batch_image, 
+                                         num_classes = num_classes,
+                                         is_training=True)
+    variables_to_restore = slim.get_variables_to_restore(exclude=['fc6', 'fc7', 'fc8'])
+
+    # init_fn = assign_from_checkpoint_fn(model_path, variables_to_restore)
+
+    # exclude = ['InceptionResnetV2/AuxLogits',
+    #            'InceptionResnetV2/Logits']
+    # variables_to_restore = slim.get_variables_to_restore(exclude = exclude)
+
+    one_hot_labels = slim.one_hot_encoding(batch_label, num_classes)
     loss = tf.losses.softmax_cross_entropy(onehot_labels = one_hot_labels, 
-                                           logits = logits)
-
-    regularization_losses = tf.get_collection(tf.GraphKeys.REGULARIZATION_LOSSES)
-    all_losses = [loss] + regularization_losses
-    total_loss = tf.add_n(all_losses, name='total_loss')
-    # total_loss = tf.losses.get_total_loss()
+                                           logits = predictions)
+    total_loss = tf.losses.get_total_loss()
 
     global_step = get_or_create_global_step()
 
@@ -200,21 +170,17 @@ with tf.Graph().as_default() as graph:
         staircase = True)
     optimizer = tf.train.AdamOptimizer(learning_rate = lr)
 
-    # get variables to be trained
-    variables_to_train = []
-    with tf.Session() as sess:
-        for v in tf.trainable_variables():
-            variables_to_train += [v]
-    variables_to_train = variables_to_train[len(variables_to_train) - 4 : len(variables_to_train)]
+    variables_to_train = tf.trainable_variables()
+    len_var_train = len(variables_to_train) 
 
     train_op = slim.learning.create_train_op(total_loss = total_loss, 
-                                             optimizer = optimizer,
-                                             variables_to_train = variables_to_train)
+                                            optimizer = optimizer,
+                                            variables_to_train = variables_to_train[len_var_train - 6 : len_var_train])
 
-    predictions = tf.argmax(end_points['Predictions'], 1)
-    probabilities = end_points['Predictions']
+    # predictions = tf.argmax(end_points['Predictions'], 1)
+    # probabilities = end_points['Predictions']
     accuracy, accuracy_update = tf.contrib.metrics.streaming_accuracy(predictions, batch_label)
-    metrics_op = tf.group(accuracy_update, probabilities)
+    # metrics_op = tf.group(accuracy_update, probabilities)
     
     print('Graph builded')
     
@@ -224,45 +190,29 @@ with tf.Graph().as_default() as graph:
     tf.summary.scalar('learning_rate', lr)
     my_summary_op = tf.summary.merge_all()
 
-    #Now we need to create a training step function that runs both the train_op, metrics_op and updates the global_step concurrently.
-    def train_step(sess, train_op, global_step):
-        total_loss, global_step_count, _ = sess.run([train_op, global_step, metrics_op])
-        return total_loss, global_step_count
-
-    #Now we create a saver function that actually restores the variables from a checkpoint file in a sess
     saver = tf.train.Saver(variables_to_restore)
-    #Define your supervisor for running a managed session. Do not run the summary_op automatically or else it will consume too much memory
-    sv = tf.train.Supervisor(logdir = log_dir, summary_op = None)
+    def restore_fn(sess):
+        return saver.restore(sess, checkpoint_file)
+
+    sv = tf.train.Supervisor(logdir = log_dir, summary_op = None, init_fn = restore_fn)
     print('Ready to run the session')
 
     #Run the managed session
     with sv.managed_session() as sess:
         coord = tf.train.Coordinator()
         threads = tf.train.start_queue_runners(sess = sess, coord = coord)
-        saver.restore(sess, '../inception_resnet_v2_2016_08_30.ckpt')
 
         for step in range(num_steps_per_epoch * num_epochs):
-
-            if step % 10 == 0:
-                loss, _ = train_step(sess, train_op, sv.global_step)
-                summaries = sess.run(my_summary_op)
-                sv.summary_computed(sess, summaries)
-
-            else:
-                loss, _ = train_step(sess, train_op, sv.global_step)
-
             if step % num_batches_per_epoch == 0:
                 logging.info('Epoch %s/%s', step/num_batches_per_epoch + 1, num_epochs)
-                learning_rate_value, accuracy_value = sess.run([lr, accuracy])
-
-                logging.info('Current Learning Rate: %s', learning_rate_value)
-                logging.info('Current Streaming Accuracy: %s', accuracy_value)
-
-                predictions_value, labels_value = sess.run([predictions, batch_label])
-                
-                print('predictions: \n', predictions_value)
-                print('Labels: \n', labels_value)
-
+            
+            total_loss, global_step_count, _ = sess.run([train_op, sv.global_step, metrics_op])
+            if step % 20 == 0:
+                # total_loss, global_step_count, _ = sess.run([train_op, sv.global_step, metrics_op])
+                logging.info('global step %s: loss: %.4f', global_step_count, total_loss)
+                summaries = sess.run(my_summary_op)
+                sv.summary_computed(sess, summaries)
+        
         # Finish off the filename queue coordinator.
         coord.request_stop()
         coord.join(threads)
@@ -273,5 +223,4 @@ with tf.Graph().as_default() as graph:
 
         #Once all the training has been done, save the log files and checkpoint model
         logging.info('Finished training! Saving model to disk now.')
-        # saver.save(sess, "../model.ckpt")
         sv.saver.save(sess, sv.save_path, global_step = sv.global_step)
