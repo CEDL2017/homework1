@@ -244,14 +244,16 @@ with tf.Session() as sess:
 		loss, acc = sess.run([loss_func, accuracy], feed_dict={x: val_x, y_label: val_y})
 		loss_list.append(loss)
 		accuracy_list.append(acc)
-
-		# show learning curve in the detail page
+		
+		'''
+		# show learning curve in the detail page (dont know why doesny work)
 		on_epoch_end = lambda batch, logs: print(
 		'\nINFO:root:Epoch[%d] Training_loss=%.6f\nINFO:root:Epoch[%d] Validation-accuracy=%f' %
 		(epoch, loss, epoch, acc))
-
+		'''
+		
 		print("\nepoch({0:2d}):".format(epoch+1))
-		print('loss     = {0:6.6f}'.format(loss[epoch+10]))
+		print('loss     = {0:6.6f}'.format(loss[epoch]))
 		print('accuracy = {0:6.6f}'.format(acc[epoch]))
 
 # duration calculating
