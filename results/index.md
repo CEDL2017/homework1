@@ -70,8 +70,8 @@ optimizer = tf.train.AdamOptimizer(LR).minimize(loss)
 
 
 ## Results
-#### Accuracy = 51.6666667%
-#### Loss     = 2.472317025
+#### Accuracy = 0.7458333%
+#### Loss     = 1.7295381
 <table border=1>
 <tr>
 <td>
