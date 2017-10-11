@@ -4,7 +4,7 @@
 
 ## Overview
 The project is related to 
->object classification
+> object classification
 
 
 ## Implementation
@@ -50,21 +50,17 @@ optimizer = tf.train.AdamOptimizer(LR).minimize(loss)
 ## Installation
 * Tensorflow
     
-    
     * contrib.slim
     
-    
     > construct the architecture
 
 * Numpy
 
 * PIL Image
 
-
     > handle the image problem
 
 * os
-
 
     > help reading files
 
@@ -75,6 +71,9 @@ optimizer = tf.train.AdamOptimizer(LR).minimize(loss)
 <table border=1>
 <tr>
 <td>
+<img src="placeholder.jpg" width="32%"/>
+<img src="placeholder.jpg" width="32%"/>
+<img src="placeholder.jpg" width="32%"/>
 </td>
 </tr>
 
