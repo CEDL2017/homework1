@@ -1,5 +1,8 @@
 __pycache__
-dataset
+frames/
+labels/
+resized/
+*.tar.gz
 .ipynb_checkpoints
 *.meta
 *.index
