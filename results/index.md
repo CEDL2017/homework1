@@ -1,6 +1,6 @@
 # 賴承薰 <span style="color:red">(105061583)</span>
 
-#HW 1: Deep Classification
+## HW 1: Deep Classification
 
 ## Overview
 The project is related to 
@@ -69,9 +69,9 @@ optimizer = tf.train.AdamOptimizer(LR).minimize(loss)
     > help reading files
 
 
-### Results
-## Acuuracy = 51.6666667%
-## Loss     = 2.472317025
+## Results
+#### Acuuracy = 51.6666667%
+#### Loss     = 2.472317025
 <table border=1>
 <tr>
 <td>
