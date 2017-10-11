@@ -84,8 +84,8 @@ optimizer = tf.train.AdamOptimizer(LR).minimize(loss)
 
 
 ## Results
-#### Validation accuracy = 0.547222266667
-#### Validation loss     = 2.25264353333
+#### Validation accuracy = 0.558333333333
+#### Validation loss     = 2.1569385
 <table border=1>
 <tr>
 <td>
