@@ -1,4 +1,4 @@
-# 陳冠元 (Guan-Yuan Chen) <span style="color:red">(id)</span>
+# Guan-Yuan Chen <span style="color:red">(105065530)</span>
 
 #Project 5: Deep Classification
 
