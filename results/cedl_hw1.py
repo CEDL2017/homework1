@@ -253,8 +253,8 @@ with tf.Session() as sess:
 		'''
 		
 		print("\nepoch({0:2d}):".format(epoch+1))
-		print('loss     = {0:6.6f}'.format(loss[epoch]))
-		print('accuracy = {0:6.6f}'.format(acc[epoch]))
+		print('loss     = {0:6.6f}'.format(loss))
+		print('accuracy = {0:6.6f}'.format(acc))
 
 # duration calculating
 duration = time()-startTime
