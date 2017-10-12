@@ -18,6 +18,7 @@ The project is related to
 2. Two
 	* 
 	* 
+	
 Create `VGG16` model (pre-trained on ImageNet)
 ```
 Code highlights
