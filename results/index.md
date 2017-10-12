@@ -57,7 +57,7 @@ which input is the path of the batch images and targets is the corresponding lab
 
 code example:
     
-assert len(inputs) == len(targets)
+    assert len(inputs) == len(targets)
     if shuffle:
         indices = np.arange(len(inputs))
         np.random.shuffle(indices)
@@ -68,6 +68,7 @@ assert len(inputs) == len(targets)
             excerpt = slice(start_idx, start_idx + batch_size)
                 
         yield inputs[excerpt], targets[excerpt]
+	
 [Training]
 Before feeding the training images into dict, we have to read and deal with the images first.
 This part requires several processing.
@@ -82,6 +83,7 @@ code example:
 
         
 temp =[]
+
         #print(x_train_a)
         for i in range(batch_size):            
         #print(io.imread(x_train_a[1]))  
@@ -97,15 +99,17 @@ temp =[]
 	    
 [Deep Structure]
 
-I tried to fix Alexnet in a little extent.
+I tried to fix Alexnet in a little extent
 1.number of layers (from 4~8)
 2.modify the 3fc layer into 1fc layer
-3.Different input image size (100*100 ~ 400*400)
+3.Different input image size (100X100 ~ 400X400)
 4.Different batchsize (1~48)
 (etc)
 
 However the accuracy will eventually stop by around 50%.
 Lose cannot be lower than 2
+Accuracy: 50.0862 %
+Loss    : 2.0715
 
 ## Installation
 
