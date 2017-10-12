@@ -62,7 +62,7 @@ def create_model(base_model_file, feature_node_name, last_hidden_node_name, num_
 <table border=1>
 <tr>
 <td>
-<img src="placeholder.jpg" width="24%"/>
+<img src="./../pr.png" width="24%"/>
 <img src="placeholder.jpg"  width="24%"/>
 <img src="placeholder.jpg" width="24%"/>
 <img src="placeholder.jpg" width="24%"/>
