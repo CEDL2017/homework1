@@ -1,7 +1,7 @@
 # Your Name <span style="color:red">(jack841021)</span>
 103031111 許琨杰
 
-#Project 5: Deep Classification
+# Homework 1: Image Classification
 
 ## Overview
 The project is related to:
