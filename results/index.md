@@ -52,8 +52,7 @@ label=label[arr]                  #make the label into a new order
 [minibatch]
 
 We will train the classifier in a batch, so in this case the images have to be chosen batch by batch without losing the identity of itselves.
-We will save the index of certain batch of images and labels in variable 'excerpt' and output two vectors
-:input[excerpt] and targets[excerpt]
+We will save the index of certain batch of images and labels in variable 'excerpt' and output two vectors:input[excerpt] and targets[excerpt]
 which input is the path of the batch images and targets is the corresponding label information
 
 code example:
