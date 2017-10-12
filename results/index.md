@@ -16,7 +16,7 @@ https://drive.google.com/drive/folders/0B4i3Xp6AJX7YSExOMEMxYTBxWnM?usp=sharing
 2. load_datas
 	load training和test的label
 3.tensorflow_test
-	用記下來的權重加上test的檔案計算準確度
+	用記下來的權重加上test的檔案計算準確度,因為時間不夠所以沒有test完全部資料夾,只test了lab資料夾 準確度0.41
 
 
 ## Installation
