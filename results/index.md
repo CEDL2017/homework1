@@ -39,9 +39,31 @@ The goal of this project is to classify the objects of the HandCam images.
 	                                         normalize])
 	```
 
+4. Training Details:
+
+	* I trained my models with the stochastic gradient descent optimizer.
+	* Initial learning rate is 0.01, and will be decayed 1/10 every 5 epochs.
+	* Batch size is set to 256.
+
 ## Installation
 * Required Pytorch.
-* How to compile from source?
+* For Training Resnet18 (with the pretrained model), run
+
+	```
+	python main.py --data_dir=[DATA_DIR] --pretrained
+	```
+
+* For Training Resnet50 (with the pretrained model), run
+
+	```
+	python main.py --data_dir=[DATA_DIR] --arch=resnet50 --pretrained
+	```
+
+* For Testing, run
+
+	```
+	python main.py --data_dir=[DATA_DIR] --evaluate --resume=[CHECKPOINT_PATH] --arch=[resnet18/resnet50 (depend on your checkpoint model)]
+	```
 
 ### Results
 
