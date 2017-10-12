@@ -4,9 +4,7 @@
 In this project, I used Inception-ResNet-v2 and ResNet-152 as fixed feature extractors (no finetune) to experiment and analysis the different methods for classification. <br> 
 Include:<p>
 
-```
-ResNet-152_FE_batch256.py
-```
+- ['ResNet-152_FE_batch256.py'](:)
 :
 
 
