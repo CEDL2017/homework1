@@ -82,9 +82,9 @@ with tf.name_scope('C4_Pool'):
 ## Installation
 * Other required packages.
 	<td>python2.7
-	tensorflow
-	numpy
-	PIL
+	<td>tensorflow
+	<tr>numpy
+	<td>PIL
 * How to compile from source?
 	First, you must resize the input image.
 	
