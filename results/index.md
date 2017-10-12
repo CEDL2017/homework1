@@ -78,17 +78,18 @@ Head images
 <img src="https://github.com/guan-yuan/homework1/blob/master/output/Two_stream_ResNet-152_FE_batch64_dropout03_test_batch_head.png" width = "100%" alt=""/>
 </div>
 
-<div align=left>
-<img src="https://github.com/guan-yuan/homework1/blob/master/output/diff_DA_training.png" width = "50%" alt=""/>
-</div>
+The results showed below explain that the different croped sizes have small effect on both hand and head images, but the models with  no crop images have the higher accuarcy on classification and when the croped range increase the accuarcy may decline.   
 
 <div align=left>
 <img src="https://github.com/guan-yuan/homework1/blob/master/output/diff_DA_training.png" width = "50%" alt=""/>
 </div>
+
 
 <div align=left>
 <img src="https://github.com/guan-yuan/homework1/blob/master/output/diff_DA_testing.png" width = "50%" alt=""/>
 </div>
+
+2. 
 
 <div align=left>
 <img src="https://github.com/guan-yuan/homework1/blob/master/output/one_stream_training.png" width = "50%" alt=""/>
