@@ -81,7 +81,7 @@ with tf.name_scope('C4_Pool'):
 
 ## Installation
 * Other required packages.
-	python2.7
+	<td>python2.7
 	tensorflow
 	numpy
 	PIL
