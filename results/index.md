@@ -14,7 +14,6 @@ The project is related to
 2. Two-Stream ResNet18
 
 ```
-Code highlights
 # Creates the network model for transfer learning
 def create_model(base_model_file, feature_node_name, last_hidden_node_name, num_classes, input_head, input_hand, freeze=False):
     # Load the pretrained classification net and find nodes
