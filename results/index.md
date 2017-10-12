@@ -84,6 +84,13 @@ In my opinion, this problem might due to some reasons:<br />
 
 As a result, vgg-16 is a model more easier to do tranfer learning.
 
+```Python
+    logits, end_points = vgg.vgg_16(batch_image, 
+                                    num_classes = num_classes,
+                                    is_training = False)
+    variables_to_restore = slim.get_variables_to_restore(exclude=['vgg_16/fc6', 'vgg_16/fc7', 'vgg_16/fc8'])
+```
+
 The training concepts are similar. Tensorflow releases vgg-16's architecture in tf-slim's library. <br />
 Once we define which parts of layers to be loaded and wihch to be trained, we can load the pretrained vgg.16 checkpoint file to initialize. <br />
 The trained layers are the last 3 layers fully-connected 6, fc7 and fc8. There are Dropout layers between each of them. <br />
