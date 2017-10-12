@@ -150,6 +150,6 @@ Confusion Matrix:
 
 #### Discussion: Dataset problem
 Since the dataset is very imbalanced, we found that the reason why the AUC value
-is not similar to accuracy is because we splitted validation set from training data to do early stopping,
+is not similar to accuracy is because we splitted validation set from training data to do early stopping
 This operation caused the training set lacking of some of minority classes, which leaded to
-the low value of AUC. We can address this by directly train on entire training data without splitting the validation set, or we can split validation set class-by-class carefully. (Our's splitting method is just naively splitting 2 portion of training video frames as training set and validation set)
+the low value of AUC. We can address this by directly training on entire training data without splitting extra validation set, or we can split validation set class-by-class carefully. (Our's splitting method was just splitting 2 portion of training video frames into training set and validation set)
