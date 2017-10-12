@@ -53,11 +53,13 @@ They are Logit and Auxiliary Logit scope's layers, which is in charge of the fin
                'InceptionResnetV2/Logits']
     variables_to_restore = slim.get_variables_to_restore(exclude = exclude)
 ```
+Moreover, Tensorflow offers a way to do preprocessing, and this preprocessing method also does data augmentation on the training image.
 
 I've tried the **Adam optimizer, Momentum optimizer**(momentum = 0.9, 0.95), **RMSProp optimizer**, learning rate starts at 0.045, 0.001, 0.0002 with decay 0.7/0.8/0.9 per 2 epochs.<br />
 Inception model also requires certain preprocessing that every pixel in the image should be (-1, 1).<br />
 The loss function is **softmax cross entropy**.
-Moreover, Tensorflow offers a way to do preprocessing, and this preprocessing method also does data augmentation on the training image. <br />
+The batch size I've tried 1, 4, 8, 16 and 32. The number of epoch I've tried 
+
 
 However, the loss hardly decreases, and the accuracy converges only to nearly 50%
 In my opinion, this problem might due to some reasons:<br />
@@ -95,9 +97,16 @@ The training concepts are similar. Tensorflow releases vgg-16's architecture in 
 Once we define which parts of layers to be loaded and wihch to be trained, we can load the pretrained vgg.16 checkpoint file to initialize. <br />
 The trained layers are the last 3 layers fully-connected 6, fc7 and fc8. There are Dropout layers between each of them. <br />
 In this case **GradientDescent** optimizer performs very well. <br />
+Tensorflow also offer another preprocessing library to do data augmentation.<br />
+The loss function is still **softmax cross entropy**.<br />
 The streaming accuracy rises and the loss drops stably. <br />
+With batch size 32 and 80 epochs, the model roughly reach convergence.<br />
 
-When it reaches convergence, the training accuracy is 90% and the testing accuracy is .
+When it reaches convergence, the training accuracy is 90% and the testing accuracy is .<br />
+
+However, the performance is surely can be better.<br />
+Due to I've spent most of my time on Inception-Resnet-v2 experiment, I have got quite less time to tune vgg-16 model.<br />
+I haven't tried many combinations of paramaters, so I believe that the current set of paramaters is not the best state of this model.<br />
 
 
 ## Installation
