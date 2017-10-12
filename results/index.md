@@ -99,8 +99,8 @@ with tf.name_scope('C4_Pool'):
 <table border=1>
 <tr>
 <td>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg"  width="24%"/>
+<img src="multiple_loss.jpg" width="24%"/>
+<img src="multiple_acc.jpg"  width="24%"/>
 <img src="placeholder.jpg" width="24%"/>
 <img src="placeholder.jpg" width="24%"/>
 </td>
