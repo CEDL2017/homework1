@@ -45,10 +45,10 @@ Epoch : 30
 
 ## Results
 Best Result
-| Model | Top1 Accuracy | Top5 Accuracy |
-| ------| ------ | ------ |
-| Resnet18 |  |  |
-| Resnet50 |  |  |
+
+Resnet18 : 70.28
+
+Resnet50 : 72.3
 
 
 Training Curve
