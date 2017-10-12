@@ -111,7 +111,7 @@ with tf.name_scope('C4_Pool'):
 <img src="placeholder.jpg" width="24%"/>
 <img src="placeholder.jpg"  width="24%"/>
 <img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
+<img src="FA.png" width="24%"/>
 </td>
 </tr>
 
