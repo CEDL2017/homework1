@@ -1,47 +1,47 @@
-# Your Name <span style="color:red">(id)</span>
-
-#Project 5: Deep Classification
-
-## Overview
-The project is related to 
-> quote
 
 
-## Implementation
-1. One
-	* item
-	* item
-2. Two
+### Model Architecture
+InceptionResNet v2
+<img src="overall.png"/>
 
-```
-Code highlights
-```
 
-## Installation
-* Other required packages.
-* How to compile from source?
+### Training Details
 
-### Results
+**Model InceptionResnetv2_baseline_Adam**: 
+- Model: InceptionResNet v2  
+- Optimizer: Adam  
+- Learning rate: 0.001  
+- epoch: 20
 
-<table border=1>
-<tr>
-<td>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg"  width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-</td>
-</tr>
+**Model InceptionResnetv2_baseline_SGD**: 
+- Model: InceptionResNet v2  
+- Optimizer: SGD, momentum=0.9  
+- Learning rate: 0.001 + reduce learning rate on plateau(patience=3)
+- epochs: 20
 
-<tr>
-<td>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg"  width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-</td>
-</tr>
+**Model InceptionResnetv2_two_step**:
+- Model: InceptionResNet v2  
+- step 1 : freeze all, except for fully connected layers 
+    - Optimizer: rmsprop  
+	- Learning rate: 0.001
+	- epochs: 5
+- step 2: freeze the layers befroe Reduction-A block
+    - Optimizer: SGD, momentum=0.9
+    - Learning rate: 0.0001 + reduce learning rate on plateau(patience=3)
+    - epochs: 20
 
-</table>
+### Data augmentation
+- rotation_range=5
+- width_shift_range=0.1
+- height_shift_range=0.1
+- zoom_range=0.1
+- horizontal_flip=True
 
+### Result
+Test Accuracy
+| Model | Accuracy |  
+|-------|----------|
+| `InceptionResnetv2_baseline_Adam`| 0.678 |
+| `InceptionResnetv2_baseline_SGD`| 0.727 |
+| `InceptionResnetv2_two_step`| **0.736** |
 
