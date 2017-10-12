@@ -1,10 +1,13 @@
 # Guan-Yuan Chen <span style="color:red">(105065530)</span>
 
 ## Overview
-In this project, I used Inception-ResNet-v2 and ResNet-152 as fixed feature extractors (no finetune) to experiment and analysis the different methods for classification. Include:<p>
+In this project, I used Inception-ResNet-v2 and ResNet-152 as fixed feature extractors (no finetune) to experiment and analysis the different methods for classification. <br> 
+Include:<p>
+
 ```
-Code highlights
+ResNet-152_FE_batch256.py
 ```
+:
 
 
 ## Reference
