@@ -1,9 +1,10 @@
 # 潘珠峰 <span style="color:red">(103000096)</span>
 
-#Project 5: Deep Cl    sification
+#Project 5: Deep Clasification
 
 ## Overview
-The project is related to hand gesture classification. The project is based on [this repo](https://github.com/kratzert/finetune_alexnet_with_tensorflow)
+This project is related to hand gesture classification. 
+This model is based on [this repo](https://github.com/kratzert/finetune_alexnet_with_tensorflow).
 
 
 ## Implementation
@@ -18,13 +19,13 @@ The project is related to hand gesture classification. The project is based on [
 
 
 ```
-Codes are stored in all the files in the root folder.
+All code files are stored in the root folder.
 ```
 
 ## Installation
 * Required packages: numpy,scipy,scipy,tensorflow,os,re,PIL
-* the data folder should be in the same path with all the codes
-* get the weights on AlexNet from [this link](http://www.cs.toronto.edu/~guerzhoy/tf_alexnet/)
+* Getting the weights of AlexNet from [this link](http://www.cs.toronto.edu/~guerzhoy/tf_alexnet/)
+* The data folder should be in the same path with all the codes
 
 ## Usage
 * wget http://www.cs.toronto.edu/~guerzhoy/tf_alexnet/bvlc_alexnet.npy
