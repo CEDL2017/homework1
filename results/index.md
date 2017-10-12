@@ -103,6 +103,13 @@ When it reaches convergence, the training accuracy is 90% and the testing accura
 ## Installation
 Required package: Tensorflow, tf.slim, numpy and anything the code in trainer file imports.<br />
 The pretrained models can be found [here](https://arxiv.org/abs/1512.01881).<br />
+To run the trainer code, the frames and labels must be in following sturctures:<br />
+frames\<br />
+labels\<br />
+homework1\<br />
+	vgg_16_trainer.py<br />
+	inception_resnet_trainer.py<br />
+To run the code just simply type **python [whatever].py**.<br />
 
 ### Results
 
