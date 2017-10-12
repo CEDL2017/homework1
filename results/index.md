@@ -36,7 +36,7 @@
 
 我這邊採用自己的想法，先 train on 移除掉 class 0 的 data ，確保在 learn feature 的時候不會因為 class 0 的 gain 過高，一開始就卡在 local minimum ，造成 model 沒辦法學到其他 class 的 feature ，最後再把 class 0 加回，讓 model 去學 class 0 的 feature 與 overall distribution 。
 
-**在這樣的作法下， test accuracy 在最終 report 時提升到 0.572 （原本 0.546）， average precision/recall 顯著提升到 0.577 / 0.572 （原本為 0.558/0.546 ）， val/test logloss 也有微幅降低，雖然個人認為迷型下夠不夠好，後面的 fully-connected layers 有 underfit 的嫌疑，但這個 performance 提升與解釋應該是正確且 universal 的。**
+**在這樣的作法下， test accuracy 在最終 report 時提升到 0.572 （原本 0.546）， average precision/recall 顯著提升到 0.577 / 0.572 （原本為 0.558/0.546 ）， val/test logloss 也有微幅降低，雖然個人認為模型仍不夠好，後面的 fully-connected layers 有 underfit 的嫌疑，但這個 performance 提升與解釋應該是正確且 universal 的。**
 
 以上結果是到最後兩天時才終於跑出來的，所以雖然在得到這樣的觀察後，可以有更細緻的 training / modeling 方法，但時間上並不足夠使用，以下就不詳述。
 
