@@ -20,9 +20,9 @@ The project is related to
 	* 
 	
 Create `VGG16` model (pre-trained on ImageNet)
-```
-Code highlights
-```
+-```
+-Code highlights
+-```
 
 ## Installation
 * Other required packages.
