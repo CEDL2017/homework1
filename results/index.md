@@ -1,4 +1,4 @@
-# 105061634 邱煜淵 <span style="color:red">(id)</span>
+# 邱煜淵 <span style="color:red">(105061634)</span>
 
 #Project 5: Deep Classification
 
@@ -81,8 +81,16 @@ with tf.name_scope('C4_Pool'):
 
 ## Installation
 * Other required packages.
+	python2.7
+	tensorflow
+	numpy
+	PIL
 * How to compile from source?
-
+	First, you must resize the input image.
+	$ python data_resize.py
+	Than you can chose which task you want to train.
+	$ python train.py or $ python train_obj.py
+	
 ### Results
 
 <table border=1>
