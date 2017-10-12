@@ -57,7 +57,7 @@ which input is the path of the batch images and targets is the corresponding lab
 
 code example:
     
-    assert len(inputs) == len(targets)
+assert len(inputs) == len(targets)
     if shuffle:
         indices = np.arange(len(inputs))
         np.random.shuffle(indices)
@@ -81,19 +81,19 @@ This part requires several processing.
 code example:
 
         
-	temp =[]
+temp =[]
         #print(x_train_a)
         for i in range(batch_size):            
         #print(io.imread(x_train_a[1]))  
         
-            tmp = io.imread(x_train_a[i])
-            #print(i)
-            tmp = np.resize(tmp,(w,h,c))
-           # print(tmp)
-            tmp = tmp/256
-            #tmp = np.reshape(tmp,[-1,w,h,c])
-            #print(tmp.shape)
-            temp.append(tmp)
+         tmp = io.imread(x_train_a[i])
+         #print(i)
+         tmp = np.resize(tmp,(w,h,c))
+         # print(tmp)
+         tmp = tmp/256
+         #tmp = np.reshape(tmp,[-1,w,h,c])
+         #print(tmp.shape)
+         temp.append(tmp)
 	    
 [Deep Structure]
 
