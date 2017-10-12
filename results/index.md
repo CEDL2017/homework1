@@ -1,10 +1,10 @@
 # 何品萱 <span style="color:red">(106062553)</span>
 
-#Project 5: Deep Classification
+#Project 1: Deep Classification
 
 ## Overview
 The project is related to 
-> quote
+> classifying the hand states(object categories) by implementing VGG model network
 
 
 ## Implementation
