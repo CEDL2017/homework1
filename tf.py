@@ -301,12 +301,6 @@ def main(args):
 	# save
         saver = tf.train.Saver()
         tf.get_default_graph().finalize()
-
-        with tf.Session(graph=graph) as sess:
-            check_point_path = 'saved_model/' # 保存好模型的文件路径
-            ckpt = tf.train.get_checkpoint_state(checkpoint_dir=check_point_path)
-
-
     # --------------------------------------------------------------------------
     # Now that we have built the graph and finalized it, we define the session.
     # The session is the interface to *run* the computational graph.
