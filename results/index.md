@@ -33,7 +33,8 @@ Due to the considerations of computational resources and efficiency (DeepQ do no
 
 2. Two: The second type of implementation is using hand and head images jointly for classification. As the paper does, the method (two streams) can help to cover the shortages of only using hand or head images separately. In this step, I focus on analysis the different affect on accuracy of useing different models for the two streams classification method.
 
-3. Three: 
+3. Three: By the further consideration that different architecture of CNN models have different abilities and performces on extract the head and hand images. In order to combine the capacity of differnet, I use the double two streams method to extract the head and hand images via the two different models and then concat those features for classification. In this experement, the method has remarkable promotion on the final top 1 accuracy.
+
 
 ```
 Code highlights
