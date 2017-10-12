@@ -12,7 +12,7 @@ The project is related to
 	* load images and labels
 	* create `VGG16` model (pretrained on ImageNet)
 	* preprocessing for training
-        * remove the last fully connected layer (fc8) and replace it with new
+	* remove the last fully connected layer (fc8) and replace it with new
 	* define the session and run
 	* check accuracy
 2. testing.py
