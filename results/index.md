@@ -14,7 +14,7 @@ You can chech model implementation, training and evaluation detail(loss and accu
 - Learning rate: 0.001  
 - epoch: 20
 
-**[Model InceptionResnetv2_baseline_SGD**](https://github.com/refu0523/homework1/blob/master/InceptionResnetv2_baseline_SGD.ipynb): 
+[**Model InceptionResnetv2_baseline_SGD**](https://github.com/refu0523/homework1/blob/master/InceptionResnetv2_baseline_SGD.ipynb): 
 - Model: InceptionResNet v2  
 - Optimizer: SGD, momentum=0.9  
 - Learning rate: 0.001 + reduce learning rate on plateau(patience=3)
