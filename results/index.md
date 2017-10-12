@@ -96,6 +96,7 @@ code example:
             temp.append(tmp)
 	    
 [Deep Structure]
+
 I tried to fix Alexnet in a little extent.
 1.number of layers (from 4~8)
 2.modify the 3fc layer into 1fc layer
@@ -107,7 +108,7 @@ However the accuracy will eventually stop by around 50%.
 Lose cannot be lower than 2
 
 ## Installation
-* Other required packages.
+
 	from skimage import io,transform
 	import glob
 	import os
