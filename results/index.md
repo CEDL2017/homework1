@@ -26,23 +26,24 @@ parent_dir/
 ### Results
 
 <table border=1>
+  <tr>
+    <th></th>
+    <th>free v.s. active</th>
+    <th>gesture</th> 
+    <th>object</th>
+  </tr>
+  <tr>
+    <td>accuracy</td>
+    <td>0.641672</td>
+    <td>0.387289</td>
+    <td>0.352301</td>
+  </tr>
+<!-- 
 <tr>
 <td>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg"  width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-</td>
-</tr>
 
-<tr>
-<td>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg"  width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
 </td>
-</tr>
+</tr> -->
 
 </table>
 
