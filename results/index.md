@@ -1,4 +1,5 @@
-# Your Name <span style="color:red">(id)</span>
+ Single-Stream ResNet50：  Top1 Accuracy: 61.06%
+Two-Stream ResNet18:  Top1 Accuracy: 50.09%# Your Name <span style="color:red">(id)</span>
 
 #Homework 1: Deep Classification
 
@@ -58,7 +59,8 @@ def create_model(base_model_file, feature_node_name, last_hidden_node_name, num_
 * How to compile from source? python train.py
 
 ### Results
-
+##Single-Stream ResNet50：  Top1 Accuracy: 61.06%
+##Two-Stream ResNet18:  Top1 Accuracy: 50.09%
 <img src="./../pr.png"/>
 
 
