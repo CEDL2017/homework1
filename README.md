@@ -1,70 +1,25 @@
-<center>
-<img src="README_files/overview.png" alt="overview" style="float:middle;">
-</center>
+# DL_HW_1
 
-# Deep Classification
+106062623 楊朝勛
 
-## updates
-- 27/9/2017: provide [subset of dataset](https://drive.google.com/drive/folders/0B3fKFm-j0RqeWGdXZUNRUkpybU0?usp=sharing), separated into train/test set
-- 27/9/2017: in this homework, we only evaluat the performance of object classification. You can use other label for multi-task learning, etc.
-- 4/10/2017: ~~Due: Oct. 5, 11:59pm.~~ => Due: Oct. 12, 11:59pm.
-## Brief
-* ***+2 extra credit of the whole semester***
-* Due: <b>Oct. 5</b>, 11:59pm.
-* Required files: results/index.md, and code/
-* [Project reference](http://aliensunmin.github.io/project/handcam/)
+#Project 1: Deep Classification
 
-
-## Overview
-
-
+Overview
+---
 Recently, the technological advance of wearable devices has led to significant interests in recognizing human behaviors in daily life (i.e., uninstrumented environment). Among many devices, egocentric camera systems have drawn significant attention, since the camera is aligned with the field-of-view of wearer, it naturally captures what a person sees. These systems have shown great potential in recognizing daily activities(e.g., making meals, watching TV, etc.), estimating hand poses, generating howto videos, etc.
 
 Despite many advantages of egocentric camera systems, there exists two main issues which are much less discussed. Firstly, hand localization is not solved especially for passive camera systems. Even for active camera systems like Kinect, hand localization is challenging when two hands are interacting or a hand is interacting with an object. Secondly, the limited field-of-view of an egocentric camera implies that hands will inevitably move outside the images sometimes.
-     
+
 HandCam (Fig. 1), a novel wearable camera capturing activities of hands, for recognizing human behaviors. HandCam has two main advantages over egocentric systems : (1) it avoids the need to detect hands and manipulation regions; (2) it observes the activities of hands almost at all time.
-     
-## Requirement   
-
-- Python
-- [TensorFlow](https://github.com/tensorflow/tensorflow)
-
-## Data
-
-### Introduction
-
-This is a [dataset](https://drive.google.com/drive/folders/0BwCy2boZhfdBdXdFWnEtNWJYRzQ) recorded by hand camera system.
-
-The camera system consist of three wide-angle cameras, two mounted on the left and right wrists to
-capture hands (referred to as HandCam) and one mounted on the head (referred to as HeadCam).
-
-The dataset consists of 20 sets of video sequences (i.e., each set includes two HandCams and one
-HeadCam synchronized videos) captured in three scenes: a small office, a mid-size lab, and a large home.)
-
-We want to classify some kinds of hand states including free v.s. active (i.e., hands holding objects or not),
-object categories, and hand gestures. At the same time, a synchronized video has two sequence need to be labeled,
-the left hand states and right hand states.
-
-For each classification task (i.e., free vs. active, object categories, or hand gesture), there are forty
-sequences of data. We split the dataset into two parts, half for training, half for testing. The object instance is totally separated into training and testing.
-
-### Zip files
-
-`frames.zip` contains all the frames sample from the original videos by 6fps.
-
-`labels.zip` conatins the labels for all frames.
-
-FA : free vs. active (only 0/1)
-
-obj: object categories (24 classes, including free)
-
-ges: hand gesture (13 gestures, including free)
 
 
-### Details of obj. and ges.
-
-```
-Obj = { 'free':0,
+Implementation
+---
+<br/>
+    In the implementation of model, there're two structure we have provided: simplified VGG19 and simplified VGG16. You can set the use_VGG flag (in lib/config.py)to switch the structure.
+    
+    ```
+    Obj = { 'free':0,
         'computer':1,
         'cellphone':2,
         'coin':3,
@@ -88,52 +43,230 @@ Obj = { 'free':0,
         'book':21,
         'magnet':22,
         'lamp-switch':23}
+      ```
 
-Ges= {  'free':0,
-        'press'1,
-        'large-diameter':2,
-        'lateral-tripod':3,
-        'parallel-extension':4,
-        'thumb-2-finger':5,
-        'thumb-4-finger':6,
-        'thumb-index-finger':7,
-        'precision-disk':8,
-        'lateral-pinch':9,
-        'tripod':10,
-        'medium-wrap':11,
-        'light-tool':12}
+Code highlights
+            VGG 19:
+            ```
+            self.model.add(Conv2D(8, (3, 3), padding='same', name="conv1_1", activation="relu",input_shape=(img_height, img_width, 3)))
+            
+            self.model.add(Conv2D(8, (3, 3), padding='same', name="conv1_2", activation="relu"))
+            self.model.add(MaxPooling2D((2,2), strides=(2,2)))
+
+            
+            self.model.add(Conv2D(16, (3, 3), padding='same',name="conv2_1", activation="relu"))
+            self.model.add(Conv2D(16, (3, 3), padding='same', name="conv2_2", activation="relu"))
+            self.model.add(MaxPooling2D((2,2), strides=(2,2)))
+
+            
+            self.model.add(Conv2D(32, (3, 3), padding='same', name="conv3_1", activation="relu"))
+            self.model.add(Conv2D(32, (3, 3), padding='same', name="conv3_2", activation="relu"))
+            self.model.add(Conv2D(32, (3, 3), padding='same', name="conv3_3", activation="relu"))
+            self.model.add(Conv2D(32, (3, 3), padding='same', name="conv3_4", activation="relu"))
+            self.model.add(MaxPooling2D((2,2), strides=(2,2)))
+
+            
+            self.model.add(Conv2D(64, (3, 3), padding='same', name="conv4_1", activation="relu"))
+            self.model.add(Conv2D(64, (3, 3), padding='same', name="conv4_2", activation="relu"))
+            self.model.add(Conv2D(64, (3, 3), padding='same', name="conv4_3", activation="relu"))
+            self.model.add(Conv2D(64, (3, 3), padding='same', name="conv4_4", activation="relu"))
+            self.model.add(MaxPooling2D((2,2), strides=(2,2)))
+
+            
+            self.model.add(Conv2D(64, (3, 3), padding='same', name="conv5_1", activation="relu"))
+   
+            self.model.add(Conv2D(64, (3, 3), padding='same', name="conv5_2", activation="relu"))
+
+            self.model.add(Conv2D(64, (3, 3), padding='same', name="conv5_3", activation="relu"))
+            self.model.add(Conv2D(64, (3, 3), padding='same', name="conv5_4", activation="relu"))
+            self.model.add(MaxPooling2D((2,2), strides=(2,2)))
+
+            self.model.add(Flatten(name="flatten"))
+            self.model.add(Dense(512, activation='relu', name='dense_1'))
+            self.model.add(Dropout(0.5))
+            self.model.add(Dense(512, activation='relu', name='dense_2'))
+            self.model.add(Dropout(0.5))
+
+            self.model.add(Dense(scorenet_fc_num,activation='softmax',name='final_layer'))
+            ```
+Installation
+---
+env setting:
+if python 2.X use pip to install
+if python 3.X use pip3 to install
+
+using keras(tensorflow backend):
+ ```
+            pip install tensorflow
+            pip install keras
+            pip install scikit-image
+            pip install matplotlib
+            pip install Pillow
+ ```
+            
+Train the  model:
+    if you want to train a whole new model remenber to remove `scorenet.h5` in model folder
+    
+    ```
+    $ cd train
+    $ python scorenet_train.py
+    ```
+
+Test the  model:
+
+    ```
+    $ cd test
+    $ python Accuracy_test.py
+    ```
+
+name rule of pre-trained model:
+`img height x img width_NumOfIter(Accurancy)`(eg.`150x150_200iter(0.478).h5`)（i.e. NumOfIter:iterator次數,假設圖片有14992張
+,每14992為一個iteraor）
+or `img height x img width_NumOfFreeLabelImg(Accurancy)`(eg.`200x200_free200(0.348).h5`)
+
+the model will save in model folder(initialize name is`scorenet.h5`)
+if you want to test another pre-trained model ,you can set the model_path (in lib/config.py)to switch the structure.
+eg. if you want to load model which name'200x200_200iter(0.478)'
+
+    ```
+    img_height = 200
+    img_width = 200
+    .
+    .
+    .
+    model_path = '../model/150x150_200iter(0.478).h5'
+    ```
+    
+data支路敬請修改config.py的以下code
+
+```
+scorenet_img_path_house1L = os.path.join('/media/timyang/My Passport/frames/train/house/1/Lhand/')
+scorenet_img_path_house1R = os.path.join('/media/timyang/My Passport/frames/train/house/1/Rhand/')
+scorenet_img_path_house2L = os.path.join('/media/timyang/My Passport/frames/train/house/2/Lhand/')
+scorenet_img_path_house2R = os.path.join('/media/timyang/My Passport/frames/train/house/2/Rhand/')
+scorenet_img_path_house3L = os.path.join('/media/timyang/My Passport/frames/train/house/3/Lhand/')
+scorenet_img_path_house3R = os.path.join('/media/timyang/My Passport/frames/train/house/3/Rhand/')
+scorenet_img_path_lab1L= os.path.join('/media/timyang/My Passport/frames/train/lab/1/Lhand/')
+scorenet_img_path_lab1R= os.path.join('/media/timyang/My Passport/frames/train/lab/1/Rhand/')
+scorenet_img_path_lab2L= os.path.join('/media/timyang/My Passport/frames/train/lab/2/Lhand/')
+scorenet_img_path_lab2R= os.path.join('/media/timyang/My Passport/frames/train/lab/2/Rhand/')
+scorenet_img_path_lab3L= os.path.join('/media/timyang/My Passport/frames/train/lab/3/Lhand/')
+scorenet_img_path_lab3R= os.path.join('/media/timyang/My Passport/frames/train/lab/3/Rhand/')
+scorenet_img_path_lab4L= os.path.join('/media/timyang/My Passport/frames/train/lab/4/Lhand/')
+scorenet_img_path_lab4R= os.path.join('/media/timyang/My Passport/frames/train/lab/4/Rhand/')
+scorenet_img_path_office1L = os.path.join('/media/timyang/My Passport/frames/train/office/1/Lhand/')
+scorenet_img_path_office1R = os.path.join('/media/timyang/My Passport/frames/train/office/1/Rhand/')
+scorenet_img_path_office2L = os.path.join('/media/timyang/My Passport/frames/train/office/2/Lhand/')
+scorenet_img_path_office2R = os.path.join('/media/timyang/My Passport/frames/train/office/2/Rhand/')
+scorenet_img_path_office3L = os.path.join('/media/timyang/My Passport/frames/train/office/3/Lhand/')
+scorenet_img_path_office3R = os.path.join('/media/timyang/My Passport/frames/train/office/3/Rhand/')
+
+train_img_path_house1L = os.path.join('/media/timyang/My Passport/frames/test/house/1/Lhand/')
+train_img_path_house1R = os.path.join('/media/timyang/My Passport/frames/test/house/1/Rhand/')
+train_img_path_house2L = os.path.join('/media/timyang/My Passport/frames/test/house/2/Lhand/')
+train_img_path_house2R = os.path.join('/media/timyang/My Passport/frames/test/house/2/Rhand/')
+train_img_path_house3L = os.path.join('/media/timyang/My Passport/frames/test/house/3/Lhand/')
+train_img_path_house3R = os.path.join('/media/timyang/My Passport/frames/test/house/3/Rhand/')
+train_img_path_lab1L= os.path.join('/media/timyang/My Passport/frames/test/lab/1/Lhand/')
+train_img_path_lab1R= os.path.join('/media/timyang/My Passport/frames/test/lab/1/Rhand/')
+train_img_path_lab2L= os.path.join('/media/timyang/My Passport/frames/test/lab/2/Lhand/')
+train_img_path_lab2R= os.path.join('/media/timyang/My Passport/frames/test/lab/2/Rhand/')
+train_img_path_lab3L= os.path.join('/media/timyang/My Passport/frames/test/lab/3/Lhand/')
+train_img_path_lab3R= os.path.join('/media/timyang/My Passport/frames/test/lab/3/Rhand/')
+train_img_path_lab4L= os.path.join('/media/timyang/My Passport/frames/test/lab/4/Lhand/')
+train_img_path_lab4R= os.path.join('/media/timyang/My Passport/frames/test/lab/4/Rhand/')
+train_img_path_office1L = os.path.join('/media/timyang/My Passport/frames/test/office/1/Lhand/')
+train_img_path_office1R = os.path.join('/media/timyang/My Passport/frames/test/office/1/Rhand/')
+train_img_path_office2L = os.path.join('/media/timyang/My Passport/frames/test/office/2/Lhand/')
+train_img_path_office2R = os.path.join('/media/timyang/My Passport/frames/test/office/2/Rhand/')
+train_img_path_office3L = os.path.join('/media/timyang/My Passport/frames/test/office/3/Lhand/')
+train_img_path_office3R = os.path.join('/media/timyang/My Passport/frames/test/office/3/Rhand/')
+
+
+# scorenet_dat_path_zip = os.path.join(data_env,'labels.zip')
+scorenet_dat_path_house1L = os.path.join('/media/timyang/My Passport/labels/house/obj_left1.npy')
+scorenet_dat_path_house1R = os.path.join('/media/timyang/My Passport/labels/house/obj_right1.npy')
+scorenet_dat_path_house2L= os.path.join('/media/timyang/My Passport/labels/house/obj_left2.npy')
+scorenet_dat_path_house2R= os.path.join('/media/timyang/My Passport/labels/house/obj_right2.npy')
+scorenet_dat_path_house3L= os.path.join('/media/timyang/My Passport/labels/house/obj_left3.npy')
+scorenet_dat_path_house3R= os.path.join('/media/timyang/My Passport/labels/house/obj_right3.npy')
+scorenet_dat_path_lab1L= os.path.join('/media/timyang/My Passport/labels/lab/obj_left1.npy')
+scorenet_dat_path_lab1R= os.path.join('/media/timyang/My Passport/labels/lab/obj_right1.npy')
+scorenet_dat_path_lab2L= os.path.join('/media/timyang/My Passport/labels/lab/obj_left2.npy')
+scorenet_dat_path_lab2R= os.path.join('/media/timyang/My Passport/labels/lab/obj_right2.npy')
+scorenet_dat_path_lab3L= os.path.join('/media/timyang/My Passport/labels/lab/obj_left3.npy')
+scorenet_dat_path_lab3R= os.path.join('/media/timyang/My Passport/labels/lab/obj_right3.npy')
+scorenet_dat_path_lab4L= os.path.join('/media/timyang/My Passport/labels/lab/obj_left4.npy')
+scorenet_dat_path_lab4R= os.path.join('/media/timyang/My Passport/labels/lab/obj_right4.npy')
+scorenet_dat_path_office1L= os.path.join('/media/timyang/My Passport/labels/office/obj_left1.npy')
+scorenet_dat_path_office1R= os.path.join('/media/timyang/My Passport/labels/office/obj_right1.npy')
+scorenet_dat_path_office2L= os.path.join('/media/timyang/My Passport/labels/office/obj_left2.npy')
+scorenet_dat_path_office2R= os.path.join('/media/timyang/My Passport/labels/office/obj_right2.npy')
+scorenet_dat_path_office3L= os.path.join('/media/timyang/My Passport/labels/office/obj_left3.npy')
+scorenet_dat_path_office3R= os.path.join('/media/timyang/My Passport/labels/office/obj_right3.npy')
+
+train_dat_path_house1L = os.path.join('/media/timyang/My Passport/labels/house/obj_left4.npy')
+train_dat_path_house1R = os.path.join('/media/timyang/My Passport/labels/house/obj_right4.npy')
+train_dat_path_house2L= os.path.join('/media/timyang/My Passport/labels/house/obj_left5.npy')
+train_dat_path_house2R= os.path.join('/media/timyang/My Passport/labels/house/obj_right5.npy')
+train_dat_path_house3L= os.path.join('/media/timyang/My Passport/labels/house/obj_left6.npy')
+train_dat_path_house3R= os.path.join('/media/timyang/My Passport/labels/house/obj_right6.npy')
+train_dat_path_lab1L= os.path.join('/media/timyang/My Passport/labels/lab/obj_left5.npy')
+train_dat_path_lab1R= os.path.join('/media/timyang/My Passport/labels/lab/obj_right5.npy')
+train_dat_path_lab2L= os.path.join('/media/timyang/My Passport/labels/lab/obj_left6.npy')
+train_dat_path_lab2R= os.path.join('/media/timyang/My Passport/labels/lab/obj_right6.npy')
+train_dat_path_lab3L= os.path.join('/media/timyang/My Passport/labels/lab/obj_left7.npy')
+train_dat_path_lab3R= os.path.join('/media/timyang/My Passport/labels/lab/obj_right7.npy')
+train_dat_path_lab4L= os.path.join('/media/timyang/My Passport/labels/lab/obj_left8.npy')
+train_dat_path_lab4R= os.path.join('/media/timyang/My Passport/labels/lab/obj_right8.npy')
+train_dat_path_office1L= os.path.join('/media/timyang/My Passport/labels/office/obj_left4.npy')
+train_dat_path_office1R= os.path.join('/media/timyang/My Passport/labels/office/obj_right4.npy')
+train_dat_path_office2L= os.path.join('/media/timyang/My Passport/labels/office/obj_left5.npy')
+train_dat_path_office2R= os.path.join('/media/timyang/My Passport/labels/office/obj_right5.npy')
+train_dat_path_office3L= os.path.join('/media/timyang/My Passport/labels/office/obj_left6.npy')
+train_dat_path_office3R= os.path.join('/media/timyang/My Passport/labels/office/obj_right6.npy')
 ```
 
-## Writeup
+
+Results
+---
+一開始使用alexnet再做training發現結果不盡理想且速度太慢後來改進使用`VGG`來做training network
+因為種類判別,
+有特地將lable轉成`ont hot encodeing`
+加上使用`cross entropy`來做loss funtion
+optimizer使用`adamax`(原本使用`gradient decent`,model的名稱是`150x150(0.402).h5`,效果較差)
+在訓練圖片時也有機進行翻轉處理
+
+下圖中：關於training loss的部份有明顯下降,且accurancy有穩定進步,但可看出validation的部份卻沒有更好,可能已經overfitting
+
+
+![](https://github.com/sun52525252/DL_HW_1/blob/master/preview/rslt.png)
+
+最後測試 在`150x150`大小下,train `100` 個iterator有最高的accuracy(`150x150_50iter.h5(0.462)`),如下圖可看出在test data 中有6552為標記為free之照片數
+最後可得accurancy為`0.506`
+
+![](https://github.com/sun52525252/DL_HW_1/blob/master/preview/rslt3.png)
+
+<br/>    
+Data skewing problem:
+發現training data 14992張中有7412張的label皆為free,造成training data 太過skew
+所以在training時嘗試只讀取固定的free image,如model'200x200_free200(0.348).h5'
+但最後發現當free取的越多accurancy越高,最後發現因該是因為testing data也將近一半都是free所造成
+
+<br/>    
+Why cannot get a high accurancy?
+猜測無法提高accuracy原因如下：
     
-You are required to implement a **deep-learning-based method** to recognize hand states (free vs. active hands, hand gestures, object categories). Moreover, You might need to further take advantage of both HandCam and HeadCam. You will have to compete the performance with your classmates, so try to use as many techniques as possible to improve. **Your score will based on the performance ranking.**
+1.label過於簡單,為標出物件所在位置,一張照片同時出現多個需要辨識物件的情況下會有衝突
 
-For this project, and all other projects, you must do a project report in results folder using [Markdown](https://help.github.com/articles/markdown-basics). We provide you with a placeholder [index.md](./results/index.md) document which you can edit. In the report you will describe your algorithm and any decisions you made to write your algorithm a particular way. Then, you will describe how to run your code and if your code depended on other packages. You also need to show and discuss the results of your algorithm. Discuss any extra credit you did, and clearly show what contribution it had on the results (e.g. performance with and without each extra credit component).
+2.label不一致,發現左右手在同一個畫面出現時label結果是不一樣的,雖拍攝角度不同但影像抓出的特徵可能十分相識,卻因label不同影響了學習
+  如 train house 1 的第 723 張照片 上圖左手照片有拍到下圖右手拿餅乾label卻是free,但餅乾確實出現在畫面中
+  
+![](https://github.com/sun52525252/DL_HW_1/blob/master/preview/723l.png)
 
-You should also include the precision-recall curve of your final classifier and any interesting variants of your algorithm.
+![](https://github.com/sun52525252/DL_HW_1/blob/master/preview/723r.png)
 
-## Rubric
-<ul>
-   <li> 40 pts: According to performance ranking in class </li>
-	<li> 60 pts: Outperform the AlexNet baseline </li>
-   <li> -5*n pts: Lose 5 points for every time (after the first) you do not follow the instructions for the hand in format </li> 
-</ul> 
+3.Data skewing problem:
+  如上述,各樣data之數量因該相近,且test data何train data之同種之物體因該要更為相似
 
-## Get start & hand in
-* Publicly fork version (+2 extra points)
-	- [Fork the homework](https://education.github.com/guide/forks) to obtain a copy of the homework in your github account
-	- [Clone the homework](http://gitref.org/creating/#clone) to your local space and work on the code locally
-	- Commit and push your local code to your github repo
-	- Once you are done, submit your homework by [creating a pull request](https://help.github.com/articles/creating-a-pull-request)
-
-* [Privately duplicated version](https://help.github.com/articles/duplicating-a-repository)
-  - Make a bare clone
-  - mirror-push to new repo
-  - [make new repo private](https://help.github.com/articles/making-a-private-repository-public)
-  - [add aliensunmin as collaborator](https://help.github.com/articles/adding-collaborators-to-a-personal-repository)
-  - [Clone the homework](http://gitref.org/creating/#clone) to your local space and work on the code locally
-  - Commit and push your local code to your github repo
-  - I will clone your repo after the due date
-
-## Credits
-Assignment designed by Cheng-Sheng Chan. Contents in this handout are from <a href="https://drive.google.com/file/d/0BwCy2boZhfdBM0ZDTV9lZW1rZzg/view">Chan et al.</a>.
+        
