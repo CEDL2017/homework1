@@ -1,6 +1,7 @@
 import os
 import re
 
+#Data path
 image_file = ['/train/house/1/Lhand', '/train/house/1/Rhand', 
              '/train/house/2/Lhand', '/train/house/2/Rhand',
              '/train/house/3/Lhand', '/train/house/3/Rhand',
@@ -46,31 +47,30 @@ label_test_file = ['/labels/house/obj_left4.npy', '/labels/house/obj_left5.npy',
                     '/labels/office/obj_left6.npy', '/labels/office/obj_right4.npy',
                     '/labels/office/obj_right5.npy', '/labels/office/obj_right6.npy' ]
 
-
+#Write in the text file
+#Training_image
 txt = open('train_image.txt', 'w')
-
 for file in image_file:
     unsorted_image =[os.path.join(file, f) for f in os.listdir(file)]    
     unsorted_image = sorted(unsorted_image, key = lambda x:int(re.sub('\D','',x)))
     for data in unsorted_image:
-        print(data, file = txt)   
-
+        print(data, file = txt) 
+		
+#Testing_image
 txt = open('test_image.txt', 'w')
-
 for file in test_file:
     unsorted_image =[os.path.join(file, f) for f in os.listdir(file)]    
     unsorted_image = sorted(unsorted_image, key = lambda x:int(re.sub('\D','',x)))
     for data in unsorted_image:
         print(data, file = txt)
-        
-txt = open('train_label.txt', 'w')
 
+#Training_label       
+txt = open('train_label.txt', 'w')
 for data in label_train_file:
     print(data, file = txt)
 
-
+#Testing_label	
 txt = open('test_label.txt', 'w')
-
 for data in label_test_file:
     print(data, file = txt)
 
