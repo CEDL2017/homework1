@@ -8,7 +8,7 @@ The best result testing on total test data of fine tuning each model:
 ### Inception-Resnet-v2: 
 	streaming accuracy: 50%
 ### vgg-16:
-	streaming accuracy: 
+	streaming accuracy: 45%
 
 ### Reference:
 - Thesis:<br />
@@ -98,7 +98,7 @@ The loss function is still **softmax cross entropy**.<br />
 The streaming accuracy rises and the loss drops stably. <br />
 With batch size 32 and 80 epochs, the model roughly reach convergence.<br />
 
-When it reaches convergence, the training accuracy is 90% and the testing accuracy is .<br />
+When it reaches convergence, the training accuracy is 75% and the testing accuracy is 45%.<br />
 
 However, the performance is surely can be better.<br />
 Due to I've spent most of my time on Inception-Resnet-v2 experiment, I have got quite less time to tune vgg-16 model.<br />
@@ -115,6 +115,7 @@ homework1\<br />
 	vgg_16_trainer.py<br />
 	inception_resnet_trainer.py<br />
 To run the code just simply type **python [whatever].py**.<br />
+**evaluator.ipynb** has 2 model's evaluation code. One can just simply run the code to test.
 
 ### Results
 
@@ -127,7 +128,7 @@ vgg-16 optimal training accuracy curve
 ![](https://i.imgur.com/Ogs9FuD.png)
 
 Inception-Resnet-v2 optimal training accuracy curve
-![](https://imgur.com/TF1iMZV.png)
+![](https://imgur.com/pnOcKIq.png)
 
 Loss
 
@@ -135,7 +136,7 @@ vgg-16 optimal loss curve
 ![](https://i.imgur.com/DyTnrq2.png)
 
 Inception-Resnet-v2 optimal loss curve
-![](https://imgur.com/pnOcKIq.png)
+![](https://imgur.com/TF1iMZV.png)
 
 
 
