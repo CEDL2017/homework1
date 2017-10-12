@@ -7,9 +7,9 @@ The project is related to accomplish image classification task in transfer learn
 This project concentrates on using pretrained ImageNet model such as Inception-Resnet-v2 and vgg-16 released by Tensorflow and fine tune them to precisely classify handcam's photo to detect 24 classes of objects.
 
 The best result testing on total test data of fine tuning each model:
-#### Inceptino-Resnet-v2: 
+##### Inceptino-Resnet-v2: 
 	streaming accuracy: 50%
-#### vgg-16:
+##### vgg-16:
 	streaming accuracy: 
 	
 
