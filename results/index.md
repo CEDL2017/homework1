@@ -86,10 +86,10 @@ training time ~ 3.5 hrs
 </tr>
 <tr>
 <td>
-<img src="only_hand_prc.png" width="40%"/>
+<img src="only_hand_prc.png"/>
 </td>
 <td>
-<img src="only_hand_cm.png" width="40%"/>
+<img src="only_hand_cm.png"/>
 </td>
 </tr>
 <tr>
