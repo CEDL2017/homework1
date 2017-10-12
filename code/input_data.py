@@ -46,8 +46,8 @@ def read_files(data_dir, is_train):
                 hand = np.load(os.path.join(root,f))
                 label_list += [int(i) for i in hand]
                 #print os.path.join(root,f)
-    print(image_list)
-    print("Image_List Len::::",len(image_list),"Label Len::::::", len(label_list) )
+    #print(image_list)
+    #print("Image_List Len::::",len(image_list),"Label Len::::::", len(label_list) )
     return image_list, label_list
 
 def get_batch(image, label, image_W, image_H, batch_size, capacity):
@@ -95,7 +95,7 @@ def get_batch(image, label, image_W, image_H, batch_size, capacity):
 #                                                      num_threads=64,
 #                                                      capacity=capacity,
 #                                                      min_after_dequeue=2000)
-    print("Batches Done ?")
+    #print("Batches Done ?")
 #    label_batch = tf.reshape(label_batch, [batch_size])
     image_batch = tf.cast(image_batch, tf.float32)
     
