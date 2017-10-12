@@ -147,3 +147,9 @@ Precision-Recall Curve:
 ![](https://i.imgur.com/M3R0Mty.png)
 Confusion Matrix:
 ![](https://i.imgur.com/etClzSq.png)
+
+#### Discussion: Dataset problem
+Since the dataset is very imbalanced, we found that the reason why the AUC value
+is not similar to accuracy is because we splitted validation set from training data to do early stopping,
+This operation caused the training set lacking of some of minority classes, which leaded to
+the low value of AUC. We can address this by directly train on entire training data without splitting the validation set, or we can split validation set class-by-class carefully. (Our's splitting method is just naively splitting 2 portion of training video frames as training set and validation set)
