@@ -21,8 +21,7 @@ NUM_CLASSES = 24
 #load file
 def load_file(data_dir, data_type):
 	'''
-	load path from text file.
-	
+	load path from text file.	
 	data_type: image or label
 	'''
 	print('Reading ' + data_type + '...')
@@ -103,18 +102,18 @@ def main(_):
 		
 		#load pre-trained model
 		with slim.arg_scope(iResnetV2.inception_resnet_v2_arg_scope()):
-            logits, _ = iResnetV2.inception_resnet_v2(batched_images, num_classes = NUM_CLASSES, is_training = is_training)
+			logits, _ = iResnetV2.inception_resnet_v2(batched_images, num_classes = NUM_CLASSES, is_training = is_training)
 		
 		variables_to_restore = tf.contrib.framework.get_variables_to_restore(exclude=['InceptionResnetV2/Logits', 'InceptionResnetV2/AuxLogits'])
 		init_fn = tf.contrib.framework.assign_from_checkpoint_fn(PRETRAINED_MODEL, variables_to_restore)
 		
- 
+		#Define loss and optimizer
 		tf.losses.sparse_softmax_cross_entropy(labels=batched_labels, logits=logits)
-		loss = tf.losses.get_total_loss()
-		
+		loss = tf.losses.get_total_loss()		
 		optimizer = tf.train.AdamOptimizer()
 		train_op = optimizer.minimize(loss) 
-
+		
+		#Predict and calulate accuracy
 		prediction = tf.to_int32(tf.argmax(logits, 1))
 		correct_prediction = tf.equal(prediction, batched_labels)
 		accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
@@ -145,8 +144,8 @@ def main(_):
 											is_training: True})
 		count = 0
 		while True:
-			try:				
-				_ = sess.run(train_op, feed_dict={is_training: True})				
+			try:
+				_ = sess.run(train_op, feed_dict={is_training: True})
 				print('[Epoch]: {} |[Batch]: {} |[accuracy] train: {} | test: {}'.format(epoch, count, current_train_acc, current_test_acc))
 				count = count+1 
 			except tf.errors.OutOfRangeError:
@@ -159,12 +158,12 @@ def main(_):
 		print('[Epoch]: {} |[Train] loss: {} | accuracy: {}'.format(epoch, train_loss, train_acc))
 		print('[Epoch]: {} |[Train] loss: {} | accuracy: {}'.format(epoch, train_loss, train_acc), file=training_log)
 
-    #Save the current model
+		#Save the current model
 		if epoch%10 == 0:
 			save_path = saver.save(sess, MODEL_PATH)
 			print("Model updated and saved in file: %s" % save_path)
 
-    #Testing
+		#Testing
 		if epoch%5 == 0:
 			test_loss, test_acc = evaluate(sess, loss, correct_prediction, data_initial,
 										feed_dict={images: testing_images,
