@@ -87,10 +87,16 @@ with tf.name_scope('C4_Pool'):
 	PIL
 * How to compile from source?
 	First, you must resize the input image.
+	
 	$ python data_resize.py
+	
 	Than you can chose which task you want to train.
+	
 	$ python train.py or $ python train_obj.py
 	
+	Last, you can test your model.
+	
+	$ python test.py
 ### Results
 
 <table border=1>
