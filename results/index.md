@@ -115,6 +115,7 @@ Especially the data we get this time is the sequence frames of the vedio, so the
 | Accuracy | 1-stream | 2-streams |
 |-------|----------|----------|
 | Model-AlexNet| 0.4175 | 0.5658 |
+
 One thing need to notice is that I can't confirm that the 2-streams result will definitely beat the result of 1-stream, since the setting of 1-stream and 2-streams are as follows: </br>
 
 | | learning-rate | finetune-layers | epoch | batch-size |
