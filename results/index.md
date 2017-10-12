@@ -15,7 +15,7 @@ The project is related to Handcam dataset object classification
 
 <img src="../README_files/model.png" style="float:middle;">
 
-4. Use multi-task learning, because I think free/active, gesture labels can help training object labels and avoid overfitting 
+4. Use multi-task learning, because I think free/active, gesture labels can help train object labels and avoid overfitting 
 
 5. Align lefthand ,righthand and head informations to share features and classify    
 
