@@ -44,6 +44,9 @@ Due to the considerations of computational resources and efficiency (DeepQ do no
 3. Three: By the further consideration that different architecture of CNN models have different abilities and performces on extract the head and hand images. In order to combine the capacity of different models, I use the double two streams method to extract the head and hand images via the two different models and then concat those features for classification. In this experement, the method has remarkable promotion on the final top 1 accuracy.<p>
 [`Two_stream_ResNet-152_with_InceptionResNetV2_FE_batch32_dropout03.py`](https://github.com/guan-yuan/homework1/blob/master/Two_stream_ResNet-152_with_InceptionResNetV2_FE_batch32_dropout03.py)<p>
 [`Two_stream_ResNet-152_with_InceptionResNetV2_FE_batch32_dropout01.py`](https://github.com/guan-yuan/homework1/blob/master/Two_stream_ResNet-152_with_InceptionResNetV2_FE_batch32_dropout01.py)<p>
+<div align=left>
+<img src="https://github.com/guan-yuan/homework1/blob/master/output/models.png" width = "50%" alt=""/>
+</div>
 
 
 ## Requirements
