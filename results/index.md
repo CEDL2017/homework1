@@ -1,3 +1,6 @@
+"default_line_ending": "unix", //默认换行符设置为LF
+"ensure_newline_at_eof_on_save": "true",  //保存文件时在结尾插入换行符(防止 git 的额外 diff )
+
 # 劉豐源 <span style="color:red">(106062519)</span>
 
 #Project 5: Deep Classification
@@ -34,8 +37,10 @@ import os #get all file name in the folder
 <table border=1>
 <tr>
 <td>
-> ==========[ 9 , 8 ]==========  
+> ==========[ 9 , 8 ]==========  
+>
 > train data: images: (1144, 227, 227, 3)  labels: (1144,)   
+>
 test  data: images: (838, 227, 227, 3)  labels: (838,)         
 Train on 915 samples, validate on 229 samples                      
 Epoch 1/1                        
