@@ -1,6 +1,6 @@
 # 陳聖諺 <span style="color:red">(105061604)</span>
 
-#Project 5: Deep Classification
+#Homework1: Deep Classification
 
 ## Overview
 The project is related to 
