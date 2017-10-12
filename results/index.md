@@ -44,11 +44,16 @@ and put into `./snapshots`
 3. Run `evaluate.py`
 
 ### Results
+## Testing accuracy
+| Model | Accuracy |  
+|-------|----------|
+| `ResNet50`| 66.93% |
 
+## Confusion Matrix 
 <table border=1>
 <tr>
 <td>
-<img src="./cm.png" width="95%"/>
+<img src="./cm.png" width="100"/>
 </td>
 </tr>
 
