@@ -99,7 +99,7 @@ python3 Main.py --test --pre
 ```
    It works the same functionality as training procedure of `--pre`. And, `--test` works similar to `--train`. Nonetheless, noticed that this is necessary and can not be ignored in testing procedure.
 
-### Results
+## Results
 
 Some settings are shown as following:
     * loss: softmax cross entropy
