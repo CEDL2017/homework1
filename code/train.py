@@ -16,32 +16,36 @@ MODEL_PATH = 'Model/iResnetV2_model.ckpt'
 
 TOTAL_EPOCH = 31
 BATCH_SIZE = 32
-LEARNING_RATE = 1e-4
 NUM_CLASSES = 24
-WEIGHT_DECAY = 5e-4
 
-def load_file(image_dir, label_dir):
-  print('Reading images...')
-  images_path = []
-  image_file = open(image_dir, 'r')
+#load file
+def load_file(data_dir, data_type):
+  '''
+  load path from text file.  
+  
+  data_type: image or label
+  '''
+  print('Reading' + data_type + '...')
+  
+  path = []
+  data_file = open(data_dir, 'r')
+  
   for line in image_file:
-    line = line.rstrip()
-    line = os.path.join(line)
-    images_path.append(line)
-  print( 'Size: {}'.format(len(images_path)))
+    if data_type == 'image':
+      line = os.path.join(line)
+      path.append(line)
+    elif data_type == 'label':
+      data = np.load(line)    
+      path.extend(data)
+      
+  print( 'Size: {}'.format(len(path)))  
   
-  print('Reading labels...')
-  labels = []
-  label_file = open(label_dir, 'r')
-  for line in label_file:
-    line = line.rstrip()
-    data = np.load(line)    
-    labels.extend(data)
-  print('Size: {}'.format(len(labels)))
-  
-  return images_path, labels	
+  return path
 
 def load_preprocess(images_path, labels, is_training):
+  '''
+  Images preprocessing. Resize and crop the images
+  '''
 	no_processsed = tf.read_file(images_path)
 	image = tf.image.decode_png(no_processsed, channels=3)
 	image = tf.cast(image, tf.float32)
@@ -50,42 +54,10 @@ def load_preprocess(images_path, labels, is_training):
 					false_fn=lambda: vgg_preprocessing.preprocess_image(image, 224, 224, is_training=False))
 	return pre_processed, labels
 
-graph = tf.Graph()
-with graph.as_default():
-	is_training = tf.placeholder(dtype = tf.bool, name = 'is_training')
-	images = tf.placeholder(dtype = tf.string, shape=(None,), name = 'images')
-	labels = tf.placeholder(dtype = tf.int32, shape=(None,), name = 'labels')
-
-	data = tf.contrib.data.Dataset.from_tensor_slices((images, labels))
-	data = data.map(lambda image, label: load_preprocess(image, label, is_training))
-	data = data.shuffle(buffer_size=10000)
-	batched_data = data.batch(BATCH_SIZE)
-	iterator = tf.contrib.data.Iterator.from_structure(batched_data.output_types,
-                                                       batched_data.output_shapes)
-	batched_images, batched_labels = iterator.get_next()
-	data_initial = iterator.make_initializer(batched_data)
-
-	with slim.arg_scope(iResnetV2.inception_resnet_v2_arg_scope(weight_decay = WEIGHT_DECAY)):
-            logits, _ = iResnetV2.inception_resnet_v2(batched_images, num_classes = NUM_CLASSES, is_training = is_training)
-	#logits = tf.reshape(logits, [-1, 24])
-
-	variables_to_restore = tf.contrib.framework.get_variables_to_restore(exclude=['InceptionResnetV2/Logits', 'InceptionResnetV2/AuxLogits'])
-	init_fn = tf.contrib.framework.assign_from_checkpoint_fn(PRETRAINED_MODEL, variables_to_restore)
-
-	tf.losses.sparse_softmax_cross_entropy(labels=batched_labels, logits=logits)
-	loss = tf.losses.get_total_loss()
-
-	optimizer = tf.train.AdamOptimizer(LEARNING_RATE)
-	train_op = optimizer.minimize(loss) 
-
-	prediction = tf.to_int32(tf.argmax(logits, 1))
-	correct_prediction = tf.equal(prediction, batched_labels)
-	accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
-	init = tf.global_variables_initializer()
-	saver = tf.train.Saver()
-
-
 def evaluate(sess, loss, correct_prediction, data_initial, feed_dict):
+  '''
+  Calculate loss and accuracy.
+  '''
 	sess.run(data_initial, feed_dict=feed_dict)
 
 	data_loss = 0
@@ -106,17 +78,62 @@ def evaluate(sess, loss, correct_prediction, data_initial, feed_dict):
 
 	return data_loss, acc
 
-
 def main(_):
-	training_images, training_labels = load_file(TRAIN_IMAGE, TRAIN_LABEL)
-	testing_images, testing_labels = load_file(TEST_IMAGE, TEST_LABEL)
+
+  graph = tf.Graph()
+  #Construct the network
+	with graph.as_default():
+    #Input and output
+		is_training = tf.placeholder(dtype = tf.bool, name = 'is_training')
+		images = tf.placeholder(dtype = tf.string, shape=(None,), name = 'images')
+		labels = tf.placeholder(dtype = tf.int32, shape=(None,), name = 'labels')
+	  
+    #Data batch
+		data = tf.contrib.data.Dataset.from_tensor_slices((images, labels))
+		data = data.map(lambda image, label: load_preprocess(image, label, is_training))
+		data = data.shuffle(buffer_size=10000)
+		batched_data = data.batch(BATCH_SIZE)
+		iterator = tf.contrib.data.Iterator.from_structure(batched_data.output_types,
+                                                       batched_data.output_shapes)
+		batched_images, batched_labels = iterator.get_next()
+		data_initial = iterator.make_initializer(batched_data)
+		
+    #load pre-trained model
+		with slim.arg_scope(iResnetV2.inception_resnet_v2_arg_scope()):
+            logits, _ = iResnetV2.inception_resnet_v2(batched_images, num_classes = NUM_CLASSES, is_training = is_training)
+		
+		variables_to_restore = tf.contrib.framework.get_variables_to_restore(exclude=['InceptionResnetV2/Logits', 'InceptionResnetV2/AuxLogits'])
+		init_fn = tf.contrib.framework.assign_from_checkpoint_fn(PRETRAINED_MODEL, variables_to_restore)
+		
+ 
+		tf.losses.sparse_softmax_cross_entropy(labels=batched_labels, logits=logits)
+		loss = tf.losses.get_total_loss()
+		
+		optimizer = tf.train.AdamOptimizer()
+	  train_op = optimizer.minimize(loss) 
+
+	  prediction = tf.to_int32(tf.argmax(logits, 1))
+	  correct_prediction = tf.equal(prediction, batched_labels)
+	  accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+	  init = tf.global_variables_initializer()
+	  saver = tf.train.Saver()
+     
+     
+  #loading data   
+	training_images = load_file(TRAIN_IMAGE, 'image')
+  training_labels = load_file(TRAIN_LABEL, 'label')
+	testing_images = load_file(TEST_IMAGE, 'image')
+  testing_labels = load_file(TEST_IMAGE, 'label')
+  
+  #initialize
 	sess = tf.Session(graph=graph)
-	sess.run(init)
+	sess.run(init) 
 	#saver.restore(sess, MODEL_PATH)
 	init_fn(sess)
 	
 	training_log = open('log.txt', 'w')
 
+  #Training
 	for epoch in range(TOTAL_EPOCH):
 		sess.run(data_initial, feed_dict={images: training_images,
 											labels: training_labels,
@@ -137,10 +154,12 @@ def main(_):
 		print('[Epoch]: {} |[Train] loss: {} | accuracy: {}'.format(epoch, train_loss, train_acc))
 		print('[Epoch]: {} |[Train] loss: {} | accuracy: {}'.format(epoch, train_loss, train_acc), file=training_log)
 
+    #Save the current model
 		if epoch%10 == 0:
 			save_path = saver.save(sess, MODEL_PATH)
 			print("Model updated and saved in file: %s" % save_path)
 
+    #Testing
 		if epoch%5 == 0:
 			test_loss, test_acc = evaluate(sess, loss, correct_prediction, data_initial,
 										feed_dict={images: testing_images,
