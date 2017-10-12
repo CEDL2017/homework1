@@ -4,7 +4,8 @@
 
 ## Overview
 The project is heavily reference the code : https://gist.github.com/omoindrot/dedc857cdc0e680dfb1be99762990c9c
-omoindrot teaches us how to fine-tune a vgg model
+omoindrot teaches us how to fine-tune a vgg model.
+Due to the time limits, I only train 5 epochs and then early stop it.
 > quote
 
 
@@ -26,7 +27,7 @@ omoindrot teaches us how to fine-tune a vgg model
 
 ### Results
 Training accuracy : 0.482
-Testing accuracy : not sure
+Testing accuracy : 0.433
 
 <table border=1>
 <tr>
