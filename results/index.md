@@ -4,17 +4,17 @@
 
 ## Overview
 This project is related to hand gesture classification. 
-This model is based on [this repo](https://github.com/kratzert/finetune_alexnet_with_tensorflow).
+The model is based on [this repo](https://github.com/kratzert/finetune_alexnet_with_tensorflow).
 
 
 ## Implementation
 1. Transfer learning from AlexNet
-	* Loading the pretrained [AlexNet](http://papers.nips.cc/paper/4824-imagenet-clsification-with-deep-convolutional-neural-networks.pdf)
-	* Finetune the AlexNet on the last three fully connected layers
+	* Loading the pretrained [AlexNet](http://papers.nips.cc/paper/4824-imagenet-clsification-with-deep-convolutional-neural-networks.pdf).
+	* Finetune the AlexNet on the last three fully connected layers.
 	* The reason for choosing AlexNet is it's not too large and given the limited data size, suitable for this task.
 2. Data augmentation
-	* Compressing the data into 227 * 227 pixel
-	* Flipping all images in training set horizontally, named      aug_Imagexxx.png with same label      the original image instance.
+	* Compressing the data into 227 * 227 pixel.
+	* Flipping all images in training set horizontally, named aug_Imagexxx.png with same label.
 	* Doubling the size of training set
 
 
@@ -24,8 +24,8 @@ All code files are stored in the root folder.
 
 ## Installation
 * Required packages: numpy,scipy,scipy,tensorflow,os,re,PIL
-* Getting the weights of AlexNet from [this link](http://www.cs.toronto.edu/~guerzhoy/tf_alexnet/)
-* The data folder should be in the same path with all the codes
+* Getting the weights of AlexNet from [this link](http://www.cs.toronto.edu/~guerzhoy/tf_alexnet/).
+* The data folder should be in the same path with code files.
 
 ## Usage
 * wget http://www.cs.toronto.edu/~guerzhoy/tf_alexnet/bvlc_alexnet.npy
