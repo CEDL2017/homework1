@@ -17,7 +17,6 @@ The best result testing on total test data of fine tuning each model:
 - Thesis:
 
 	[Recognition from Hand Cameras: A Revisit with Deep Learning](https://arxiv.org/abs/1512.01881)
-	
 	[Multi-label Classification of Satellite Images with Deep Learning](http://cs231n.stanford.edu/reports/2017/pdfs/908.pdf)
 - Tutorial:
 
