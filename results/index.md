@@ -32,7 +32,7 @@ The project is related to
 </tr>
 
 <tr>
-<img src="result.png width="24%" alt = "results" style = "float:middle;" />
+<img src="result.png" alt = "results" style = "float:middle;" />
 </tr>
 
 </table>
