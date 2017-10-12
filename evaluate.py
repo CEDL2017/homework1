@@ -47,8 +47,8 @@ def main():
     # convert label to onehot
     gt = tf.one_hot(indices=label_batch, depth=NUM_CLASSES)
 
-    mIoU, update_op = tf.contrib.metrics.streaming_mean_iou(pred, label_batch, num_classes=NUM_CLASSES)
-
+    mIoU, update_op = tf.contrib.metrics.streaming_mean_iou(labels=label_batch, predictions=pred, num_classes=NUM_CLASSES)
+    
     # Set up tf session and initialize variables.
     config = tf.ConfigProto()
     config.gpu_options.allow_growth = True
@@ -87,7 +87,7 @@ def main():
     print('correct: {}'.format(true_ct))
     print('acc: {}'.format((float)(true_ct)/NUM_STEPS))
     np.save('./results/cm.npy', _cm)
-
+    
     coord.request_stop()
     coord.join(threads)
 
