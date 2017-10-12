@@ -44,13 +44,11 @@ and put into `./snapshots`
 3. Run `evaluate.py`
 
 ### Results
+
 <table border=1>
 <tr>
 <td>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg"  width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
+<img src="./cm.png" width="95%"/>
 </td>
 </tr>
 
