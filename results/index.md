@@ -9,45 +9,38 @@ The project is related to
 
 ## Implementation
 1. finetuning a VGG model (homework1.py)
-	* create `VGG16` model (pretrained on ImageNet)
 	* load images and labels
+	* create `VGG16` model (pretrained on ImageNet)
 	* Preprocessing for training
         * remove the last fully connected layer (fc8) and replace it with new
 	* define the session and run
 	* Check accuracy
-2. Two
-	* 
-	* 
-	
-Create `VGG16` model (pre-trained on ImageNet)
--```
--Code highlights
--```
+2. testing.py
+	* evaluate test data accuracy
+	* restore model
 
 ## Installation
 * Other required packages.
 * How to compile from source?
+Tensorflow
+Tensorflow.contrib.slim
+numpy
+os
+
+Download the weights trained on ImageNet for VGG:
+http://download.tensorflow.org/models/vgg_16_2016_08_28.tar.gz
 
 ### Results
 
 <table border=1>
 <tr>
 <td>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg"  width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
+<img src="accuracy.jpg" width="20%"/>
+
 </td>
 </tr>
 
-<tr>
-<td>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg"  width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-</td>
-</tr>
+
 
 </table>
 
