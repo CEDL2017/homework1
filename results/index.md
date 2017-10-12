@@ -40,14 +40,22 @@ However, since the labels are not quite a big file, we can load them all in the 
 [Shuffle the Data-Keep the image and label matched]
 
 #打亂順序
-num_example=data_list.shape[0]    #how many images in the list
-#print(num_example)               #check the number of images (match with labels')
-arr=np.arange(num_example)        #create a number list
-np.random.shuffle(arr)            #shuffle the number lsit
-data_list=data_list[arr]          #make the data_list into a new order
-#print(data_list)
-label=label[arr]                  #make the label into a new order
-#print(label.shape[0])
+ 
+ num_example=data_list.shape[0]    #how many images in the list
+ 
+ #print(num_example)               #check the number of images (match with labels')
+ 
+ arr=np.arange(num_example)        #create a number list
+ 
+ np.random.shuffle(arr)            #shuffle the number lsit
+ 
+ data_list=data_list[arr]          #make the data_list into a new order
+ 
+ #print(data_list)
+ 
+ label=label[arr]                  #make the label into a new order
+ 
+ #print(label.shape[0])
 
 [minibatch]
 
@@ -56,6 +64,7 @@ We will save the index of certain batch of images and labels in variable 'excerp
 which input is the path of the batch images and targets is the corresponding label information
 
 code example:
+   
     
     assert len(inputs) == len(targets)
     if shuffle:
@@ -99,17 +108,26 @@ temp =[]
 	    
 [Deep Structure]
 
-I tried to fix Alexnet in a little extent
-1.number of layers (from 4~8)
-2.modify the 3fc layer into 1fc layer
-3.Different input image size (100X100 ~ 400X400)
-4.Different batchsize (1~48)
-(etc)
 
-However the accuracy will eventually stop by around 50%.
+ I tried to fix Alexnet in a little extent
+
+  1.number of layers (from 4~8)
+ 
+  2.modify the 3fc layer into 1fc layer
+ 
+  3.Different input image size (100X100 ~ 400X400)
+ 
+  4.Different batchsize (1~48)  and  so on
+
+
+ However the accuracy will eventually stop by around 50%.
 Lose cannot be lower than 2
-Accuracy: 50.0862 %
-Loss    : 2.0715
+ 
+
+ 1.Accuracy: 50.0862 %
+
+ 2.Loss    : 2.0715
+  
 
 ## Installation
 
@@ -121,28 +139,12 @@ Loss    : 2.0715
 	import time
 	import tensorflow as tf
 
+Environment:
 
-### Results
+GPU: GTX 960 
+Total Memory : 3.94 GiB
+Unbuntu 15.04
+Python 3.4.3
 
-<table border=1>
-<tr>
-<td>
-<img src=".jpg" width="24%"/>
-<img src="/home/benita/Downloads/CEDLHW1.png"  width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-</td>
-</tr>
-
-<tr>
-<td>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg"  width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-</td>
-</tr>
-
-</table>
 
 
