@@ -29,16 +29,21 @@ Due to the considerations of computational resources and efficiency (DeepQ do no
 
 
 ## Implementation
-1. One: The first type of implementation is using hand and head images separately for classification. In this step, I focus on analysis the different affect on accuracy of useing different models and different data augmentation skills to extract features and the accuracy results of classification problems.
+1. One: The first type of implementation is using hand and head images separately for classification. In this step, I focus on analysis the different affect on accuracy of useing different models and different data augmentation skills to extract features and the accuracy results of classification problems.<p>
 [`ResNet-152_FE_batch256.py`](https://github.com/guan-yuan/homework1/blob/master/ResNet-152_FE_batch256.py)<p>
 [`ResNet-152_FE_batch256_crop232.py`](https://github.com/guan-yuan/homework1/blob/master/ResNet-152_FE_batch256_crop232.py)<p>
 [`ResNet-152_FE_batch256_crop224.py`](https://github.com/guan-yuan/homework1/blob/master/ResNet-152_FE_batch256_crop224.py)<p>
 
 
 
-2. Two: The second type of implementation is using hand and head images jointly for classification. As the paper does, the method (two streams) can help to cover the shortages of only using hand or head images separately. In this step, I focus on analysis the different affect on accuracy of useing different models for the two streams classification method.
+2. Two: The second type of implementation is using hand and head images jointly for classification. As the paper does, the method (two streams) can help to cover the shortages of only using hand or head images separately. In this step, I focus on analysis the different affect on accuracy of useing different models for the two streams classification method.<p>
+[`Two_stream_InceptionResNetV2_FE_batch64_dropout03.py`](https://github.com/guan-yuan/homework1/blob/master/Two_stream_InceptionResNetV2_FE_batch64_dropout03.py)<p>
+[`Two_stream_ResNet-152_FE_batch64_dropout03.py`](https://github.com/guan-yuan/homework1/blob/master/Two_stream_ResNet-152_FE_batch64_dropout03.py)<p>
 
-3. Three: By the further consideration that different architecture of CNN models have different abilities and performces on extract the head and hand images. In order to combine the capacity of different models, I use the double two streams method to extract the head and hand images via the two different models and then concat those features for classification. In this experement, the method has remarkable promotion on the final top 1 accuracy.
+
+3. Three: By the further consideration that different architecture of CNN models have different abilities and performces on extract the head and hand images. In order to combine the capacity of different models, I use the double two streams method to extract the head and hand images via the two different models and then concat those features for classification. In this experement, the method has remarkable promotion on the final top 1 accuracy.<p>
+[`Two_stream_ResNet-152_with_InceptionResNetV2_FE_batch32_dropout03.py`](https://github.com/guan-yuan/homework1/blob/master/Two_stream_ResNet-152_with_InceptionResNetV2_FE_batch32_dropout03.py)<p>
+[`Two_stream_ResNet-152_with_InceptionResNetV2_FE_batch32_dropout01.py`](https://github.com/guan-yuan/homework1/blob/master/Two_stream_ResNet-152_with_InceptionResNetV2_FE_batch32_dropout01.py)<p>
 
 
 ```
