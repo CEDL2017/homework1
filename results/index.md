@@ -68,17 +68,17 @@ Download from the "Link", then replace the "./save" folder.
 
 Hand images
 <div align=left>
-<img src="https://github.com/guan-yuan/homework1/blob/master/output/Two_stream_ResNet-152_FE_batch64_dropout03_test_batch_hand.png" width = "100%" alt=""/>
+<img src="https://github.com/guan-yuan/homework1/blob/master/output/Two_stream_ResNet-152_with_InceptionResNetV2_FE_batch32_dropout01_train_batch_hand.png" width = "100%" alt=""/>
 </div>
 <p>
 <p>
 <p>
 Head images
 <div align=left>
-<img src="https://github.com/guan-yuan/homework1/blob/master/output/Two_stream_ResNet-152_FE_batch64_dropout03_test_batch_head.png" width = "100%" alt=""/>
+<img src="https://github.com/guan-yuan/homework1/blob/master/output/Two_stream_ResNet-152_with_InceptionResNetV2_FE_batch32_dropout01_train_batch_head.png" width = "100%" alt=""/>
 </div>
 
-The results showed below explain that the different croped sizes have small effect on both hand and head images, but the models with no crop images have the higher accuarcy on classification task and when the croped range increase the accuarcy may decline.   
+The results showed below explain that the different cropped sizes have small effect on both hand and head images, but the models with no crop images have the highest accuracy on classification task and when the cropped range increases the accuracy may decline.  
 
 <div align=left>
 <img src="https://github.com/guan-yuan/homework1/blob/master/output/diff_DA_training.png" width = "50%" alt=""/>
@@ -89,7 +89,7 @@ The results showed below explain that the different croped sizes have small effe
 <img src="https://github.com/guan-yuan/homework1/blob/master/output/diff_DA_testing.png" width = "50%" alt=""/>
 </div>
 
-2. The results showed below display the performance on Inception-ResNet-v2 and ResNet-152 models training on hand and head images separately.
+2. The results showed below display the performance on Inception-ResNet-v2 and ResNet-152 models using hand and head images  separately (for training and testing).
 
 <div align=left>
 <img src="https://github.com/guan-yuan/homework1/blob/master/output/one_stream_training.png" width = "50%" alt=""/>
@@ -99,8 +99,7 @@ The results showed below explain that the different croped sizes have small effe
 <img src="https://github.com/guan-yuan/homework1/blob/master/output/one_stream_testing.png" width = "50%" alt=""/>
 </div>
 
-3. The results showed below display the performance on two streams and double two streams models training on hand and head images jointly. Interestingly, although the ResNet-152 has the obvious higher accuracy on hand images (test), at the two streams case the 
-Inception-ResNet-v2 outperform than ResNet-152 (test). And we can find that, the ResNet-152 model prone to overfiting than Inception-ResNet-v2.
+3. The results showed below display the performance on two streams and **double two streams models** training and testing on hand and head images jointly. Interestingly, although the ResNet-152 has the obvious higher accuracy on hand images task (test), at the two streams case the Inception-ResNet-v2 outperform than ResNet-152 (test). And we can find that, the ResNet-152 model prone to over-fitting than Inception-ResNet-v2.
 
 <div align=left>
 <img src="https://github.com/guan-yuan/homework1/blob/master/output/two_stream_training.png" width = "50%" alt=""/>
