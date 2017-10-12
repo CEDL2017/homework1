@@ -8,11 +8,16 @@ The project is related to
 
 
 ## Implementation
-1. One
-	* item
-	* item
+1. finetuning a VGG model (homework1.py)
+	* create `VGG16` model (pretrained on ImageNet)
+	* load images and labels
+	* Preprocessing for training
+        * remove the last fully connected layer (fc8) and replace it with new
+	* define the session and run
+	* Check accuracy
 2. Two
-
+	* 
+	* 
 Create `VGG16` model (pre-trained on ImageNet)
 ```
 Code highlights
