@@ -8,7 +8,7 @@ The project is related to
 
 
 ## Implementation
-1. finetuning a VGG model `(homework1.py)`
+1. finetuning a VGG model (`homework1.py`)
 	* load images and labels
 	* create VGG16 model (pretrained on ImageNet)
 	* preprocessing for training
