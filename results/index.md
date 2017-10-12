@@ -62,8 +62,28 @@ Download from the "Link", then replace the "./save" folder.
 
 ### Results
 <div align=left>
-<img src="https://github.com/guan-yuan/homework1/blob/master/output/two_stream_testing.png" width = "80%" alt="hierarchical softmax computations"/>
+<img src="https://github.com/guan-yuan/homework1/blob/master/output/diff_DA_training.png" width = "80%" alt=""/>
 </div>
 
+<div align=left>
+<img src="https://github.com/guan-yuan/homework1/blob/master/output/diff_DA_testing.png" width = "80%" alt=""/>
+</div>
+
+<div align=left>
+<img src="https://github.com/guan-yuan/homework1/blob/master/output/one_stream_training.png" width = "80%" alt=""/>
+</div>
+
+<div align=left>
+<img src="https://github.com/guan-yuan/homework1/blob/master/output/one_stream_testing.png" width = "80%" alt=""/>
+</div>
+
+
+<div align=left>
+<img src="https://github.com/guan-yuan/homework1/blob/master/output/two_stream_training.png" width = "80%" alt=""/>
+</div>
+
+<div align=left>
+<img src="https://github.com/guan-yuan/homework1/blob/master/output/two_stream_testing.png" width = "80%" alt=""/>
+</div>
 
 
