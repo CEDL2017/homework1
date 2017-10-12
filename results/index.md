@@ -38,7 +38,7 @@ https://arxiv.org/pdf/1512.03385.pdf
 input width = 96, keeping the image aspect unchanged
 A ResNet-like network with fewer layers to speed up training process
 
-'''
+```
 net = slim.conv2d(inputs, 64 , [7, 7], stride = 2, scope = 'conv1')
 net = slim.max_pool2d(net, kernel_size = [3, 3], stride = 2, padding = 'SAME', scope = 'max_pool1')
 short_cut = net
@@ -51,16 +51,15 @@ net = slim.avg_pool2d(net, kernel_size = [3, 3], padding = 'SAME')
 net = slim.flatten(net)
 logits = slim.fully_connected(inputs = net, num_outputs = NUM_CLASS, scope = 'fc')
 
-'''
+```
 
 
 * Loss function:Cross Entropy with logits
 * AdamOptimizer adapted
-'''
+```
 loss_func = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits = y_logits, labels= y_label))
 optimizer = tf.train.AdamOptimizer(LR).minimize(loss_func)
-
-'''
+```
 
 
 
