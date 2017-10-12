@@ -29,10 +29,11 @@ Due to the considerations of computational resources and efficiency (DeepQ do no
 
 
 ## Implementation
-1. One
-	* item
-	* item
-2. Two
+1. One: The first type of implementation is using hand and head images separately for classification. In this step, I focus on analysis the different affect on accuracy of useing different models and different data augmentation skills to extract features and the accuracy results of classification problems.
+
+2. Two: The second type of implementation is using hand and head images jointly for classification. As the paper does, the method (two streams) can help to cover the shortages of only using hand or head images separately. In this step, I focus on analysis the different affect on accuracy of useing different models for the two streams classification method.
+
+3. Three: 
 
 ```
 Code highlights
