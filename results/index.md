@@ -27,7 +27,7 @@ The best result testing on total test data of fine tuning each model:
 
 ## Implementation
 
-I've conducted experiment on two different models: Inception-Resnet and vgg16.
+I've conducted experiment on two different models: **Inception-Resnet and vgg16**.
 The performance of Inception-Resnet is very depressing, and vgg16 is easier to train.
 I'll discuss them repsectively in the following.
 
@@ -46,15 +46,41 @@ The code following data preparation is about loading Inception-Resnet architectu
 Then, we only train the specific layers we want, which are the most outside layers in the figure above.
 They are Logit and Auxiliary Logit scope's layer, which is in charge of the final output of model.
 
-I've tried the Adam optimizer, Momentum optimizer, learning rate starts at 0.045, 0.001, 0.0002 with decay 0.7/0.8/0.9 per 2 epochs.
-The loss is 
+```Python
+    with slim.arg_scope(inception_resnet_v2_arg_scope()):
+        logits, end_points = inception_resnet_v2(batch_image, 
+                                                 num_classes = num_classes)
 	
+    exclude = ['InceptionResnetV2/AuxLogits',
+               'InceptionResnetV2/Logits']
+    variables_to_restore = slim.get_variables_to_restore(exclude = exclude)
+```
+
+I've tried the **Adam optimizer, Momentum optimizer**(momentum = 0.9, 0.95), **RMSProp optimizer**, learning rate starts at 0.045, 0.001, 0.0002 with decay 0.7/0.8/0.9 per 2 epochs.
+Inception model also requires certain preprocessing that every pixel in the image should be (-1, 1).
+Moreover, Tensorflow offers a way to 
+
+The loss hardly decreases, and the accuracy converges to nearly 50%.
+
+In my opinion, this problem might due to some reasons:
++ The weights aren't properly initialized or trained
+	There might be some mistakes made by my coding error which results in the bad performance.
+	For example, the code should only initialize layers not to be trained, and train only specific scopes(Logits, AuxLogits).
+	However, the performance seems that I train the model from scratch.
+	The model hardly extracts any feature from images.
+	
++ Inproper paramater tuning
+	The model always reaches to same convergence no matter what the parameter was set.
+	Although I've tried 3 different optimizers with 3 sets of decaying learning rate, it seems that the model is still trapped in a local minimum.
+
+	Maybe there is still other way to break this deadlock.
+	
++ The model wasn't suitable for the task
+	Inceprtion-Resent-v2 is a model requires lots of hard-restricted 
 
 ### 2. vgg-16
 
-```
-Code highlights
-```
+
 
 ## Installation
 * Other required packages.
