@@ -29,7 +29,8 @@ def read_files(data_dir, is_train):
             num1 = '[5678]'
             num2 = '[456]'
         for root, dirs, files in os.walk(_dir):
-            files.sort(key=lambda x:(x[5:-4]))
+
+            files.sort( key=lambda x:int(x[5:-4]))            
             for f in files:
                 image_list.append(os.path.join(root,f))
                 #print os.path.join(root,f)
@@ -45,7 +46,7 @@ def read_files(data_dir, is_train):
                 hand = np.load(os.path.join(root,f))
                 label_list += [int(i) for i in hand]
                 #print os.path.join(root,f)
-    
+    print(image_list)
     print("Image_List Len::::",len(image_list),"Label Len::::::", len(label_list) )
     return image_list, label_list
 
