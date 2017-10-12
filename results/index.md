@@ -22,23 +22,23 @@ The project is related to
 ## Installation
 * Other required packages.
 * How to compile from source?
-	* Tensorflow
-	* Tensorflow.contrib.slim
-	* numpy
-	* os
-Download the weights trained on ImageNet for VGG:
+
+      * Tensorflow
+      * Tensorflow.contrib.slim
+      * numpy
+      * os
+      * Download the weights trained on ImageNet for VGG:
 http://download.tensorflow.org/models/vgg_16_2016_08_28.tar.gz
+    
 
 ### Results
 
 <table border=1>
 <tr>
-<td>
-<img src="accuracy.jpg" width="20%" alt = "results" style = "float:middle;"/>
-
-</td>
 </tr>
-
+<tr>
+<img src="accuracy.jpg" width="20%" alt = "results" style = "float:middle;"/>
+</tr>
 
 
 </table>
