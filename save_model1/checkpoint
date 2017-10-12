@@ -1,0 +1,2 @@
+model_checkpoint_path: "/home/benita/Downloads/CEDLHW1/Alexnet/save_model1/ckp"
+all_model_checkpoint_paths: "/home/benita/Downloads/CEDLHW1/Alexnet/save_model1/ckp"
