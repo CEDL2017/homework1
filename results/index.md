@@ -64,6 +64,12 @@ e.g. ```python Two_stream_ResNet-152_with_InceptionResNetV2_FE_batch32_dropout01
 Download from the "Link", then replace the "./save" folder.
 
 ### Results
+1. In the project, I experiment different random croped size on images for evaluate the effect of data augmentation. The following images are the result that images random croped to 299 x 299 (resize the short side to 312 then crop to (299, 299)).
+
+<div align=left>
+<img src="https://github.com/guan-yuan/homework1/blob/master/output/diff_DA_training.png" width = "50%" alt=""/>
+</div>
+
 <div align=left>
 <img src="https://github.com/guan-yuan/homework1/blob/master/output/diff_DA_training.png" width = "50%" alt=""/>
 </div>
