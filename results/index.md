@@ -8,7 +8,7 @@ In this homework we implement 2 models on doing object-classification, the highe
 
 I mainly modified the code from [here](https://kratzert.github.io/2017/02/24/finetuning-alexnet-with-tensorflow.html) for Alexnet and [here](https://keras.io/applications/) for InceptionV3.
 
-#####Other files: </br>
+##### Other files: </br>
 * [simplenn.py](../simplenn.py): for building 2 simple fc layers. </br>
 * [PreprocessData.py](../PreprocessData.py): preprosess data and label directory as we need. </br>
 * [datagenerator_non2string.py](../datagenerator_non2string.py), [datagenerator.py](../datagenerator.py): preprocess of data
