@@ -1,27 +1,33 @@
-# Your Name <span style="color:red">(id)</span>
+# 王智寬 <span style="color:red">(106062601)</span>
 
 #Project 5: Deep Classification
 
 ## Overview
-The project is related to 
+The project is heavily reference the code : https://gist.github.com/omoindrot/dedc857cdc0e680dfb1be99762990c9c
+omoindrot teaches us how to fine-tune a vgg model.
+Due to the time limits, I only train 5 epochs and then early stop it.
 > quote
 
 
 ## Implementation
-1. One
-	* item
-	* item
-2. Two
-
-```
-Code highlights
-```
+1. Fine-tune a vgg-16
+	* restore a pretrained weight (exclude fc8)
+	* train a new fc8
+	* train the whole model
+	* save the trained weight
+2. test.py
+	* load testing data
+	* calculate accuracy
 
 ## Installation
-* Other required packages.
-* How to compile from source?
+* tensorflow
+* download VGG pretrained weight, "vgg_16.ckpt", put it in "code" file.
+* download trained weight, "model.ckpt.data-00000-of-00001", put it in the "saved_model" file
+* download url : https://drive.google.com/open?id=0B3vEmk5Bd7lNRmhPSDcxbjhqMFE
 
 ### Results
+Training accuracy : 0.482
+Testing accuracy : 0.433
 
 <table border=1>
 <tr>
