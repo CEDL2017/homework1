@@ -3,7 +3,7 @@
 #Project 5: Deep Classification
 
 ## Overview
-The project is related to 
+The project is related to VGG16
 > quote
 
 
