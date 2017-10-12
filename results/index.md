@@ -68,30 +68,6 @@ optimizer = tf.train.AdamOptimizer(LR).minimize(loss)
 > 2.1569385
 ### Training time
 > about 16.5 hrs
+### Precision-Recall curve
 
-<table border=5>
-<tr>
-<td>
-
-</td>
-</tr>
-
-<tr>
-<td>
-
-</td>
-</tr>
-
-
-<tr>
-<td>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-</td>
-</tr>
-
-</table>
-
-
+<img src="figure_3.png" width="120%"/>
