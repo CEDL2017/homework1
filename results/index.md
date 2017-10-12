@@ -1,10 +1,10 @@
-# Your Name <span style="color:red">(id)</span>
+# 王智寬 <span style="color:red">(106062601)</span>
 
 #Project 5: Deep Classification
 
 ## Overview
 The project is heavily reference the code : https://gist.github.com/omoindrot/dedc857cdc0e680dfb1be99762990c9c
-omoindrot teaches us how to tune a vgg model
+omoindrot teaches us how to fine-tune a vgg model
 > quote
 
 
@@ -17,10 +17,6 @@ omoindrot teaches us how to tune a vgg model
 2. test.py
 	* load testing data
 	* calculate accuracy
-
-```
-
-```
 
 ## Installation
 * tensorflow
