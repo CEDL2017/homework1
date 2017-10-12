@@ -44,18 +44,20 @@ Batch size ： 128
 Epoch : 30
 
 ## Results
-Best Result
+### Best Result
 
-Resnet18 : 70.28
+Resnet18 : 70.28%
 
-Resnet50 : 72.3
-
-
-Training Curve
-
-Resnet18
+Resnet50 : 72.3%
 
 
+### Training Curve
+
+#### Resnet18
+<img src="Resnet18_loss" alt="overview" style="float:middle;">
+<img src="Resnet18_acc" alt="overview" style="float:middle;">
 
 
-Resnet50
+#### Resnet50
+<img src="Resnet50_loss" alt="overview" style="float:middle;">
+<img src="Resnet50_acc" alt="overview" style="float:middle;">
