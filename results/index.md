@@ -4,7 +4,7 @@
 
 ## Overview
 The project is related to 
-> 1. Deep-learning-based method
+  1. Deep-learning-based method
   2. Alexnet
   3. Classification
 
