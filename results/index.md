@@ -26,7 +26,7 @@ Code highlights
 <table border=1>
 <tr>
 <td>
-<img src="placeholder.jpg" width="24%"/>
+<img src="result.png" width="24%"/>
 <img src="placeholder.jpg"  width="24%"/>
 <img src="placeholder.jpg" width="24%"/>
 <img src="placeholder.jpg" width="24%"/>
