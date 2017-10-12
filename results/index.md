@@ -11,10 +11,10 @@ The project is related to
 1. finetuning a VGG model (homework1.py)
 	* load images and labels
 	* create `VGG16` model (pretrained on ImageNet)
-	* Preprocessing for training
+	* preprocessing for training
         * remove the last fully connected layer (fc8) and replace it with new
 	* define the session and run
-	* Check accuracy
+	* check accuracy
 2. testing.py
 	* evaluate test data accuracy
 	* restore model
@@ -23,12 +23,13 @@ The project is related to
 * Other required packages.
 * How to compile from source?
 
-      * Tensorflow
-      * Tensorflow.contrib.slim
-      * numpy
-      * os
-      * Download the weights trained on ImageNet for VGG:
-	http://download.tensorflow.org/models/vgg_16_2016_08_28.tar.gz
+
+	* Tensorflow
+	* Tensorflow.contrib.slim
+	* numpy
+	* os
+	* Download the weights trained on ImageNet for VGG:
+		http://download.tensorflow.org/models/vgg_16_2016_08_28.tar.gz
     
 
 ### Results
