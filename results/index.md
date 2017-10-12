@@ -3,7 +3,8 @@
 #Project 5: Deep Classification
 
 ## Overview
-The project is related to VGG16
+The project is heavily reference the code : https://gist.github.com/omoindrot/dedc857cdc0e680dfb1be99762990c9c
+omoindrot teaches us how to tune a vgg model
 > quote
 
 
@@ -22,10 +23,14 @@ The project is related to VGG16
 ```
 
 ## Installation
-* Other required packages.
-* How to compile from source?
+* tensorflow
+* download VGG pretrained weight, "vgg_16.ckpt", put it in "code" file.
+* download trained weight, "model.ckpt.data-00000-of-00001", put it in the "saved_model" file
+* download url : https://drive.google.com/open?id=0B3vEmk5Bd7lNRmhPSDcxbjhqMFE
 
 ### Results
+Training accuracy : 0.482
+Testing accuracy : not sure
 
 <table border=1>
 <tr>
