@@ -13,20 +13,21 @@ The project is related to Handcam dataset object classification
   
 3. Model Architure  
 
-<img src="README_files/model.png" alt="model" style="float:middle;">
+<img src="../README_files/model.png" style="float:middle;">
 
 4. Use multi-task learning, because I think free/active, gesture labels can help training object labels and avoid overfitting 
 
 5. Align lefthand ,righthand and head informations to share features and classify    
 
 6. Detail  
-* learning rate = 0.0001  
+  * learning rate = 0.0001  
   
-* add regularization hyperparameter (=0.0001) in latest fc layer 
+  * add regularization hyperparameter (=0.0001) in latest fc layer 
   
-* use one dropout
+  * use one dropout
   
-* batch size = 128
+  * batch size = 128
+
   
 
 
