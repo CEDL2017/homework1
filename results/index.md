@@ -101,8 +101,8 @@ I tried to fix Alexnet in a little extent.
 2.modify the 3fc layer into 1fc layer
 3.Different input image size (100*100 ~ 400*400)
 4.Different batchsize (1~48)
-.
-.
+(etc)
+
 However the accuracy will eventually stop by around 50%.
 Lose cannot be lower than 2
 
