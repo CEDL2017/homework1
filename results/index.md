@@ -74,7 +74,6 @@ In my opinion, this problem might due to some reasons:
 	Although I've tried 3 different optimizers with 3 sets of decaying learning rate, it seems that the model is still trapped in a local minimum.
 
 	Maybe there is still other way to break this deadlock.
-	
 + The model wasn't suitable for the task
 	Inceprtion-Resent-v2 is a model requires lots of hard-restricted 
 
