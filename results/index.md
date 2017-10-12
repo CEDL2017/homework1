@@ -6,10 +6,10 @@
 The project is related to 
 
 ## Reference
-[Pytorch Transfer Learning tutorial](http://pytorch.org/tutorials/beginner/transfer_learning_tutorial.html) <br>
-[Pretrained models for Pytorch](https://github.com/Cadene/pretrained-models.pytorch/blob/master/README.md) <br>
-[Deep Residual Learning for Image Recognition](https://arxiv.org/abs/1512.03385)
-[Inception-v4, Inception-ResNet and the Impact of Residual Connections on Learning](https://arxiv.org/abs/1602.07261)
+[Pytorch Transfer Learning tutorial](http://pytorch.org/tutorials/beginner/transfer_learning_tutorial.html) <p> 
+[Pretrained models for Pytorch](https://github.com/Cadene/pretrained-models.pytorch/blob/master/README.md) <p>
+[Deep Residual Learning for Image Recognition](https://arxiv.org/abs/1512.03385) <p>
+[Inception-v4, Inception-ResNet and the Impact of Residual Connections on Learning](https://arxiv.org/abs/1602.07261) <p>
 
 
 ## Implementation
