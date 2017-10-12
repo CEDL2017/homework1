@@ -73,10 +73,10 @@ process02.py
 
 <tr>
 <td>
-<img src="output01.png" width="80%"/>
+<img src="https://github.com/w95wayne10/homework1/blob/master/results/output01.PNG" width="80%"/>
 </td>
 <td>
-<img src="output01.png"  width="80%"/>
+<img src="https://github.com/w95wayne10/homework1/blob/master/results/output02.PNG"  width="80%"/>
 </td>
 </tr>
 
