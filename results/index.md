@@ -1,9 +1,11 @@
 # Guan-Yuan Chen <span style="color:red">(105065530)</span>
 
-#Project 5: Deep Classification
-
 ## Overview
-The project is related to 
+In this project, I used Inception-ResNet-v2 and ResNet-152 as fixed feature extractors (no finetune) to experiment and analysis the different methods for classification. Include:<p>
+```
+Code highlights
+```
+
 
 ## Reference
 [Pytorch Transfer Learning tutorial](http://pytorch.org/tutorials/beginner/transfer_learning_tutorial.html) <p> 
