@@ -70,46 +70,53 @@ The project is related to
 
 ### Results
 
+* Model weights and results output download link
+* https://drive.google.com/open?id=0Bzp53K-hmWFgdFgzQ2IxbndjbE0
+
 <table border=1>
 <tr>
-<td>
+<td colspan="2">
 Only hand-stream CNN
 </td>
 </tr>
 <tr>
-<td>
+<td style="width:50%">
 testing acc. = 54.75%, 6995/12776
 </td>
-<td>
+<td style="width:50%">
 training time ~ 3.5 hrs
 </td>
 </tr>
 <tr>
-<td>
+<td colspan="2">
 <img src="only_hand_prc.png"/>
 </td>
-<td>
+</tr>
+<tr>
+<td colspan="2">
 <img src="only_hand_cm.png"/>
 </td>
 </tr>
 <tr>
-<td>
+<td colspan="2">
 Two-streams CNN
 </td>
 </tr>
 <tr>
-<td>
-testing acc. = 59.79%, 7639/12776
+<td style="width:50%">
+testing acc. = <b>59.79%</b>, 7639/12776
 </td>
-<td>
+<td style="width:50%">
 training time ~ 7.5 hrs
 </td>
 </tr>
 <tr>
-<td>
+<td colspan="2">
 <img src="two_streams_prc.png"/>
 </td>
-<td>
+</tr>
+<tr>
+<td colspan="2">
 <img src="two_streams_cm.png"/>
 </td>
 </tr>
