@@ -3,15 +3,14 @@
 #Project 5: Deep Classification
 
 ## Overview
-The project is related to object classification. There are two different case. One is every task has itself model. The other is just one model handle multiple task (Obj, Ged and FA).
+The project is related to object classification. There are two different case. One is every task has itself model. The other is just one model handle multiple task (Obj, Ged and FA). Some experiments are not already finish so I will make up its.
 > quote https://github.com/CEDL2017/homework1
 
 
 ## Implementation
 ### Result
 <p>Average FA loss : 0.743
-<p>Average FA accuracy : 0.509
-	> use shallower network
+<p>Average FA accuracy : 0.509 (use shallower network)
 <p>Average Ges loss : 2.176
 <p>Average Ges accuracy : 0.547
 <p>Average Obj loss : 2.268
