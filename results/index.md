@@ -4,9 +4,19 @@
 In this project, I used Inception-ResNet-v2 and ResNet-152 as fixed feature extractors (no finetune) to experiment and analysis the different methods for classification. <br> 
 Include:<p>
 
-- [`ResNet-152_FE_batch256.py`](https://github.com/guan-yuan/homework1/blob/master/ResNet-152_FE_batch256.py):
-:
+- [`ResNet-152_FE_batch256.py`](https://github.com/guan-yuan/homework1/blob/master/ResNet-152_FE_batch256.py):<p>
+	
+- [`ResNet-152_FE_batch256_crop232.py`](https://github.com/guan-yuan/homework1/blob/master/ResNet-152_FE_batch256_crop232.py):<p>
+	
+- [`ResNet-152_FE_batch256_crop224.py`](https://github.com/guan-yuan/homework1/blob/master/ResNet-152_FE_batch256_crop224.py):<p>
 
+- [`Two_stream_InceptionResNetV2_FE_batch64_dropout03.py`](https://github.com/guan-yuan/homework1/blob/master/Two_stream_InceptionResNetV2_FE_batch64_dropout03.py):<p>
+	
+- [`Two_stream_ResNet-152_FE_batch64_dropout03.py`](https://github.com/guan-yuan/homework1/blob/master/Two_stream_ResNet-152_FE_batch64_dropout03.py):<p>
+	
+- [`Two_stream_ResNet-152_with_InceptionResNetV2_FE_batch32_dropout03.py`](https://github.com/guan-yuan/homework1/blob/master/Two_stream_ResNet-152_with_InceptionResNetV2_FE_batch32_dropout03.py):<p>
+	
+- [`Two_stream_ResNet-152_with_InceptionResNetV2_FE_batch32_dropout01.py`](https://github.com/guan-yuan/homework1/blob/master/Two_stream_ResNet-152_with_InceptionResNetV2_FE_batch32_dropout01.py):<p>
 
 ## Reference
 [Pytorch Transfer Learning tutorial](http://pytorch.org/tutorials/beginner/transfer_learning_tutorial.html) <p> 
