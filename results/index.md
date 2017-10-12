@@ -8,13 +8,17 @@ The project is related to VGG16
 
 
 ## Implementation
-1. One
-	* item
-	* item
-2. Two
+1. Fine-tune a vgg-16
+	* restore a pretrained weight (exclude fc8)
+	* train a new fc8
+	* train the whole model
+	* save the trained weight
+2. test.py
+	* load testing data
+	* calculate accuracy
 
 ```
-Code highlights
+
 ```
 
 ## Installation
