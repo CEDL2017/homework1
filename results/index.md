@@ -47,7 +47,7 @@ and put into `./snapshots`
 ## Testing accuracy
 | Model | Accuracy |  
 |-------|----------|
-| ResNet50| **66.93%** |
+| ResNet50| **67.07%** |
 
 ## Confusion Matrix 
 ![](https://github.com/hellochick/homework1-1/blob/master/results/cm.png)
