@@ -120,27 +120,10 @@ To run the code just simply type **python [whatever].py**.<br />
 
 Precision recall curve
 
-accuracy
+Accuracy
+![inception-resnet-v2-optimal-accuracy-curve](https://imgur.com/TF1iMZV)
+Loss
+![inception-resnet-v2-optimal-loss-curve](https://imgur.com/pnOcKIq)
 
-<table border=1>
-<tr>
-<td>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg"  width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-</td>
-</tr>
-
-<tr>
-<td>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg"  width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-</td>
-</tr>
-
-</table>
 
 
