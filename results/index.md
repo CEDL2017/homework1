@@ -35,7 +35,7 @@ All code files are stored in the root folder.
 
 
 ### Results
-The average test accuracy is about 67.8% on the test dataset after 80 epoch.
+The average test accuracy is about 67.7% on the test dataset after 80 epoch.
 
 <center>
 <img src="result.png" alt="overview" style="float:middle;">
