@@ -45,7 +45,7 @@ Due to the considerations of computational resources and efficiency (DeepQ do no
 [`Two_stream_ResNet-152_with_InceptionResNetV2_FE_batch32_dropout03.py`](https://github.com/guan-yuan/homework1/blob/master/Two_stream_ResNet-152_with_InceptionResNetV2_FE_batch32_dropout03.py)<p>
 [`Two_stream_ResNet-152_with_InceptionResNetV2_FE_batch32_dropout01.py`](https://github.com/guan-yuan/homework1/blob/master/Two_stream_ResNet-152_with_InceptionResNetV2_FE_batch32_dropout01.py)<p>
 <div align=left>
-<img src="https://github.com/guan-yuan/homework1/blob/master/output/models.png" width = "50%" alt=""/>
+<img src="https://github.com/guan-yuan/homework1/blob/master/output/models.png" width = "100%" alt=""/>
 </div>
 
 
