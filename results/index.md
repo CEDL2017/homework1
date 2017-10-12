@@ -86,4 +86,12 @@ Download from the "Link", then replace the "./save" folder.
 <img src="https://github.com/guan-yuan/homework1/blob/master/output/two_stream_testing.png" width = "50%" alt=""/>
 </div>
 
+### The Best Top1 Testing Accracy
+| Model | Accuracy |  
+|-------|----------|
+| `Two_stream_ResNet-152_FE_batch64_dropout03`| 0.662% |
+| `Two_stream_InceptionResNetV2_FE_batch64_dropout03`| 0.708% |
+| `Two_stream_ResNet-152_with_InceptionResNetV2_FE_batch32_dropout03`| 0.712% |
+| `Two_stream_ResNet-152_with_InceptionResNetV2_FE_batch32_dropout01`| **0.717%** |
+
 
