@@ -41,9 +41,9 @@ The py-file firstly do the data preparing.<br />
 It loads labels data into program and process them and train images as QueueRunner for tf.train.batch.<br />
 
 The code following data preparation is about loading Inception-Resnet architecture which is provided by tf-slim's **inception-resnet.py** with total nearly 500 trainable variables.<br />
-Then, we only train the specific layers we want, which are layers in the tail of the figure above.
-They are Logit and Auxiliary Logit scope's layers, which is in charge of the final output of model.
-
+Then, we only train the specific layers we want, which are layers in the tail of the figure above. <br />
+They are Logit and Auxiliary Logit scope's layers, which is in charge of the final output of model. <br />
+ 
 ```Python
     with slim.arg_scope(inception_resnet_v2_arg_scope()):
         logits, end_points = inception_resnet_v2(batch_image, 
@@ -56,23 +56,23 @@ They are Logit and Auxiliary Logit scope's layers, which is in charge of the fin
 
 I've tried the **Adam optimizer, Momentum optimizer**(momentum = 0.9, 0.95), **RMSProp optimizer**, learning rate starts at 0.045, 0.001, 0.0002 with decay 0.7/0.8/0.9 per 2 epochs.<br />
 Inception model also requires certain preprocessing that every pixel in the image should be (-1, 1).<br />
-Moreover, Tensorflow offers a way to do preprocessing, and this preprocessing method also does data augmentation on the training image.
+The loss function is **softmax cross entropy**.
+Moreover, Tensorflow offers a way to do preprocessing, and this preprocessing method also does data augmentation on the training image. <br />
 
-However, the loss hardly decreases, and the accuracy converges only to nearly 50%.
-
+However, the loss hardly decreases, and the accuracy converges only to nearly 50%
 In my opinion, this problem might due to some reasons:<br />
-+ The weights aren't properly initialized or trained<br />
++ **The weights aren't properly initialized or trained<br />**
 	There might be some mistakes made by my coding error which results in the bad performance.
 	For example, the code should only initialize layers not to be trained, and train only specific scopes(Logits, AuxLogits).<br />
 	However, the performance seems that I train the model from scratch.<br />
 	The model hardly extracts any feature from images.<br />
 	
-+ Inproper paramater tuning<br />
++ **Inproper paramater tuning<br />**
 	The model always reaches to same convergence no matter what the parameter was set.<br />
 	Although I've tried 3 different optimizers with 3 sets of decaying learning rate, it seems that the model is still trapped in a local minimum.
 
 	Maybe there is still other way to break this deadlock.<br />
-+ The model wasn't suitable for the task<br />
++ **The model wasn't suitable for the task<br />**
 	Inceprtion-Resent-v2 is a very complex model, it's feature extraction might not be able to catch features in handcam's photo.<br />
 	There are also possibilites that the choices of which layers to be trained is wrong. <br />
 	Maybe too much or too less layers to be altered.<br />
@@ -80,11 +80,22 @@ In my opinion, this problem might due to some reasons:<br />
 
 ### 2. vgg-16
 
+![](https://www.cs.toronto.edu/~frossard/post/vgg16/vgg16.png)
+
+As a result, vgg-16 is a model more easier to do tranfer learning.
+
+The training concepts are similar. Tensorflow releases vgg-16's architecture in tf-slim's library. <br />
+Once we define which parts of layers to be loaded and wihch to be trained, we can load the pretrained vgg.16 checkpoint file to initialize. <br />
+The trained layers are the last 3 layers fully-connected 6, fc7 and fc8. There are Dropout layers between each of them. <br />
+In this case **GradientDescent** optimizer performs very well. <br />
+The streaming accuracy rises and the loss drops stably. <br />
+
+When it reaches convergence, the training accuracy is 90% and the testing accuracy is .
 
 
 ## Installation
-* Other required packages.
-* How to compile from source?
+Required package: Tensorflow, tf.slim, numpy and anything the code in trainer file imports.<br />
+The pretrained models can be found [here](https://arxiv.org/abs/1512.01881).<br />
 
 ### Results
 
