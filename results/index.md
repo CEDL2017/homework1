@@ -8,8 +8,12 @@ The project is related to object classification. There are two different case. O
 
 
 ## Implementation
-
-### spotlight code
+### Result
+<p>Average FA loss : 0.743
+<p>Average FA accuracy : 0.509
+<p>
+	
+### Spotlight code
 
 ```
 with tf.name_scope('C1_Conv'):
