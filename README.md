@@ -2,19 +2,23 @@
 <img src="README_files/overview.png" alt="overview" style="float:middle;">
 </center>
 
-# (Optional) Project 5: Deep Classification
+# Deep Classification
 
 
+=======
+## updates
+- 27/9/2017: provide [subset of dataset](https://drive.google.com/drive/folders/0B3fKFm-j0RqeWGdXZUNRUkpybU0?usp=sharing), separated into train/test set
+- 27/9/2017: in this homework, we only evaluat the performance of object classification. You can use other label for multi-task learning, etc.
+- 4/10/2017: Due: Oct. 12, 11:59pm.
 
 ## Brief
-* Due to an one week delay of class, homework 5 is optional. 
 * ***+2 extra credit of the whole semester***
-* Due: <b>Dec. 28</b>, 11:59pm.
+* Due: <b>Oct. 5</b>, 11:59pm.
 * Required files: results/index.md, and code/
 * [Project reference](http://aliensunmin.github.io/project/handcam/)
 
 
-##Overview
+## Overview
 
 
 Recently, the technological advance of wearable devices has led to significant interests in recognizing human behaviors in daily life (i.e., uninstrumented environment). Among many devices, egocentric camera systems have drawn significant attention, since the camera is aligned with the field-of-view of wearer, it naturally captures what a person sees. These systems have shown great potential in recognizing daily activities(e.g., making meals, watching TV, etc.), estimating hand poses, generating howto videos, etc.
@@ -26,17 +30,7 @@ HandCam (Fig. 1), a novel wearable camera capturing activities of hands, for rec
 ## Requirement   
 
 - Python
-- [Caffe](https://github.com/BVLC/caffe)
-- (Optional) [TensorFlow](https://github.com/tensorflow/tensorflow)
-
-### Install Caffe
-
-Check out the [project site](http://caffe.berkeleyvision.org) for all the details like
-
-- [DIY Deep Learning for Vision with Caffe](https://docs.google.com/presentation/d/1UeKXVgRvvxg9OUdh_UiC5G71UMscNPlvArsWER41PsU/edit#slide=id.p)
-- [Tutorial Documentation](http://caffe.berkeleyvision.org/tutorial/)
-- [BVLC reference models](http://caffe.berkeleyvision.org/model_zoo.html) and the [community model zoo](https://github.com/BVLC/caffe/wiki/Model-Zoo)
-- [Installation instructions](http://caffe.berkeleyvision.org/installation.html)
+- [TensorFlow](https://github.com/tensorflow/tensorflow)
 
 ## Data
 
