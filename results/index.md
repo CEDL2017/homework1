@@ -1,6 +1,8 @@
 # Your Name <span style="color:red">(id)</span>
+name: 何元通
+ID: 105062575
 
-#Project 5: Deep Classification
+# Homework 1 : Deep Classification
 
 ## Overview
 The project is related to 
