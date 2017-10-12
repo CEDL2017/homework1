@@ -55,9 +55,9 @@ Transform data into tfrecord type:
 	
 * **How to compile from source?**
   1. Clone my code files to local.  
-  2. Change the train path in and data path in readfile.py.  
+  2. Change the train path and data path in readfile.py.  
      (**Just modify some path part before place_name list**)
-     
+	 
      **obj_label_path、train_path**
 	 
 	 ```python
