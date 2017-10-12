@@ -9,7 +9,7 @@ The project is to implement a deep-learning-based method to recognize `object ca
 1. **Single-stream ConvNet.** Utilizing only HandCam. 
 
 2. **Number of Trainable Layers.** In transfer learning, it is possible to fine-tune all the layers of the ConvNet, or to keep only some of the earlier layers fixed and only fine-tune some higher-level layers of the network. Several pilot experiments are performed to observe the trend, and found fine-tuning all the layers is hard to converge and has overfitting concerns. As a result, the accuracy of tunning all layers is approximately `5%` lower than only fine-tuning the three fully-connected layers. Thus, to avoid overfitting and save time, we first train only the last three FC layers for 50 epochs, then we train the whole network for another 10 epochs.
-3. **Two-streams ConvNet.** Utilizing both HandCam and HeadCam. Dropout layers are insert between FC layers to avoid overfitting. ![Uploading file..._1drzflvgs]()
+3. **Two-streams ConvNet.** Utilizing both HandCam and HeadCam. Dropout layers are insert between FC layers to avoid overfitting.
 
 	* AlexNet
 ![](https://i.imgur.com/xTe4D4N.png)
@@ -44,22 +44,22 @@ Developed on PC with:
 
 ## Results
 1. **Free/Active.** The left figure below shows that VGG16 generally outperforms AlexNet on the dataset. Moreover, 2-Stream networks taking advantage of both HandCam and HeadCam have better accuracies. Due to time constraints, only 5 epochs are trained. As the right figure shows, after traing 2-Stream VGG16 for 50 epochs, the accuracy reaches `0.7328` and still indicates an increasing trend.
-![](https://i.imgur.com/nalHThp.png =300x)![](https://i.imgur.com/gLXUxR7.png =300x)
+![](https://i.imgur.com/nalHThp.png)![](https://i.imgur.com/gLXUxR7.png)
      
 2. **Object Categories.** As the left figure shows , dropout layers provide a simple way to avoid overfitting. We kept most of the earlier layers fixed and train 50 epochs, reaching the accuracy around `0.6350`. Then we retrain all layers for another 10 epochs and the accuracy reaches `0.6434`. Noted that while training all layers, it's hard to converge and cost a lot of time. 
-![](https://i.imgur.com/0yCBctx.png =300x)![](https://i.imgur.com/Yr2T15s.png =300x)
+![](https://i.imgur.com/0yCBctx.png)![](https://i.imgur.com/Yr2T15s.png)
 
     A screenshot of the Tensorboard visualizing training accuracy and loss.
-![](https://i.imgur.com/9gWgRaj.png =700x)
+![](https://i.imgur.com/9gWgRaj.png)
 
     This is the heatmap of the final classification confusion matrix, where each alphabet corresponds to one category. As the figure shows, the best predicted categry is `A`, `H`, and `G`, which is `free`, `whiteboard-eraser`, and `whiteboard-pen`, respectively. The worst predicted categry is `Q`, `M`, and `Y`, which is `water-tap`, `switch`, and `lamp-switch`, respectively.
-![](https://i.imgur.com/YsXvVaM.png =600x)
+![](https://i.imgur.com/YsXvVaM.png)
 
-    While in precision-recall, the best predicted classes are `free`, `whiteboard-pen`, and `cupboard`. The worst predicted classes are `magnet` `switch` `ruler`.
-![](https://i.imgur.com/2N3x729.png =600x)
+    While in precision-recall, the best classes are `free`, `whiteboard-pen`, and `cupboard`. The worst  classes are `magnet` `switch` `ruler`.
+![](https://i.imgur.com/2N3x729.png)
 
     The Average precision score(AUC), micro-averaged over all classes: AUC=`0.64`
-![](https://i.imgur.com/gwxL6c2.png =600x)
+![](https://i.imgur.com/gwxL6c2.png)
 
 
 
