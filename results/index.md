@@ -27,7 +27,7 @@ The project is related to
 
 <table border=1>
 <tr>
-The accuracy is 0.6102066374452098
+The accuracy is 61%
 </tr>
 
 <tr>
