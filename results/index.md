@@ -121,9 +121,15 @@ To run the code just simply type **python [whatever].py**.<br />
 Precision recall curve
 
 Accuracy
+
 Inception-Resnet-v2 optimal accuracy curve
 ![](https://imgur.com/TF1iMZV.png)
+
 Loss
+
+vgg-16 optimal loss curve
+![](https://i.imgur.com/DyTnrq2.png)
+
 Inception-Resnet-v2 optimal loss curve
 ![](https://imgur.com/pnOcKIq.png)
 
