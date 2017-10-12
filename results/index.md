@@ -6,7 +6,8 @@
 The project is related to 
 > tensorflow
 > vgg16
-
+model和權重如下
+https://drive.google.com/drive/folders/0B4i3Xp6AJX7YSExOMEMxYTBxWnM?usp=sharing
 
 ## Implementation
 1. tensorflow_finetune
