@@ -36,7 +36,7 @@ Therefore, The first six layers are used as a bottleneck and the last one is a c
 
 ELU outperformed RELU, which I think may due to dead neurons created by RELU.
 
-# Optimization
+### Optimization
 
 Stochastic gradient descent
 
@@ -51,3 +51,5 @@ scipy
 keras and its requirements
 
 ### Results
+
+https://www.dropbox.com/sh/p4av3keskz0bxjq/AABu-1y25p5lahixQg81528Ga?dl=0
