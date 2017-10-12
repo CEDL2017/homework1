@@ -89,7 +89,7 @@ The results showed below explain that the different croped sizes have small effe
 <img src="https://github.com/guan-yuan/homework1/blob/master/output/diff_DA_testing.png" width = "50%" alt=""/>
 </div>
 
-2. 
+2. The results showed below display the performance on Inception-ResNet-v2 and ResNet-152 models training on hand and head images separately.
 
 <div align=left>
 <img src="https://github.com/guan-yuan/homework1/blob/master/output/one_stream_training.png" width = "50%" alt=""/>
@@ -99,6 +99,8 @@ The results showed below explain that the different croped sizes have small effe
 <img src="https://github.com/guan-yuan/homework1/blob/master/output/one_stream_testing.png" width = "50%" alt=""/>
 </div>
 
+3. The results showed below display the performance on two streams and double two streams models training on hand and head images jointly. Interestingly, although the ResNet-152 has the obvious higher accuracy on hand images (test), at the two streams case the 
+Inception-ResNet-v2 outperform than ResNet-152 (test). And we can find that, the ResNet-152 model prone to overfiting than Inception-ResNet-v2.
 
 <div align=left>
 <img src="https://github.com/guan-yuan/homework1/blob/master/output/two_stream_training.png" width = "50%" alt=""/>
