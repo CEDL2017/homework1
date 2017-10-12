@@ -4,7 +4,7 @@
 
 ## Overview
 The project is related to 
-> quote
+(T)[http://pytorch.org/tutorials/beginner/transfer_learning_tutorial.html]
 
 
 ## Implementation
