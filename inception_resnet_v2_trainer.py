@@ -57,8 +57,8 @@ img_num = len(label)
 log_dir = '../log'
 
 #State where your checkpoint file is
-# checkpoint_file = '../inception_resnet_v2_2016_08_30.ckpt'
-checkpoint_file = '../vgg_16.ckpt'
+checkpoint_file = '../inception_resnet_v2_2016_08_30.ckpt'
+# checkpoint_file = '../vgg_16.ckpt'
 
 #State the number of classes to predict:
 obj = { 'free':0,
@@ -87,10 +87,10 @@ obj = { 'free':0,
         'lamp-switch':23}
 
 num_classes = len(obj)
-num_epochs = 80
-batch_size = 32
+num_epochs = 20
+batch_size = 4
 initial_learning_rate = 0.001
-learning_rate_decay_factor = 0.9
+learning_rate_decay_factor = 0.8
 num_epochs_before_decay = 2
 
 if not os.path.exists(log_dir):
@@ -108,8 +108,8 @@ with tf.Graph().as_default() as graph:
     num_steps_per_epoch = num_batches_per_epoch
     decay_steps = int(num_epochs_before_decay * num_steps_per_epoch)
 
-    height = 224
-    width = 224
+    height = 299
+    width = 299
     num_threads = 4
 
     image_names = tf.train.match_filenames_once('../frames/train/*/*/*hand/Image*.png')
@@ -139,28 +139,26 @@ with tf.Graph().as_default() as graph:
     print('batch prepared, total size:', img_num)
 
     #Create the model inference
-    # with slim.arg_scope(inception_resnet_v2_arg_scope()):
-    #     logits, end_points = inception_resnet_v2(batch_image, 
-    #                                              num_classes = num_classes, 
-    #                                              is_training = True)
+    with slim.arg_scope(inception_resnet_v2_arg_scope()):
+        logits, end_points = inception_resnet_v2(batch_image, 
+                                                 num_classes = num_classes, 
+                                                 is_training = True)
 
-    logits, end_points = vgg.vgg_16(batch_image, 
-                                    num_classes = num_classes,
-                                    is_training = False)
-    variables_to_restore = slim.get_variables_to_restore(exclude=['vgg_16/fc6', 'vgg_16/fc7', 'vgg_16/fc8'])
+    # predictions, end_points = vgg.vgg_16(batch_image, 
+    #                                      num_classes = num_classes,
+    #                                      is_training=True)
+    # variables_to_restore = slim.get_variables_to_restore(exclude=['vgg_16/fc6', 'vgg_16/fc7', 'vgg_16/fc8'])
 
     # init_fn = assign_from_checkpoint_fn(model_path, variables_to_restore)
 
-    # exclude = ['InceptionResnetV2/AuxLogits',
-    #            'InceptionResnetV2/Logits']
-    # variables_to_restore = slim.get_variables_to_restore(exclude = exclude)
+    exclude = ['InceptionResnetV2/AuxLogits',
+               'InceptionResnetV2/Logits']
+    variables_to_restore = slim.get_variables_to_restore(exclude = exclude)
 
     one_hot_labels = slim.one_hot_encoding(batch_label, num_classes)
-    # loss = tf.losses.softmax_cross_entropy(onehot_labels = one_hot_labels, 
-    #                                        logits = logits)
-    total_loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits= logits,
-                                                                  labels= one_hot_labels))                                      
-    # total_loss = tf.losses.get_total_loss()
+    loss = tf.losses.softmax_cross_entropy(onehot_labels = one_hot_labels, 
+                                           logits = logits)
+    total_loss = tf.losses.get_total_loss()
 
     global_step = get_or_create_global_step()
 
@@ -170,28 +168,17 @@ with tf.Graph().as_default() as graph:
         decay_steps = decay_steps,
         decay_rate = learning_rate_decay_factor,
         staircase = True)
-    optimizer = tf.train.GradientDescentOptimizer(learning_rate = lr)
+    optimizer = tf.train.AdamOptimizer(learning_rate = lr)
 
     variables_to_train = tf.trainable_variables()
     len_var_train = len(variables_to_train) 
 
-    # train_op = slim.learning.create_train_op(total_loss = total_loss, 
-    #                                         optimizer = optimizer,
-    #                                         variables_to_train = variables_to_train[len_var_train - 6 : len_var_train])
-
-    # Get gradients of all trainable variables
-    gradients = tf.gradients(total_loss, variables_to_train[len_var_train - 6 : len_var_train])
-    gradients = list(zip(gradients, variables_to_train[len_var_train - 6 : len_var_train]))
-
-    # Create optimizer and apply gradient descent to the trainable variables
-    optimizer = tf.train.GradientDescentOptimizer(learning_rate = lr)
-    train_op = optimizer.apply_gradients(grads_and_vars=gradients)
-
-    # predictions = tf.argmax(end_points['Predictions'], 1)
-    probabilities = tf.nn.softmax(logits)
-    predictions = tf.argmax(probabilities, 1)
-    accuracy, accuracy_update = tf.contrib.metrics.streaming_accuracy(predictions, batch_label)
-    metrics_op = tf.group(accuracy_update, probabilities)
+    train_op = slim.learning.create_train_op(total_loss = total_loss, 
+                                            optimizer = optimizer)
+                                           
+    predictions = tf.argmax(end_points['Predictions'], 1)
+    probabilities = end_points['Predictions']
+    accuracy, accuracy_update = tf.contrib.metrics.streaming_accuracy(predictions, [batch_label])
     # metrics_op = tf.group(accuracy_update, probabilities)
     
     print('Graph builded')
@@ -205,14 +192,10 @@ with tf.Graph().as_default() as graph:
     saver = tf.train.Saver(variables_to_restore)
     def restore_fn(sess):
         return saver.restore(sess, checkpoint_file)
-    
-    # slim.learning.train(train_op, log_dir, init_fn = restore_fn)
-    
+
     sv = tf.train.Supervisor(logdir = log_dir, summary_op = None, init_fn = restore_fn)
     print('Ready to run the session')
 
-    # config = tf.ConfigProto()
-    # config.gpu_options.allow_growth = True
     #Run the managed session
     with sv.managed_session() as sess:
         coord = tf.train.Coordinator()
@@ -221,31 +204,21 @@ with tf.Graph().as_default() as graph:
         for step in range(num_steps_per_epoch * num_epochs):
             if step % num_batches_per_epoch == 0:
                 logging.info('Epoch %s/%s', step/num_batches_per_epoch + 1, num_epochs)
-
-            _, global_step_count, _ = sess.run([train_op, sv.global_step, metrics_op])
             
-            if step % 33 == 0:
+            total_loss, global_step_count = sess.run([train_op, sv.global_step])
+            if step % 20 == 0:
                 # total_loss, global_step_count, _ = sess.run([train_op, sv.global_step, metrics_op])
-                # logging.info('global step %s: loss: %.4f', global_step_count, total_loss_value)
-                logging.info('step %s', step)
+                logging.info('global step %s: loss: %.4f', global_step_count, total_loss)
                 summaries = sess.run(my_summary_op)
                 sv.summary_computed(sess, summaries)
-                learning_rate_value, accuracy_value = sess.run([lr, accuracy])
-                logging.info('Current Learning Rate: %s', learning_rate_value)
-                logging.info('Current Streaming Accuracy: %s', accuracy_value)
-                predictions_value, labels_value = sess.run([predictions, batch_label])
-                print('predictions:')
-                print(predictions_value)
-                print('label:')
-                print(labels_value)
         
         # Finish off the filename queue coordinator.
         coord.request_stop()
         coord.join(threads)
 
         #We log the final training loss and accuracy
-        # logging.info('Final Loss: %s', loss)
-        # logging.info('Final Accuracy: %s', sess.run(accuracy))
+        logging.info('Final Loss: %s', loss)
+        logging.info('Final Accuracy: %s', sess.run(accuracy))
 
         #Once all the training has been done, save the log files and checkpoint model
         logging.info('Finished training! Saving model to disk now.')
