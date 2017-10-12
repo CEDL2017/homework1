@@ -26,14 +26,14 @@ lr = base_lr * (1 - iter/max_iter) ^ (power)
 ```
 
 ### Hyper parameter
-*  EPOCH = 20
-*  BASE_lr = 0.001
-*  POEWR = 0.9
-*  Batch_size = 64
+*  EPOCH = **20**
+*  BASE_lr = **0.001**
+*  POEWR = **0.9**
+*  Batch_size = **64**
 *  Optimizer: Using **Adam optimizer**
 
 ### Data Augementation & Pre-processing
-1. Resize to 500 x 500
+1. Resize to **500 x 500**
 2. Random left-right flip
 3. Subtract Image mean 
 
