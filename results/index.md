@@ -1,6 +1,4 @@
-# Kuanwei Ho<span style="color:red">(103062134)</span>
-
-#Project 5: Deep Classification
+# CEDL_HW1 Kuanwei Ho<span style="color:red">(103062134)</span>
 
 ## Overview
 The project is related to accomplish image classification task in transfer learning method.<br /> 
@@ -121,6 +119,10 @@ homework1\<br />
 To run the code just simply type **python [whatever].py**.<br />
 
 ### Results
+
+Precision recall curve
+
+accuracy
 
 <table border=1>
 <tr>
