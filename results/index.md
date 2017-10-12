@@ -11,7 +11,7 @@ The project is related to object recognition of the images from hand cameras. Th
 > <a href="https://github.com/tensorflow/models/tree/master/research/slim#Pretrained">Pretrained model of Inception resnet source</a>
 
 ## Implementation
-In this implementation, I used inception_resnet and the model which is pretrained with ImageNet. Baceuse we only have 24 classes instead of 1000 classes which is the original classes number of imageNet, I excluded the weight of the last layer when loading weight.
+In this implementation, I used inception_resnet and the model which is pretrained with ImageNet. Baceuse we only have 24 classes instead of 1000 classes which is the original classes number of imageNet, I excluded the weight of the last layer when loading weight. Furthermore, because the original database is too large (51GB), I resize all the image with img_resize.py initially.
 
 ### Optimizer
 I tried two optimizer. One is `tf.train.GradientDescentOptimizer()`. The other is `tf.train.AdamOptimizer()`. When using Gradient Descent, the training loss declines gradually, but it is too slow. So, I change the aptimizer to Adam, the loss declines more quickly, but soon the loss would not decline any more. 
@@ -26,17 +26,24 @@ But this model is not the original resnet model, I also tried Inception Image Pr
 * tensoflow (Anaconda)
 
 ## Results
-x-axis is epoch number, y-axis is accuracy
+x-axis is epoch number, y-axis is accuracy<br>
+I test the model every 5 epoch
 
 Use Image Preprocessing of VGG16 and inception resnet<br>
-The best accuracy is 
+The best accuracy is 0.619
 ![vgg result](vgg.png)
 
-Use Inception Image Preprocessing and inception resnet
+Use Inception Image Preprocessing and inception resnet<br>
+The best accuracy is 0.5
+![inception result](inception.png)
 
-Use modified Inception Image Preprocessing and inception resnet
+Use modified Inception Image Preprocessing and inception resnet<br>
+The best accuracy is <b>0.649</b>
+![inception modified result](inception_m.png)
 
 ### Future works
-
+The training data is pretty bias. Just like shown below, alomost half of labels is 1 (which is 0 in original paper, means free.) In this situation, we may get onebatch with more than half of data is free. It would cause the model training going to be close to somewhere. So, my thought is that maybe we can remove some of "free" images to acheive the balance of classes.
+![](circle_char_of_train.png)
+![](bar_char_of_train.png)
 
 
