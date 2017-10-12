@@ -122,8 +122,8 @@ Lose cannot be lower than 2
 <table border=1>
 <tr>
 <td>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg"  width="24%"/>
+<img src=".jpg" width="24%"/>
+<img src="/home/benita/Downloads/CEDLHW1.png"  width="24%"/>
 <img src="placeholder.jpg" width="24%"/>
 <img src="placeholder.jpg" width="24%"/>
 </td>
