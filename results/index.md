@@ -1,17 +1,16 @@
-# Your Name <span style="color:red">(id)</span>
+# Jhen-Yu Jhang <span style="color:red">(id: 105061516)</span>
 
 #Project 5: Deep Classification
 
 ## Overview
 The project is related to 
-> quote
+> Make a classifier for dataset: handcam.
 
 
 ## Implementation
-1. One
-	* item
-	* item
-2. Two
+1. Python
+2. Tensorflow
+	* Slim
 
 ```
 Code highlights
@@ -19,7 +18,7 @@ Code highlights
 
 ## Installation
 * Other required packages.
-* How to compile from source?
+* Sklearn
 
 ### Results
 
