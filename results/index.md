@@ -66,7 +66,7 @@ The goal of this project is to classify the objects of the HandCam images.
 	python main.py --data_dir=[DATA_DIR] --evaluate --resume=[CHECKPOINT_PATH] --arch=[resnet18/resnet50 (depend on your checkpoint model)]
 	```
 
-### Results
+## Results
 
 <table>
 <tr>
@@ -94,7 +94,10 @@ Accuracy
 
 </table>
 
+<img src="loss.PNG" width="60%"/>
+<img src="accuracy.PNG" width="60%"/>
 
+Resnet50 has the higher performance than Resnet18.
 
 
 
