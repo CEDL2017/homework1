@@ -22,6 +22,10 @@ Code highlights
 * How to compile from source?
 
 ### Results
+<div align=left>
+<img src="https://github.com/guan-yuan/homework1/blob/master/output/two_stream_testing.png" width = "80%" alt="hierarchical softmax computations"/>
+</div>
+
 
 <table border=1>
 <tr>
