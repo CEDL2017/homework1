@@ -20,44 +20,47 @@ NUM_CLASSES = 24
 
 #load file
 def load_file(data_dir, data_type):
-  '''
-  load path from text file.  
-  
-  data_type: image or label
-  '''
-  print('Reading' + data_type + '...')
-  
-  path = []
-  data_file = open(data_dir, 'r')
-  
-  for line in image_file:
-    if data_type == 'image':
-      line = os.path.join(line)
-      path.append(line)
-    elif data_type == 'label':
-      data = np.load(line)    
-      path.extend(data)
-      
-  print( 'Size: {}'.format(len(path)))  
-  
-  return path
+	'''
+	load path from text file.
+	
+	data_type: image or label
+	'''
+	print('Reading ' + data_type + '...')
+	data = []	
+	file = open(data_dir, 'r')
+	
+	for line in file:
+		line = line.rstrip()
+		if data_type == 'image':		
+			line = os.path.join(line)			
+			data.append(line)
+		elif data_type == 'label':
+			temp_data = np.load(line)
+			data.append(temp_data)
+	
+	if data_type == 'label':
+		data = np.concatenate(data)	
+	
+	print( 'Size: {}'.format(len(data)))
+	
+	return data
 
 def load_preprocess(images_path, labels, is_training):
-  '''
-  Images preprocessing. Resize and crop the images
-  '''
+	'''
+	Images preprocessing. Resize and crop the images
+	'''
 	no_processsed = tf.read_file(images_path)
 	image = tf.image.decode_png(no_processsed, channels=3)
 	image = tf.cast(image, tf.float32)
 	pre_processed = tf.cond(is_training,
-					true_fn=lambda: vgg_preprocessing.preprocess_image(image, 224, 224, is_training=True),
+					true_fn=lambda: vgg_preprocessing.preprocess_image(image, 224, 224, is_training=False),
 					false_fn=lambda: vgg_preprocessing.preprocess_image(image, 224, 224, is_training=False))
 	return pre_processed, labels
 
 def evaluate(sess, loss, correct_prediction, data_initial, feed_dict):
-  '''
-  Calculate loss and accuracy.
-  '''
+	'''
+	Calculate loss and accuracy.
+	'''
 	sess.run(data_initial, feed_dict=feed_dict)
 
 	data_loss = 0
@@ -80,15 +83,15 @@ def evaluate(sess, loss, correct_prediction, data_initial, feed_dict):
 
 def main(_):
 
-  graph = tf.Graph()
-  #Construct the network
+	graph = tf.Graph()
+	#Construct the network
 	with graph.as_default():
-    #Input and output
+		#Input and output
 		is_training = tf.placeholder(dtype = tf.bool, name = 'is_training')
 		images = tf.placeholder(dtype = tf.string, shape=(None,), name = 'images')
 		labels = tf.placeholder(dtype = tf.int32, shape=(None,), name = 'labels')
 	  
-    #Data batch
+		#Data batch
 		data = tf.contrib.data.Dataset.from_tensor_slices((images, labels))
 		data = data.map(lambda image, label: load_preprocess(image, label, is_training))
 		data = data.shuffle(buffer_size=10000)
@@ -98,7 +101,7 @@ def main(_):
 		batched_images, batched_labels = iterator.get_next()
 		data_initial = iterator.make_initializer(batched_data)
 		
-    #load pre-trained model
+		#load pre-trained model
 		with slim.arg_scope(iResnetV2.inception_resnet_v2_arg_scope()):
             logits, _ = iResnetV2.inception_resnet_v2(batched_images, num_classes = NUM_CLASSES, is_training = is_training)
 		
@@ -110,30 +113,32 @@ def main(_):
 		loss = tf.losses.get_total_loss()
 		
 		optimizer = tf.train.AdamOptimizer()
-	  train_op = optimizer.minimize(loss) 
+		train_op = optimizer.minimize(loss) 
 
-	  prediction = tf.to_int32(tf.argmax(logits, 1))
-	  correct_prediction = tf.equal(prediction, batched_labels)
-	  accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
-	  init = tf.global_variables_initializer()
-	  saver = tf.train.Saver()
+		prediction = tf.to_int32(tf.argmax(logits, 1))
+		correct_prediction = tf.equal(prediction, batched_labels)
+		accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+		init = tf.global_variables_initializer()
+		saver = tf.train.Saver()
      
      
-  #loading data   
+	#loading data   
 	training_images = load_file(TRAIN_IMAGE, 'image')
-  training_labels = load_file(TRAIN_LABEL, 'label')
+	training_labels = load_file(TRAIN_LABEL, 'label')
 	testing_images = load_file(TEST_IMAGE, 'image')
-  testing_labels = load_file(TEST_IMAGE, 'label')
+	testing_labels = load_file(TEST_IMAGE, 'label')
   
-  #initialize
+	#initialize
 	sess = tf.Session(graph=graph)
 	sess.run(init) 
 	#saver.restore(sess, MODEL_PATH)
 	init_fn(sess)
 	
 	training_log = open('log.txt', 'w')
+	current_train_acc = 0 
+	current_test_acc = 0	
 
-  #Training
+	#Training
 	for epoch in range(TOTAL_EPOCH):
 		sess.run(data_initial, feed_dict={images: training_images,
 											labels: training_labels,
@@ -142,7 +147,7 @@ def main(_):
 		while True:
 			try:				
 				_ = sess.run(train_op, feed_dict={is_training: True})				
-				print('[Epoch]: {} |[Batch]: {}'.format(epoch, count))				
+				print('[Epoch]: {} |[Batch]: {} |[accuracy] train: {} | test: {}'.format(epoch, count, current_train_acc, current_test_acc))
 				count = count+1 
 			except tf.errors.OutOfRangeError:
 				break
@@ -167,7 +172,10 @@ def main(_):
 													is_training: False})
 			print('\n[Epoch]: {} |[Test] loss: {} | accuracy: {}\n\n\n'.format(epoch, test_loss, test_acc))
 			print('\n[Epoch]: {} |[Test] loss: {} | accuracy: {}\n\n\n'.format(epoch, test_loss, test_acc), file=training_log)
-
+			
+			current_test_acc = test_acc
+		
+		current_train_acc = train_acc
 
 if __name__ == '__main__':
 	tf.app.run()
