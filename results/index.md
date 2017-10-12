@@ -11,12 +11,10 @@ The best result testing on total test data of fine tuning each model:
 	streaming accuracy: 
 
 ### Reference:
-- Thesis:
-
+- Thesis:<br />
 	[Recognition from Hand Cameras: A Revisit with Deep Learning](https://arxiv.org/abs/1512.01881)<br />
 	[Multi-label Classification of Satellite Images with Deep Learning](http://cs231n.stanford.edu/reports/2017/pdfs/908.pdf)
-- Resource:
-
+- Resource:<br />
 	[kwotsin/transfer_learning_tutorial](https://github.com/kwotsin/transfer_learning_tutorial)<br />
 	[kratzert/finetune_alexnet_with_tensorflow](https://github.com/kratzert/finetune_alexnet_with_tensorflow)<br />
 	[TensorFlow-Slim](https://github.com/tensorflow/tensorflow/tree/master/tensorflow/contrib/slim)<br />
