@@ -125,7 +125,7 @@ def main(_):
 	training_images = load_file(TRAIN_IMAGE, 'image')
 	training_labels = load_file(TRAIN_LABEL, 'label')
 	testing_images = load_file(TEST_IMAGE, 'image')
-	testing_labels = load_file(TEST_IMAGE, 'label')
+	testing_labels = load_file(TEST_LABEL, 'label')
   
 	#initialize
 	sess = tf.Session(graph=graph)
