@@ -4,15 +4,12 @@
 
 ## Overview
 The project is related to object classification. There are two different case. One is every task has itself model. The other is just one model handle multiple task (Obj, Ged and FA).
-> quote
+> quote https://github.com/CEDL2017/homework1
 
 
 ## Implementation
-1. One
-	* item
-	* item
-	
-2. spotlight code
+
+### spotlight code
 
 ```
 with tf.name_scope('C1_Conv'):
