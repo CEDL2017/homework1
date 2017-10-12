@@ -54,6 +54,8 @@ class Dataset(dataset.Dataset):
         num = int(path_to_image_components[-3])
         if self._mode == Dataset.Mode.TEST:
             num += 3
+        if environment == 'lab':
+            num += 1
         side = 'left' if path_to_image_components[-2] == 'Lhand' else 'right'
         image_index = int(re.match('.*?(\d+)\.png', path_to_image_components[-1]).group(1)) - 1
 
