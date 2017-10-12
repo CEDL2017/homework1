@@ -44,6 +44,7 @@ The goal of this project is to classify the objects of the HandCam images.
 	* I trained my models with the stochastic gradient descent optimizer.
 	* Initial learning rate is 0.01, and will be decayed 1/10 every 5 epochs.
 	* Batch size is set to 256.
+	* I trained Resnet18 for 10 epochs and Resnet50 for 12 epochs.
 
 ## Installation
 * Required Pytorch.
@@ -67,25 +68,34 @@ The goal of this project is to classify the objects of the HandCam images.
 
 ### Results
 
-<table border=1>
+<table>
 <tr>
 <td>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg"  width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
+</td>
+<td>
+Resnet18
+</td>
+<td>
+Resnet50
 </td>
 </tr>
 
 <tr>
 <td>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg"  width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
+Accuracy
+</td>
+<td>
+68.644 %
+</td>
+<td>
+70.844 %
 </td>
 </tr>
 
 </table>
+
+
+
+
 
 
