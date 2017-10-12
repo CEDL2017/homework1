@@ -5,6 +5,8 @@ from enum import Enum
 
 import numpy as np
 import re
+
+import torch
 from torch.utils.data import dataset
 from torchvision import transforms
 
@@ -21,8 +23,13 @@ class Dataset(dataset.Dataset):
         self._labels = defaultdict(str)
 
         for environment in ['house', 'lab', 'office']:
+            if mode == Dataset.Mode.TRAIN:
+                numbers = ['1', '2', '3'] if not environment == 'lab' else ['1', '2', '3', '4']
+            else:
+                numbers = ['4', '5', '6'] if not environment == 'lab' else ['5', '6', '7', '8']
+
             for side in ['left', 'right']:
-                for num in ['1', '2', '3'] if mode == Dataset.Mode.TRAIN else ['4', '5', '6']:
+                for num in numbers:
                     self._labels['{:s}/obj/{:s}/{:s}'.format(environment, side, num)] = np.load(
                         os.path.join(path_to_data, 'labels', environment, 'obj_{:s}{:s}.npy'.format(side, num)))
 
@@ -34,7 +41,11 @@ class Dataset(dataset.Dataset):
         image = transforms.Image.open(path_to_image)
 
         transform = transforms.Compose([
-            transforms.ToTensor()
+            transforms.Scale([256, 256]),
+            transforms.RandomSizedCrop(224),
+            transforms.ToTensor(),
+            transforms.Normalize(mean=[0.485, 0.456, 0.406],
+                                 std=[0.229, 0.224, 0.225])
         ])
         image = transform(image)
 
@@ -44,7 +55,7 @@ class Dataset(dataset.Dataset):
         if self._mode == Dataset.Mode.TEST:
             num += 3
         side = 'left' if path_to_image_components[-2] == 'Lhand' else 'right'
-        image_index = int(re.match('.*?(\d+)\.png', path_to_image_components[-1]).group(1))
+        image_index = int(re.match('.*?(\d+)\.png', path_to_image_components[-1]).group(1)) - 1
 
         label = self._labels['{:s}/obj/{:s}/{:d}'.format(environment, side, num)][image_index]
         label = int(label)

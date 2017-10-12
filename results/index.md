@@ -20,6 +20,8 @@ Code highlights
 ## Installation
 * Python 3.6
 * PyTorch >= v0.2.0
+* visdom
+* tqdm
 
 ### Results
 
