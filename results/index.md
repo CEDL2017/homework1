@@ -35,10 +35,10 @@ import os #get all file name in the folder
 <tr>
 <td>
 > ==========[ 9 , 8 ]==========  
-> train data: images: (1144, 227, 227, 3)  labels: (1144,)  
-test  data: images: (838, 227, 227, 3)  labels: (838,)    
-Train on 915 samples, validate on 229 samples            
-Epoch 1/1             
+> train data: images: (1144, 227, 227, 3)  labels: (1144,)   
+test  data: images: (838, 227, 227, 3)  labels: (838,)         
+Train on 915 samples, validate on 229 samples                      
+Epoch 1/1                        
 915/915 [==============================] - 1s - loss: 0.1049 - acc: 0.9683 - val_loss: 0.4572 - val_acc: 0.9083 ＜/br＞
 ==========[ 9 , 4 ]========== ＜/br＞
 train data: images: (1178, 227, 227, 3)  labels: (1178,) ＜/br＞
