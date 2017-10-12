@@ -3,7 +3,7 @@
 #Project 5: Deep Classification
 
 ## Overview
-The project is related to accomplish image classification task in transfer learning method.
+The project is related to accomplish image classification task in transfer learning method. 
 This project concentrates on using pretrained ImageNet model such as Inception-Resnet-v2 and vgg-16 released by Tensorflow and fine tune them to precisely classify handcam's photo to detect 24 classes of objects.
 
 The best result testing on total test data of fine tuning each model:
