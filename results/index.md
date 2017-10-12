@@ -44,25 +44,12 @@ and put into `./snapshots`
 3. Run `evaluate.py`
 
 ### Results
-<table border=1>
-<tr>
-<td>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg"  width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-</td>
-</tr>
+## Testing accuracy
+| Model | Accuracy |  
+|-------|----------|
+| ResNet50| **66.93%** |
 
-<tr>
-<td>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg"  width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-</td>
-</tr>
-
-</table>
+## Confusion Matrix 
+![](https://github.com/hellochick/homework1-1/blob/master/results/cm.png)
 
 
