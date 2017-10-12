@@ -3,7 +3,7 @@
 #Project 5: Deep Classification
 
 ## Overview
-The project is related to object classification. There are two different case. One is every task has itself model. The other is just one model handle multiple task (Obj, Ged and FA). Some experiments are not already finish so I will make up its.
+The project is related to object classification. There are two different case. One is every task has itself model. The other is just one model handle multiple task (Obj, Ged and FA). Some experiments photos are not already finish so I will make up its as soon.
 > quote https://github.com/CEDL2017/homework1
 
 
