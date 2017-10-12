@@ -71,6 +71,8 @@ Hand images
 <img src="https://github.com/guan-yuan/homework1/blob/master/output/Two_stream_ResNet-152_FE_batch64_dropout03_test_batch_hand.png" width = "100%" alt=""/>
 </div>
 <p>
+<p>
+<p>
 Head images
 <div align=left>
 <img src="https://github.com/guan-yuan/homework1/blob/master/output/Two_stream_ResNet-152_FE_batch64_dropout03_test_batch_head.png" width = "100%" alt=""/>
