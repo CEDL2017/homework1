@@ -22,7 +22,7 @@ The project is related to Handcam dataset object classification
 6. Detail  
   * learning rate = 0.0001  
   
-  * add regularization hyperparameter (=0.0001) in latest fc layer 
+  * add regularization hyperparameter (=0.0001) in last fc layer 
   
   * use one dropout
   
