@@ -27,21 +27,47 @@ The project is related to
 	* 雖然灰階圖流失了許多資訊，但仍然保有50%的精確度
 	* Reference: https://github.com/fchollet/keras/blob/master/examples/mnist_cnn.py
 
+### Code highlights (AlexNet construct)
 ```
-Code highlights
+model = Sequential()  
+model.add(Conv2D(96,(11,11),strides=(4,4),input_shape=(227,227,3),padding='valid',activation='relu',kernel_initializer='uniform'))  
+model.add(MaxPooling2D(pool_size=(3,3),strides=(2,2)))  
+model.add(Conv2D(256,(5,5),strides=(1,1),padding='same',activation='relu',kernel_initializer='uniform'))  
+model.add(MaxPooling2D(pool_size=(3,3),strides=(2,2)))  
+model.add(Conv2D(384,(3,3),strides=(1,1),padding='same',activation='relu',kernel_initializer='uniform'))  
+model.add(Conv2D(384,(3,3),strides=(1,1),padding='same',activation='relu',kernel_initializer='uniform'))  
+model.add(Conv2D(256,(3,3),strides=(1,1),padding='same',activation='relu',kernel_initializer='uniform'))  
+model.add(MaxPooling2D(pool_size=(3,3),strides=(2,2)))  
+model.add(Flatten())  
+model.add(Dense(4096,activation='relu'))  
+model.add(Dropout(0.5))  
+model.add(Dense(4096,activation='relu'))  
+model.add(Dropout(0.5))  
+model.add(Dense(24,activation='softmax'))
+model.compile(loss='categorical_crossentropy',optimizer='sgd',metrics=['accuracy'])  
+model.summary()
 ```
 
-## Installation
-* Other required packages.
-from PIL import Image #read image data
-from scipy import misc #read image data
-import numpy as np #ndarray  
-import os #get all file name in the folder
+## Installation (packages)
+* Environment   <br />
+  Keras 2.0.8  <br />
+  Tensorflow 1.3.0  <br />
+  conda 4.3.25  <br />
+
+* read file
+from PIL import Image #read image data   <br />
+from scipy import misc #read image data   <br />
+import os #get all file name in the folder   <br />
+
+* use data
+import numpy as np #ndarray     <br />
 
 
 
-* How to compile from source?
-  Tensorflow, Keras
+
+
+
+
 
 ### Results
 
