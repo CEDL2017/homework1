@@ -1,4 +1,4 @@
-# Your Name <span style="color:red">(id)</span>
+# 何品萱 <span style="color:red">(106062553)</span>
 
 #Project 5: Deep Classification
 
@@ -13,6 +13,7 @@ The project is related to
 	* item
 2. Two
 
+Create `VGG16` model (pre-trained on ImageNet)
 ```
 Code highlights
 ```
