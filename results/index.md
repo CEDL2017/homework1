@@ -47,22 +47,13 @@ and put into `./snapshots`
 ## Testing accuracy
 | Model | Accuracy |  
 |-------|----------|
-| `ResNet50`| 66.93% |
+| ResNet50| **66.93%** |
 
 ## Confusion Matrix 
 <table border=1>
 <tr>
 <td>
-<img src="./cm.png" width="100"/>
-</td>
-</tr>
-
-<tr>
-<td>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg"  width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
+<img src="./cm.png" width="96%"/>
 </td>
 </tr>
 
