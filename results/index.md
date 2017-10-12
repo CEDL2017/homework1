@@ -140,13 +140,17 @@ Reference to
 
 ### Results
 
-* optimizer: Adamoptimizer
+* optimizer: AdamOptimizer
 
 | Learning Rate | Testing Accurancy |
 | --- | --- |
 | 0.1 | 50.96% |
-| 0.01 | ??% |
-| 0.001 | ??% |
+| 0.001 | 50.33% |
 
+* optimizer: GradientDescentOptimizer
 
+| Learning Rate | Testing Accurancy |
+| --- | --- |
+| 0.1 | 50.62% |
+| 0.001 | 50.09% |
 
