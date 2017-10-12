@@ -5,6 +5,7 @@
 ## Overview
 The project is related to 
 > Make a classifier for dataset: handcam.
+> Motify from mobilenet.
 
 
 ## Implementation
