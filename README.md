@@ -245,8 +245,7 @@ optimizer使用`adamax`(原本使用`gradient decent`,model的名稱是`150x150(
 最後測試 在`150x150`大小下,train `100` 個iterator有最高的accuracy(`150x150_50iter.h5(0.462)`),如下圖可看出在test data 中有6552為標記為free之照片數
 最後可得accurancy為`0.506`
 
-![](https://github.com/sun52525252/DL_HW_1/blob/master/preview/rslt3.png
-)
+![](https://github.com/sun52525252/DL_HW_1/blob/master/preview/rslt3.png)
 ![](https://github.com/sun52525252/DL_HW_1/blob/master/preview/Figure_1.png)
 
 ![](https://github.com/sun52525252/DL_HW_1/blob/master/preview/Figure_1-2.png)
