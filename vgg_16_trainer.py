@@ -2,7 +2,7 @@ import numpy as np
 import tensorflow as tf
 from tensorflow.contrib.framework.python.ops.variables import get_or_create_global_step
 from tensorflow.python.platform import tf_logging as logging
-import inception_preprocessing
+import vgg_preprocessing
 from inception_resnet_v2 import inception_resnet_v2, inception_resnet_v2_arg_scope
 import os
 import time
@@ -89,7 +89,7 @@ obj = { 'free':0,
 num_classes = len(obj)
 num_epochs = 80
 batch_size = 32
-initial_learning_rate = 0.001
+initial_learning_rate = 0.005
 learning_rate_decay_factor = 0.9
 num_epochs_before_decay = 2
 
@@ -121,8 +121,8 @@ with tf.Graph().as_default() as graph:
     image_tf = tf.image.decode_png(image_value, channels = 3)
     image_tf = tf.image.resize_images(image_tf, [height, width])
     image_tf.set_shape((height, width, 3))
-    image_tf = tf.subtract(tf.multiply(2.0, tf.divide(image_tf, 255.0)), 1.0)
-    # image_tf = inception_preprocessing.preprocess_image(image_tf, height, width, is_training = True)
+    # image_tf = tf.subtract(tf.multiply(2.0, tf.divide(image_tf, 255.0)), 0.5)
+    image_tf = vgg_preprocessing.preprocess_image(image_tf, height, width, is_training = True)
 
     # prepare label FIFOQueue
     label_tf = tf.convert_to_tensor(label, dtype = tf.int32)
@@ -149,15 +149,7 @@ with tf.Graph().as_default() as graph:
                                     is_training = False)
     variables_to_restore = slim.get_variables_to_restore(exclude=['vgg_16/fc6', 'vgg_16/fc7', 'vgg_16/fc8'])
 
-    # init_fn = assign_from_checkpoint_fn(model_path, variables_to_restore)
-
-    # exclude = ['InceptionResnetV2/AuxLogits',
-    #            'InceptionResnetV2/Logits']
-    # variables_to_restore = slim.get_variables_to_restore(exclude = exclude)
-
     one_hot_labels = slim.one_hot_encoding(batch_label, num_classes)
-    # loss = tf.losses.softmax_cross_entropy(onehot_labels = one_hot_labels, 
-    #                                        logits = logits)
     total_loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits= logits,
                                                                   labels= one_hot_labels))                                      
     # total_loss = tf.losses.get_total_loss()
@@ -173,19 +165,21 @@ with tf.Graph().as_default() as graph:
     optimizer = tf.train.GradientDescentOptimizer(learning_rate = lr)
 
     variables_to_train = tf.trainable_variables()
+    for v in variables_to_train:
+        print(v)
     len_var_train = len(variables_to_train) 
 
-    # train_op = slim.learning.create_train_op(total_loss = total_loss, 
-    #                                         optimizer = optimizer,
-    #                                         variables_to_train = variables_to_train[len_var_train - 6 : len_var_train])
+    train_op = slim.learning.create_train_op(total_loss = total_loss, 
+                                            optimizer = optimizer,
+                                            variables_to_train = variables_to_train[len_var_train - 6 : len_var_train])
 
-    # Get gradients of all trainable variables
-    gradients = tf.gradients(total_loss, variables_to_train[len_var_train - 6 : len_var_train])
-    gradients = list(zip(gradients, variables_to_train[len_var_train - 6 : len_var_train]))
+    # # Get gradients of all trainable variables
+    # gradients = tf.gradients(total_loss, variables_to_train[len_var_train - 6 : len_var_train])
+    # gradients = list(zip(gradients, variables_to_train[len_var_train - 6 : len_var_train]))
 
-    # Create optimizer and apply gradient descent to the trainable variables
-    optimizer = tf.train.GradientDescentOptimizer(learning_rate = lr)
-    train_op = optimizer.apply_gradients(grads_and_vars=gradients)
+    # # Create optimizer and apply gradient descent to the trainable variables
+    # optimizer = tf.train.GradientDescentOptimizer(learning_rate = lr)
+    # train_op = optimizer.apply_gradients(grads_and_vars=gradients)
 
     # predictions = tf.argmax(end_points['Predictions'], 1)
     probabilities = tf.nn.softmax(logits)
@@ -211,10 +205,10 @@ with tf.Graph().as_default() as graph:
     sv = tf.train.Supervisor(logdir = log_dir, summary_op = None, init_fn = restore_fn)
     print('Ready to run the session')
 
-    # config = tf.ConfigProto()
-    # config.gpu_options.allow_growth = True
+    config = tf.ConfigProto()
+    config.gpu_options.allow_growth = True
     #Run the managed session
-    with sv.managed_session() as sess:
+    with sv.managed_session(config = config) as sess:
         coord = tf.train.Coordinator()
         threads = tf.train.start_queue_runners(sess = sess, coord = coord)
 
@@ -222,12 +216,12 @@ with tf.Graph().as_default() as graph:
             if step % num_batches_per_epoch == 0:
                 logging.info('Epoch %s/%s', step/num_batches_per_epoch + 1, num_epochs)
 
-            _, global_step_count, _ = sess.run([train_op, sv.global_step, metrics_op])
+            _, _, global_step_count = sess.run([train_op, metrics_op, sv.global_step])
             
             if step % 33 == 0:
                 # total_loss, global_step_count, _ = sess.run([train_op, sv.global_step, metrics_op])
                 # logging.info('global step %s: loss: %.4f', global_step_count, total_loss_value)
-                logging.info('step %s', step)
+                logging.info('step %s', global_step_count)
                 summaries = sess.run(my_summary_op)
                 sv.summary_computed(sess, summaries)
                 learning_rate_value, accuracy_value = sess.run([lr, accuracy])
