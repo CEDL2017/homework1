@@ -46,13 +46,14 @@ Due to the considerations of computational resources and efficiency (DeepQ do no
 [`Two_stream_ResNet-152_with_InceptionResNetV2_FE_batch32_dropout01.py`](https://github.com/guan-yuan/homework1/blob/master/Two_stream_ResNet-152_with_InceptionResNetV2_FE_batch32_dropout01.py)<p>
 
 
-```
-Code highlights
-```
+## Requirements
+pytorch v0.2.0<p>
+torchvision<p>
+anaconda default packages<p>
 
-## Installation
-* Other required packages.
-* How to compile from source?
+## How to use
+1. Unzip the dataset to the the "./data" folder.
+2. ```python "the_model_you_want_to_train(test)"```, eg ```python Two_stream_ResNet-152_with_InceptionResNetV2_FE_batch32_dropout01.py```
 
 ### Results
 <div align=left>
