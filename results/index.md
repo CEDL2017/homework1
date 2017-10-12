@@ -17,6 +17,8 @@ Include:<p>
 - [`Two_stream_ResNet-152_with_InceptionResNetV2_FE_batch32_dropout03.py`](https://github.com/guan-yuan/homework1/blob/master/Two_stream_ResNet-152_with_InceptionResNetV2_FE_batch32_dropout03.py): A model that uses the ResNet-152_with_InceptionResNetV2 as the fixed feature extractor with data augmentation (resize the short side to 312 then crop to (299, 299)) for the two stream way.<p>
 	
 - [`Two_stream_ResNet-152_with_InceptionResNetV2_FE_batch32_dropout01.py`](https://github.com/guan-yuan/homework1/blob/master/Two_stream_ResNet-152_with_InceptionResNetV2_FE_batch32_dropout01.py): A model that uses the ResNet-152_with_InceptionResNetV2 as the fixed feature extractor with data augmentation (resize the short side to 312 then crop to (299, 299)) for the two stream way.<p>
+	
+Due to the considerations of computational resources and efficiency (DeepQ do not support the pytorch), I just use fixed feature extractor method for the classification task. And I pay more attention to the data augmentation issues and the  discrepancy between the different features that extracted from different CNN models and how to use that features to reach higher performance (accuracy).
 
 ## Reference
 [Recognition from Hand Cameras: A Revisit with Deep Learning](https://drive.google.com/file/d/0BwCy2boZhfdBM0ZDTV9lZW1rZzg/view) <p>
