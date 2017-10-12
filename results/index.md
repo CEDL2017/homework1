@@ -55,9 +55,17 @@ python obj_fc_align.py --source_path_feature={targe_feature_path} --source_path_
 ```
 python obj_fc_align.py --source_path_feature={targe_feature_path} --source_path_label={label_path} --mode=testing --batch_size={batch_size} --model={model_path}
 ```
+* Tensorboard  
+```
+tensorboard --logdir=./graph  
+```   
 
-### Results
+### Results  
 
+* loss
+<img src="../README_files/loss.png" style="float:middle;">  
+
+* accuracy  
 <table>
 <tr>
 <td>
