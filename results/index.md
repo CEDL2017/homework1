@@ -28,7 +28,7 @@ The project is related to
       * numpy
       * os
       * Download the weights trained on ImageNet for VGG:
-http://download.tensorflow.org/models/vgg_16_2016_08_28.tar.gz
+	http://download.tensorflow.org/models/vgg_16_2016_08_28.tar.gz
     
 
 ### Results
