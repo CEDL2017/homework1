@@ -18,6 +18,11 @@ I mainly modified the code from [here](https://kratzert.github.io/2017/02/24/fin
 |-------|----------|----------|
 | Alexnet- 2-streams (hand + head, object label)| 0.5812 | 0.6136 |
 | InceptionV3- 1-stream (hand, object label)| 0.6549 | **0.6667** |
+###Precision Recall Curve
+<div>
+<img src="./prc_.png" width="400px">
+<img src="./prc_label.png" width="220px">
+</div>
 
 ## Setup
 ### Env
