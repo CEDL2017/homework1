@@ -50,13 +50,6 @@ and put into `./snapshots`
 | ResNet50| **66.93%** |
 
 ## Confusion Matrix 
-<table border=1>
-<tr>
-<td>
-<img src="./cm.png" width="96%"/>
-</td>
-</tr>
-
-</table>
+![](https://github.com/hellochick/homework1-1/blob/master/results/cm.png)
 
 
