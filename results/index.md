@@ -6,7 +6,6 @@
 The project is related to 
 > Classifying the object categories by implementing Inception-ResNet-v2 network.
 
-
 ## Implementation
 1. Data_Generator.py
 	* Since the training data and testing data are all mixed in folders, I came up with an idea to store the file paths in the text files respectively. 
@@ -18,17 +17,17 @@ The project is related to
 
 ## Installation
 * Tensorflow
-* Tensorflow.contrib.slim
+* numpy
+
+## Requirement
 * vgg_preprocessing.py
 * inception_resnet_v2.py
-* numpy
-* os
 
 ### Results
 
 <table border=1>
 <tr>
-
+The accuracy is 0.6102066374452098
 </tr>
 
 <tr>
