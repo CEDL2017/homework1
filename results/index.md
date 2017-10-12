@@ -10,7 +10,12 @@ The project is related to
 ## Implementation
 1. Single-Stream ResNet50
 	* ResNet 可以更快將 gradients 傳到前面的 layers，ImageNet Top 1/ Top 5 Classification 也有較好的 accuracy。 因此將 paper 中使用的 AlexNet 換成 ResNet。
-	* item
+	* Hyper Parameters:
+#epochs = 30
+mb_size = 50
+lr_per_mb = [0.2]*10 + [0.1]
+momentum_per_mb = 0.9
+l2_reg_weight = 0.0005
 2. Two-Stream ResNet18
 
 ```
