@@ -1,4 +1,4 @@
-# ±i‘T¶t <span style="color:red">(106062555)</span>
+# ÂºµÂÅ≤ÂÆá <span style="color:red">(106062555)</span>
 
 #Homework 1: Deep Classification
 
@@ -15,7 +15,7 @@ The project is related to
 		- `horizontally flip left hand image to mimic right hand`
 
 2. create_model
-<img src="two_streams_archi.png" width="24%"/>
+<img src="two_streams_archi.png"/>
 	* Using `tensorflow.contrib.keras.python.keras` to load and build models
 	* Create `VGG16` model (pre-trained on ImageNet, only include convolutional blocks)
 	* Add the following layers to VGG16 convolutional model `(single-stream)`
@@ -82,10 +82,10 @@ testing acc. = 54.75%, 6995/12776
 training time ~ 3.5 hrs
 </td>
 <td>
-<img src="only_hand_prc.png" width="24%"/>
+<img src="only_hand_prc.png" width="40%"/>
 </td>
 <td>
-<img src="only_hand_cm.png" width="24%"/>
+<img src="only_hand_cm.png" width="40%"/>
 </td>
 </tr>
 <tr>
@@ -99,10 +99,10 @@ testing acc. = 59.79%, 7639/12776
 training time ~ 7.5 hrs
 </td>
 <td>
-<img src="two_streams_prc.png" width="24%"/>
+<img src="two_streams_prc.png" width="40%"/>
 </td>
 <td>
-<img src="two_streams_cm.png" width="24%"/>
+<img src="two_streams_cm.png" width="40%"/>
 </td>
 </tr>
 </table>
