@@ -8,7 +8,9 @@ In this project, I implement a model which want to classify objects in a frame c
 
 ## Implementation
 ### network architecture
-
+![](https://i.imgur.com/18XnIuY.png)
+### training 
+in all training time, the VGG19 are fixed. The image is randomly fliped in each epoch to make the model generalize well.
 
 ## Installation
 * `tensorflow `
