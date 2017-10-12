@@ -50,23 +50,33 @@ model.summary()
 
 ## Installation (packages)
 * Environment   <br />
-  Keras 2.0.8  <br />
+  Keras 2.0.8  <br />
   Tensorflow 1.3.0  <br />
   conda 4.3.25  <br />
 
-* read file
-from PIL import Image #read image data   <br />
-from scipy import misc #read image data   <br />
-import os #get all file name in the folder   <br />
+* Read file  <br />
+#read image data  <br />
+from PIL import Image    <br />
+from scipy import misc    <br />
+#get all file name in the folder  <br />
+import os    <br />
 
-* use data
-import numpy as np #ndarray     <br />
+* Data preprocess  <br />
+#ndarray  <br />
+import numpy as np       <br />
+#shuffle training data  <br />
+from sklearn.utils import shuffle  <br />
+#OneHot Encoding      <br />
+from keras.utils.np_utils import to_categorical  <br />
+
+* Construct model  <br />
+from keras.models import Sequential    <br />
+from keras.layers import Dense, Dropout, Activation, Flatten    <br />
+from keras.layers import Conv2D, MaxPooling2D, ZeroPadding2D    <br />
 
 
-
-
-
-
+* Graph plot <br />
+import matplotlib.pyplot as plt  <br />
 
 
 ### Results
