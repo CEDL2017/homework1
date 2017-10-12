@@ -80,6 +80,7 @@ This part requires several processing.
 5. append
 
 code example:
+
         
 	temp =[]
         #print(x_train_a)
