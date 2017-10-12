@@ -1,4 +1,4 @@
-# Your Name <span style="color:red">(id)</span>
+# Your Name <span style="color:red">106061806</span>
 
 #Project 5: Deep Classification
 
@@ -18,8 +18,8 @@ Code highlights
 ```
 
 ## Installation
-* Other required packages.
-* How to compile from source?
+* Python 3.6
+* PyTorch >= v0.2.0
 
 ### Results
 
