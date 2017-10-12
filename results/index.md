@@ -1,4 +1,5 @@
-
+## CEDL 2017 HW1 Report
+author: Ting-Wei,Liu (劉庭維) 106062513
 
 ### Model Architecture
 InceptionResNet v2
