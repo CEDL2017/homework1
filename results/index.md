@@ -6,6 +6,8 @@
 The project is related to 
 > Make a classifier for dataset: handcam.
 > Motify from mobilenet.
+> Training settings is in script.
+> Use three loss source in handcam only.
 
 
 ## Implementation
@@ -24,22 +26,14 @@ Code highlights
 ### Results
 
 <table border=1>
-<tr>
-<td>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg"  width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-</td>
-</tr>
+Confusion matrix
+<img src="plot_cm.png" width="80%"/>
 
+<table border=1>
+</table>
 <tr>
-<td>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg"  width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-</td>
+precision recall curve
+<img src="plot_prc.png" width="80%"/>
 </tr>
 
 </table>
