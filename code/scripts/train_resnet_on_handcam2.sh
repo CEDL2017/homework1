@@ -29,7 +29,8 @@ netn=mobilenet2
 # m2_4: pre+f-last(3)(.5,.2,.3)
 # m2_5: pre+f-last(3)(.2,.2,.6)
 # v: ori train
-TRAIN_DIR=./output/handcam/${netn}_5
+netnb=${netn}_5
+TRAIN_DIR=./output/handcam/${netnb}
 CP_PATH=./output/pret
 #CP_PATH=./output/handcam${cls[$1]}/${netn}
 #CP_PATH=./output/handcam/${netn}2
@@ -39,7 +40,8 @@ mkdir -p ${TRAIN_DIR}
 # ORI: lr=0.1, nstep=1000000
 #  --trainable_scopes=MobileNet/fc_16 \
 #  --ignore_missing_vars=True \
-#:< '
+
+:< '
 python train_image_classifier2.py \
   --train_dir=${TRAIN_DIR} \
   --dataset_name=handcam \
@@ -69,7 +71,7 @@ python train_image_classifier2.py \
 # '
 # Run evaluation
 
-#:< '
+:< '
 python eval_image_classifier2.py \
   --checkpoint_path=${TRAIN_DIR} \
   --eval_dir=${TRAIN_DIR} \
@@ -79,7 +81,7 @@ python eval_image_classifier2.py \
   --model_name=${netn} \
   --gpu_memp=1.0
 # '
-#:< '
+:< '
 python eval_image_classifier2.py \
   --checkpoint_path=${TRAIN_DIR} \
   --eval_dir=${TRAIN_DIR} \
@@ -89,7 +91,7 @@ python eval_image_classifier2.py \
   --model_name=${netn} \
   --gpu_memp=0.7
 # '
-#:< '
+:< '
 python eval_image_classifier3.py \
   --checkpoint_path=${TRAIN_DIR} \
   --eval_dir=${TRAIN_DIR} \
@@ -101,3 +103,7 @@ python eval_image_classifier3.py \
   --save_pred=2
 # >> log.txt
 # '
+python analysis.py \
+  --net=${netnb} \
+  --dataset_split_name=validation \
+  --eval_dir=${TRAIN_DIR} 
