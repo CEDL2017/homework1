@@ -17,7 +17,10 @@ class Dataset(dataset.Dataset):
         assert isinstance(mode, Dataset.Mode)
 
         self._mode = mode
-        self._path_to_images = glob.glob('{:s}/frames/{:s}/*/*/*[Rhand|Lhand]/*.png'.format(path_to_data, mode.value))
+        self._path_to_images = []
+        for part in ['Rhand', 'Lhand']:
+            self._path_to_images.extend(
+                glob.glob('{:s}/frames/{:s}/*/*/{:s}/*.png'.format(path_to_data, mode.value, part)))
         self._labels = defaultdict(str)
 
         for environment in ['house', 'lab', 'office']:
@@ -49,15 +52,19 @@ class Dataset(dataset.Dataset):
 
         path_to_image_components = path_to_image.split('/')
         environment = path_to_image_components[-4]
+
         num = int(path_to_image_components[-3])
         if self._mode == Dataset.Mode.TEST:
             num += 3
             if environment == 'lab':
                 num += 1
-        side = 'left' if path_to_image_components[-2] == 'Lhand' else 'right'
+
+        assert path_to_image_components[-2] in ['Lhand', 'Rhand']
+        part = 'left' if path_to_image_components[-2] == 'Lhand' else 'right'
+
         image_index = int(re.match('.*?(\d+)\.png', path_to_image_components[-1]).group(1)) - 1
 
-        label = self._labels['{:s}/obj/{:s}/{:d}'.format(environment, side, num)][image_index]
+        label = self._labels['{:s}/obj/{:s}/{:d}'.format(environment, part, num)][image_index]
         label = int(label)
 
         return image, label
