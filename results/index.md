@@ -1,47 +1,19 @@
-# Your Name <span style="color:red">(id)</span>
+# Caroline <span style="color:red">(106062515)</span>
 
 #Project 5: Deep Classification
 
 ## Overview
-The project is related to 
-> quote
-
+The project is VGG model training on given images and labels.
 
 ## Implementation
-1. One
-	* item
-	* item
-2. Two
-
-```
-Code highlights
-```
+1. test_load_datas.py, load_datas.py: loads labels and training images
+2. ty.py: VGG model
 
 ## Installation
-* Other required packages.
-* How to compile from source?
+* pre-trained VGG: https://drive.google.com/open?id=0B1d4hs5v8ZQocDNXS1Njb2tQOVk
+* run python tf.py
 
 ### Results
-
-<table border=1>
-<tr>
-<td>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg"  width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-</td>
-</tr>
-
-<tr>
-<td>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg"  width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-</td>
-</tr>
-
-</table>
+After training 2 epochs, average accuracy: 0.3~0.4
 
 
