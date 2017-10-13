@@ -10,9 +10,9 @@ The project is related to object classification. There are two different case. O
 ## Implementation
 ### Result
 <p>Average FA loss : 0.743
-<p>Average FA accuracy : 0.509 (use shallower network)
-<p>Average Ges loss : 2.176
-<p>Average Ges accuracy : 0.547
+<p>Average FA accuracy : 0.509 (use shallower network, train 50 epoch)
+<p>Average Ges loss : 1.7635
+<p>Average Ges accuracy : 0.9253 (use deeper network, train 60 epoch)
 <p>Average Obj loss : 2.268
 <p>Average Obj accuracy : 0.538
 	
