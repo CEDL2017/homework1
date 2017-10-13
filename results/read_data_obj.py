@@ -7,7 +7,8 @@ Created on Thu Oct  5 10:10:49 2017
 
 import numpy as np
 from PIL import Image
-
+global k
+k=0
 
 def random_order(num, batch):
     order = np.random.randint(0, num-1,(1,batch))
@@ -58,7 +59,23 @@ def read_data_test(batch):
         order_obj_label[i, :] = obj_label[order[0,i],:]   
         
     return png, order_obj_label
-
+    
+def read_data_test_(batch):
+    png = []
+    global k
+    for i in range(batch):
+        img_path = "test_resize/Image%s.png"%k
+        img = Image.open(img_path)
+        img = np.array(img)
+        x_img = np.reshape(img, [1,95232])
+        png.append(x_img)
+        k+=1
+        
+    png = np.array(png)
+    png = np.reshape(png, [batch,95232])
+              
+    return png    
+    
 def read_obj_labels():
 
     obj_label = []
@@ -198,8 +215,11 @@ def read_obj_labels_test():
         a = obj_label[0,i]
         #print(a)
         num_obj_left_label[i,int(a)] = 1
-
-    return num_obj_left_label   
+    obj_test_label = np.zeros([12736, 24])
+    for i in range(0,12736):
+        obj_test_label[i,:] = num_obj_left_label[i,:]
+    
+    return np.array(obj_test_label.astype(int)) 
     
 obj_label = read_obj_labels()
 
