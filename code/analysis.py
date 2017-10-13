@@ -108,7 +108,7 @@ def ccmatrix(cm, classes, normalize=False, cmap=plt.cm.Blues):
     else:
         print('Confusion matrix, without normalization')
 
-    print(cm)
+    # print(cm)
     fig = plt.gcf()
     plt.imshow(cm, interpolation='nearest', cmap=cmap)
     plt.title("Confusion Matrix")
@@ -137,12 +137,12 @@ def ccmatrix(cm, classes, normalize=False, cmap=plt.cm.Blues):
 
 def main():
     plt.ioff() 
-    dict_data = np.load(os.path.join(eval_dir, args.dataset_split_name+'_rst'+args.cls+'.npy'))
+    dict_data = np.load(os.path.join(args.eval_dir, args.dataset_split_name+'_rst%d.npy'%args.cls))
     pr_point = dict_data.all()['pr_point']
     pr_auc = dict_data.all()['pr_auc']
     c_matrix = dict_data.all()['confusion_matrix']
     classes = cls[args.cls]
-    pr_curves(pr_point, pr_auc)
+    pr_curve(pr_point, pr_auc)
     ccmatrix(c_matrix, classes, normalize=True, cmap=plt.cm.YlGnBu)
     
 if __name__ == '__main__':
