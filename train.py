@@ -11,10 +11,10 @@ from model import Model
 
 
 def _train(path_to_data_dir, path_to_logs_dir, path_to_restore_checkpoint_file):
-    batch_size = 16
+    batch_size = 32
 
     dataset = Dataset(path_to_data=path_to_data_dir, mode=Dataset.Mode.TRAIN)
-    dataloader = DataLoader(dataset, batch_size, shuffle=True, num_workers=2, pin_memory=True)
+    dataloader = DataLoader(dataset, batch_size, shuffle=True, num_workers=2)
     model, step = Model(), 0
     losses = []
 

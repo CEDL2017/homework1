@@ -12,13 +12,22 @@ class Model(nn.Module):
 
     def __init__(self):
         super().__init__()
-        # self._net = models.vgg16(pretrained=True)
-        # self._net = models.resnet152(pretrained=True)
-        self._net = models.densenet161(pretrained=True)
+        self._feature = models.alexnet(pretrained=True).features
+        self._classifier = nn.Sequential(
+            nn.Linear(256 * 14 * 26, 4096),
+            nn.ReLU(True),
+            nn.Dropout(),
+            nn.Linear(4096, 4096),
+            nn.ReLU(True),
+            nn.Dropout(),
+            nn.Linear(4096, 24),
+        )
 
     def forward(self, x):
-        logits = self._net(x)
-        return logits
+        feature = self._feature(x)
+        feature = feature.view(-1, 256 * 14 * 26)
+        logit = self._classifier(feature)
+        return logit
 
     @staticmethod
     def loss(logits, labels):
@@ -48,3 +57,10 @@ class Model(nn.Module):
         if optimizer is not None:
             optimizer.load_state_dict(checkpoint['optimizer'])
         return step
+
+
+if __name__ == '__main__':
+    def main():
+        model = Model()
+
+    main()
