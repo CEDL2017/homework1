@@ -60,11 +60,11 @@ Thus, we use pretrained VGG-16 net regarding to its feasible performance and mod
 The model architecture of both models is same as the standard VGG-16 net architecture. Please refer to [vgg.py](https://github.com/tensorflow/models/blob/master/research/slim/nets/vgg.py#L132) in TensorFlow.
 
 #### Model 2: `two_stream_vgg_16_baseline`
-Once we finish training both `hand_obj_vgg_16` and `hand_gesture_vgg_16` models, we then load the weights respectively to their corresponding streams(blue one and red one in the plot). The intuition behind the design is that, the object grabbed in hand usually has a high correlation with hand gesture itself. Based on the intuition, we classfiy object not only consider the deep features of object outputted from `hand_obj_vgg_16` model(VGG-16 net excluding the last two layers) , but also the deep features of hand gesture outputted from `hand_gesture_vgg_16`(VGG-16 net excluding the last two layers). This design actually boosts **0.075%** accuracy compared to `hand_obj_vgg_16` model.
+Once we finish training both `hand_obj_vgg_16` and `hand_gesture_vgg_16` models, we then load the weights respectively to their corresponding streams(blue one and red one in the plot). The intuition behind the design is that, the object grabbed in hand usually has a high correlation with hand gesture itself. Based on the intuition, we classfiy object not only consider the deep features of object outputted from `hand_obj_vgg_16` model(VGG-16 net excluding the last two layers) , but also the deep features of hand gesture outputted from `hand_gesture_vgg_16`(VGG-16 net excluding the last two layers). This design actually boosts **7.5%** accuracy compared to `hand_obj_vgg_16` model.
 ![](https://i.imgur.com/lkR0twR.png)
 
 #### Model 3: `two_stream_vgg_16_multi_loss`
-We also tried **multi-task learning** using two stream model. Instead of just only trained on object classification task, we trained this model on both object classfication task and hand gesture classification task. That is, during training, we jointly minimize the sum of cross-entroy losses of this 2 taskes. The motivation behind is that multi-task learning can make model learn more generalized representation and prevent overfitting [1]. Although the accuracy is about **0.01%** lower than the `two_stream_vgg_16_baseline` model, which is what we expected (since the model now needs to learn two tasks simultaneously, the model could lose a little bit performance from the main task), we observed that the overfitting situation on training set during training `two_stream_vgg_16_multi_loss` model was **much less severe** than training `two_stream_vgg_16_baseline` model.
+We also tried **multi-task learning** using two stream model. Instead of just only trained on object classification task, we trained this model on both object classfication task and hand gesture classification task. That is, during training, we jointly minimize the sum of cross-entroy losses of this 2 taskes. The motivation behind is that multi-task learning can make model learn more generalized representation and prevent overfitting [1]. Although the accuracy is about **1%** lower than the `two_stream_vgg_16_baseline` model, which is what we expected (since the model now needs to learn two tasks simultaneously, the model could lose a little bit performance from the main task), we observed that the overfitting situation on training set during training `two_stream_vgg_16_multi_loss` model was **much less severe** than training `two_stream_vgg_16_baseline` model.
 
 Furthermore, we thought that simply summing up the object classfication loss (main task) and hand gesture classification loss (auxiliary task) may be too naive, and also may be the reason causing accuracy loss on the main task. Therefore, we may probabily try to adopt **weighted loss** [2], which is introduced in this year,  but we did not implement this idea due to the time limitation. This may be served as future work.
 
@@ -122,10 +122,10 @@ During training, we performed a set of optimization tricks, such as:
 ### Testing accuracy on object classfication task.
 | Model | Accuracy |  
 |-------|----------|
-| `hand_obj_vgg_16`| 0.581% |
-| `two_stream_vgg_16_baseline`| **0.656%** |
-| `two_stream_vgg_16_multi_loss`| 0.640% |
-Note: The auxiliary model `hand_gesture_vgg_16` has accuracy of 0.619% on hand gesture classfication task.
+| `hand_obj_vgg_16`| 58.1% |
+| `two_stream_vgg_16_baseline`| **65.6%** |
+| `two_stream_vgg_16_multi_loss`| 64.0% |
+Note: The auxiliary model `hand_gesture_vgg_16` has accuracy of 61.9% on hand gesture classfication task.
 
 ### Precision-Recall Curve and Confusion Matrix
 Please refer to [`visualize_performance.ipynb`](https://github.com/YuChunLOL/homework1/blob/master/visualize_performance.ipynb).
