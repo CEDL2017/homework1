@@ -1,12 +1,10 @@
 import glob
 import os
+import re
 from collections import defaultdict
 from enum import Enum
 
 import numpy as np
-import re
-
-import torch
 from torch.utils.data import dataset
 from torchvision import transforms
 
@@ -54,8 +52,8 @@ class Dataset(dataset.Dataset):
         num = int(path_to_image_components[-3])
         if self._mode == Dataset.Mode.TEST:
             num += 3
-        if environment == 'lab':
-            num += 1
+            if environment == 'lab':
+                num += 1
         side = 'left' if path_to_image_components[-2] == 'Lhand' else 'right'
         image_index = int(re.match('.*?(\d+)\.png', path_to_image_components[-1]).group(1)) - 1
 
@@ -66,15 +64,12 @@ class Dataset(dataset.Dataset):
 
     class Mode(Enum):
         TRAIN = 'train'
-        VAL = 'val'
         TEST = 'test'
 
         @staticmethod
         def from_string(s):
             if s == Dataset.Mode.TRAIN.value:
                 return Dataset.Mode.TRAIN
-            elif s == Dataset.Mode.VAL.value:
-                return Dataset.Mode.VAL
             elif s == Dataset.Mode.TEST.value:
                 return Dataset.Mode.TEST
             else:

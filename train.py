@@ -2,7 +2,6 @@ import argparse
 import os
 
 import numpy as np
-import torch
 import torch.optim as optim
 from torch.autograd import Variable
 from torch.utils.data import DataLoader
@@ -26,8 +25,6 @@ def _train(path_to_data_dir, path_to_logs_dir, path_to_restore_checkpoint_file):
         losses = list(filter(lambda x: x[0] <= step, losses))
         print('Model restored from file: %s' % path_to_restore_checkpoint_file)
     model.cuda()
-
-    # evaluator = Evaluator(path_to_data_dir, mode=Dataset.Mode.VAL)
 
     num_steps_to_check_loss = 20
     num_steps_to_snapshot = 1000

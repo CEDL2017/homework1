@@ -1,19 +1,17 @@
-from collections import defaultdict
-
-import numpy as np
-import torch.utils.data
 import torch.nn.functional
+import torch.utils.data
 from torch.autograd import Variable
-from dataset import Dataset
 from tqdm import *
+
+from dataset import Dataset
 
 
 class Evaluator(object):
     def __init__(self, path_to_data_dir, mode):
-        self._batch_size = 16
+        self._batch_size = 128
         self._dataset = Dataset(path_to_data_dir, mode)
         self._dataloader = torch.utils.data.DataLoader(self._dataset, batch_size=self._batch_size,
-                                                       shuffle=False, num_workers=2, pin_memory=True)
+                                                       shuffle=False, num_workers=2)
 
     def evaluate(self, model):
         model.cuda().eval()
