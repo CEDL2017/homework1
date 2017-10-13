@@ -203,7 +203,7 @@ startTime = time()
 init = tf.global_variables_initializer()
 
 '''
-# training
+##### Start training ######
 with tf.Session() as sess:	
 	sess.run(init)
 	saver = tf.train.Saver()
@@ -232,8 +232,8 @@ with tf.Session() as sess:
 
 		val_x = []
 		val_y = []
-		# for k in range(len(test_images)): 
-		for k in range(BATCH_SIZE):
+		
+		for k in range(BATCH_SIZE): # check check~
 			# print(epoch, k+epoch*30)
 			t_image = Image.open(test_images[k + epoch * BATCH_SIZE])
 			t_image_resized = cv.resize(np.asarray(t_image), (INPUT_HEIGHT, INPUT_WIDTH))
@@ -259,9 +259,10 @@ with tf.Session() as sess:
 # duration calculating
 duration = time()-startTime
 print('duration = ', duration)
-'''
 
-# testing and evaluation
+#### End of training ####
+
+#### testing and evaluation ####
 test_x = []
 test_y = []
 y_score = []
@@ -273,6 +274,7 @@ with tf.Session() as sess:
 	saver.restore(sess, './obj_det_model.ckpt-46')
 
 	test_acc = 0
+	### overall accuracy calculation
 	for j in range(0,len(test_images)):
 
 		t_image = Image.open(test_images[j])
@@ -294,7 +296,7 @@ with tf.Session() as sess:
 	# print('accuracy = ', test_acc)
 
 	'''
-	# For each class
+	# P-R curve for each class
 	precision = dict()
 	recall = dict()
 	average_precision = dict()
