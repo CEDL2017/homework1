@@ -29,7 +29,7 @@ class Evaluator(object):
 
             num_hit += (predictions == labels).sum()
 
-            progress_bar.update(self._batch_size)
+            progress_bar.update(len(labels))
 
         accuracy = num_hit / len(self._dataset)
         return accuracy
