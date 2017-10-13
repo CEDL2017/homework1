@@ -26,6 +26,11 @@ from datasets import dataset_factory
 from nets import nets_factory
 from preprocessing import preprocessing_factory
 
+# for pr_point
+from eval_util import *
+# for save data
+import numpy as np
+
 slim = tf.contrib.slim
 
 tf.app.flags.DEFINE_integer(
@@ -92,45 +97,6 @@ tf.app.flags.DEFINE_string(
 
 FLAGS = tf.app.flags.FLAGS
 
-
-def _create_local(name, shape, collections=None, validate_shape=True,
-                  dtype=tf.float32):
-    """Creates a new local variable.
-    Args:
-      name: The name of the new or existing variable.
-      shape: Shape of the new or existing variable.
-      collections: A list of collection names to which the Variable will be added.
-      validate_shape: Whether to validate the shape of the variable.
-      dtype: Data type of the variables.
-    Returns:
-      The created variable.
-    """
-    # Make sure local variables are added to tf.GraphKeys.LOCAL_VARIABLES
-    collections = list(collections or [])
-    collections += [tf.GraphKeys.LOCAL_VARIABLES]
-    return tf.Variable(
-        initial_value=tf.zeros(shape, dtype=dtype),
-        name=name,
-        trainable=False,
-        collections=collections,
-        validate_shape=validate_shape)
-
-def _get_streaming_metrics(label, prediction, num_classes):
-    with tf.name_scope("eval"):
-        batch_confusion = tf.confusion_matrix(label, prediction,
-                                              num_classes=num_classes,
-                                              name='batch_confusion')
-
-        confusion = _create_local('confusion_matrix',
-                                  shape=[num_classes, num_classes],
-                                  dtype=tf.int32)
-        # Create the update op for doing a "+=" accumulation on the batch
-        confusion_update = confusion.assign(confusion + batch_confusion)
-        # Cast counts to float so tf.summary.image renormalizes to [0,255]
-        confusion_image = tf.reshape(tf.cast(confusion, tf.float32),
-                                     [1, num_classes, num_classes, 1])
-
-    return confusion, confusion_update
 
 def main(_):
   if not FLAGS.dataset_dir:
@@ -204,7 +170,9 @@ def main(_):
     labels1 = tf.squeeze(labels1)
     predictions2 = tf.argmax(logits2, 1)
     labels2 = tf.squeeze(labels2)
-
+    sm_logits2 = tf.nn.softmax(logits2)
+    oh_labels2 = slim.one_hot_encoding(labels2, dataset.num_classes[2] - FLAGS.labels_offset)
+    oh_labels2 = tf.cast(oh_labels2, dtype=tf.bool)
     # Define the metrics:
     names_to_values, names_to_updates = slim.metrics.aggregate_metric_map({
         'Accuracy': slim.metrics.streaming_accuracy(predictions, labels),
@@ -216,12 +184,16 @@ def main(_):
         'Accuracy2': slim.metrics.streaming_accuracy(predictions2, labels2),
         'Recall_52': slim.metrics.streaming_recall_at_k(
             logits2, labels2, 5),
-        'Confusion_matrix': _get_streaming_metrics(labels, predictions,
+        'Confusion_matrix': get_streaming_metrics(labels, predictions,
                                                    dataset.num_classes[0] - FLAGS.labels_offset),
-        'Confusion_matrix1': _get_streaming_metrics(labels1, predictions1,
+        'Confusion_matrix1': get_streaming_metrics(labels1, predictions1,
                                                    dataset.num_classes[1] - FLAGS.labels_offset),
-        'Confusion_matrix2': _get_streaming_metrics(labels2, predictions2,
-                                                   24),
+        'Confusion_matrix2': get_streaming_metrics(labels2, predictions2,
+                                                   dataset.num_classes[2] - FLAGS.labels_offset),
+        'pr_p': get_streaming_curve_points(labels=oh_labels2, predictions=sm_logits2,
+                                           num_thresholds=200,curve='PR'),
+        'pr_auc': slim.metrics.streaming_auc(predictions=sm_logits2, labels=oh_labels2,
+                                             num_thresholds=200,curve='PR'),
     })
 
     '''
@@ -253,7 +225,9 @@ def main(_):
     sconf = tf.ConfigProto(
         gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=FLAGS.gpu_memp) )
     
-    [confusion_matrix] = slim.evaluation.evaluate_once(
+    # confusion_matrix: row: gt, col: pred
+    [confusion_matrix, pr_p, pr_auc] = slim.evaluation.evaluate_once(
+    # [logits2, pr_auc] = slim.evaluation.evaluate_once(
         master=FLAGS.master,
         checkpoint_path=checkpoint_path,
         logdir=FLAGS.eval_dir,
@@ -261,12 +235,35 @@ def main(_):
         eval_op=list(names_to_updates.values()),
         variables_to_restore=variables_to_restore,
         session_config=sconf,
-        final_op=[names_to_updates['Confusion_matrix'+FLAGS.save_pred]])
+        final_op=[names_to_updates['Confusion_matrix'+FLAGS.save_pred], 
+                  names_to_updates['pr_p'], 
+                  names_to_updates['pr_auc']
+                  ])
+    
     
     # save data
-    fn = FLAGS.eval_dir +'/confusion_matrix'+FLAGS.save_pred
-    with open(fn,'w') as f:
-        f.write(confusion_matrix)
+    save_dict = {
+        "confusion_matrix": confusion_matrix,
+        "pr_point": pr_p,
+        "pr_auc": pr_auc,
+        "pred_cls": int(FLAGS.save_pred),
+    }
+    fn = '%s/%s_rst%s.npy'%(FLAGS.eval_dir, FLAGS.dataset_split_name, FLAGS.save_pred)
+    np.save(fn, save_dict)
+    '''
+    print("confusion_matrix")
+    print(confusion_matrix)
+    # print(type(confusion_matrix))
+    print("pr_p")
+    print(pr_p)
+    # print(type(pr_p))
+    print("pr_auc")
+    print(pr_auc)
+    # print(dir(pr_auc))
+    # print(type(pr_auc))
+    '''
+    # pdb.set_trace()
+
     
 if __name__ == '__main__':
   tf.app.run()

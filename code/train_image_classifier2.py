@@ -497,13 +497,13 @@ def main(_):
             label_smoothing=FLAGS.label_smoothing, weights=0.4, scope='aux_loss')
       tf.losses.softmax_cross_entropy(
           logits=logits, onehot_labels=labels,
-          label_smoothing=FLAGS.label_smoothing, weights=0.2)
+          label_smoothing=FLAGS.label_smoothing, weights=0.5)
       tf.losses.softmax_cross_entropy(
           logits=logits1, onehot_labels=labels1,
-          label_smoothing=FLAGS.label_smoothing, weights=0.3)
+          label_smoothing=FLAGS.label_smoothing, weights=0.2)
       tf.losses.softmax_cross_entropy(
           logits=logits2, onehot_labels=labels2,
-          label_smoothing=FLAGS.label_smoothing, weights=0.5)
+          label_smoothing=FLAGS.label_smoothing, weights=0.3)
       return end_points
 
     # Gather initial summaries.

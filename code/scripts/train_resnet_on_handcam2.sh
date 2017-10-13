@@ -9,7 +9,7 @@
 
 
 # Where the dataset is saved to.
-DATASET_DIR=/home/nvlab/cedl/hw01
+DATASET_DIR=/Disk2/tako
 
 if [ -z "$1" ]
 then
@@ -27,29 +27,30 @@ netn=mobilenet2
 # m2_2: pre+f-last(3)(.3,.3,.4)
 # m2_3: pre+f-last(3)(.2,.3,.5)
 # m2_4: pre+f-last(3)(.5,.2,.3)
+# m2_5: pre+f-last(3)(.2,.2,.6)
 # v: ori train
-TRAIN_DIR=./output/handcam/${netn}_3 
-#CP_PATH=./output/pret
+TRAIN_DIR=./output/handcam/${netn}_5
+CP_PATH=./output/pret
 #CP_PATH=./output/handcam${cls[$1]}/${netn}
-CP_PATH=./output/handcam/${netn}_3
+#CP_PATH=./output/handcam/${netn}2
 mkdir -p ${TRAIN_DIR}
 
 # Run training.
 # ORI: lr=0.1, nstep=1000000
 #  --trainable_scopes=MobileNet/fc_16 \
-#  --checkpoint_exclude_scopes=MobileNet/fc_16,MobileNet/fc_16_1,MobileNet/fc_16_2 \
 #  --ignore_missing_vars=True \
 :< '
 python train_image_classifier2.py \
   --train_dir=${TRAIN_DIR} \
   --dataset_name=handcam \
+  --checkpoint_exclude_scopes=MobileNet/fc_16,MobileNet/fc_16_1,MobileNet/fc_16_2 \
   --checkpoint_path=${CP_PATH} \
   --dataset_split_name=train \
   --dataset_dir=${DATASET_DIR} \
   --model_name=${netn} \
   --preprocessing_name=${netn} \
   --width_multiplier=1.0 \
-  --max_number_of_steps=40000 \
+  --max_number_of_steps=25000 \
   --batch_size=64 \
   --que_batch=20 \
   --save_interval_secs=240 \
@@ -64,7 +65,7 @@ python train_image_classifier2.py \
   --num_epochs_per_decay=30.0 \
   --weight_decay=0.0 \
   --num_clones=1 \
-  --gpu_memp=0.5
+  --gpu_memp=1.0
 # '
 # Run evaluation
 
@@ -76,7 +77,7 @@ python eval_image_classifier2.py \
   --dataset_split_name=train \
   --dataset_dir=${DATASET_DIR} \
   --model_name=${netn} \
-  --gpu_memp=0.7
+  --gpu_memp=1.0
 # '
 :< '
 python eval_image_classifier2.py \
@@ -88,7 +89,6 @@ python eval_image_classifier2.py \
   --model_name=${netn} \
   --gpu_memp=0.7
 # '
-
 #:< '
 python eval_image_classifier3.py \
   --checkpoint_path=${TRAIN_DIR} \
@@ -98,6 +98,5 @@ python eval_image_classifier3.py \
   --dataset_dir=${DATASET_DIR} \
   --model_name=${netn} \
   --gpu_memp=0.7 \
-  --save_pred=2
+  --save_pred=2 >> log.txt
 # '
-
