@@ -39,7 +39,7 @@ mkdir -p ${TRAIN_DIR}
 # ORI: lr=0.1, nstep=1000000
 #  --trainable_scopes=MobileNet/fc_16 \
 #  --ignore_missing_vars=True \
-:< '
+#:< '
 python train_image_classifier2.py \
   --train_dir=${TRAIN_DIR} \
   --dataset_name=handcam \
@@ -69,7 +69,7 @@ python train_image_classifier2.py \
 # '
 # Run evaluation
 
-:< '
+#:< '
 python eval_image_classifier2.py \
   --checkpoint_path=${TRAIN_DIR} \
   --eval_dir=${TRAIN_DIR} \
@@ -79,7 +79,7 @@ python eval_image_classifier2.py \
   --model_name=${netn} \
   --gpu_memp=1.0
 # '
-:< '
+#:< '
 python eval_image_classifier2.py \
   --checkpoint_path=${TRAIN_DIR} \
   --eval_dir=${TRAIN_DIR} \
@@ -98,5 +98,6 @@ python eval_image_classifier3.py \
   --dataset_dir=${DATASET_DIR} \
   --model_name=${netn} \
   --gpu_memp=0.7 \
-  --save_pred=2 >> log.txt
+  --save_pred=2
+# >> log.txt
 # '
