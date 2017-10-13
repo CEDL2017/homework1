@@ -3,11 +3,13 @@
 </center>
 
 # Deep Classification
+Please see project overview, implementation details and evaluation in my [report](https://github.com/YuChunLOL/homework1/blob/master/results/index.md).
 
-## updates
+## Updates
 - 27/9/2017: provide [subset of dataset](https://drive.google.com/drive/folders/0B3fKFm-j0RqeWGdXZUNRUkpybU0?usp=sharing), separated into train/test set
 - 27/9/2017: in this homework, we only evaluat the performance of object classification. You can use other label for multi-task learning, etc.
 - 4/10/2017: ~~Due: Oct. 5, 11:59pm.~~ => Due: Oct. 12, 11:59pm.
+
 ## Brief
 * ***+2 extra credit of the whole semester***
 * Due: <b>Oct. 5</b>, 11:59pm.
@@ -16,14 +18,12 @@
 
 
 ## Overview
-
-
 Recently, the technological advance of wearable devices has led to significant interests in recognizing human behaviors in daily life (i.e., uninstrumented environment). Among many devices, egocentric camera systems have drawn significant attention, since the camera is aligned with the field-of-view of wearer, it naturally captures what a person sees. These systems have shown great potential in recognizing daily activities(e.g., making meals, watching TV, etc.), estimating hand poses, generating howto videos, etc.
 
 Despite many advantages of egocentric camera systems, there exists two main issues which are much less discussed. Firstly, hand localization is not solved especially for passive camera systems. Even for active camera systems like Kinect, hand localization is challenging when two hands are interacting or a hand is interacting with an object. Secondly, the limited field-of-view of an egocentric camera implies that hands will inevitably move outside the images sometimes.
-     
+
 HandCam (Fig. 1), a novel wearable camera capturing activities of hands, for recognizing human behaviors. HandCam has two main advantages over egocentric systems : (1) it avoids the need to detect hands and manipulation regions; (2) it observes the activities of hands almost at all time.
-     
+
 ## Requirement   
 
 - Python
@@ -105,7 +105,7 @@ Ges= {  'free':0,
 ```
 
 ## Writeup
-    
+
 You are required to implement a **deep-learning-based method** to recognize hand states (free vs. active hands, hand gestures, object categories). Moreover, You might need to further take advantage of both HandCam and HeadCam. You will have to compete the performance with your classmates, so try to use as many techniques as possible to improve. **Your score will based on the performance ranking.**
 
 For this project, and all other projects, you must do a project report in results folder using [Markdown](https://help.github.com/articles/markdown-basics). We provide you with a placeholder [index.md](./results/index.md) document which you can edit. In the report you will describe your algorithm and any decisions you made to write your algorithm a particular way. Then, you will describe how to run your code and if your code depended on other packages. You also need to show and discuss the results of your algorithm. Discuss any extra credit you did, and clearly show what contribution it had on the results (e.g. performance with and without each extra credit component).
@@ -116,8 +116,8 @@ You should also include the precision-recall curve of your final classifier and 
 <ul>
    <li> 40 pts: According to performance ranking in class </li>
 	<li> 60 pts: Outperform the AlexNet baseline </li>
-   <li> -5*n pts: Lose 5 points for every time (after the first) you do not follow the instructions for the hand in format </li> 
-</ul> 
+   <li> -5*n pts: Lose 5 points for every time (after the first) you do not follow the instructions for the hand in format </li>
+</ul>
 
 ## Get start & hand in
 * Publicly fork version (+2 extra points)
