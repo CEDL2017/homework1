@@ -18,7 +18,7 @@ Code highlights
 ```
 
 ## Installation
-* Other required packages.
+* matplotlib
 * Sklearn
 
 ### Results
