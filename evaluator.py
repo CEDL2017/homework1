@@ -11,12 +11,12 @@ class Evaluator(object):
         self._batch_size = 128
         self._dataset = Dataset(path_to_data_dir, mode)
         self._dataloader = torch.utils.data.DataLoader(self._dataset, batch_size=self._batch_size,
-                                                       shuffle=False, num_workers=2)
+                                                       shuffle=False, num_workers=8)
 
     def evaluate(self, model):
         model.cuda().eval()
 
-        num_hit = 0
+        num_hits = 0
         progress_bar = tqdm(total=len(self._dataset))
 
         for batch_index, (images, labels) in enumerate(self._dataloader):
@@ -27,9 +27,9 @@ class Evaluator(object):
             probabilities = torch.nn.functional.softmax(logits)
             predictions = probabilities.data.max(dim=1)[1]
 
-            num_hit += (predictions == labels).sum()
+            num_hits += (predictions == labels).sum()
 
             progress_bar.update(len(labels))
 
-        accuracy = num_hit / len(self._dataset)
+        accuracy = num_hits / len(self._dataset)
         return accuracy
