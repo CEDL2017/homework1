@@ -156,7 +156,7 @@ saver = tf.train.Saver()
 
 with tf.Session() as sess:
     sess.run(tf.global_variables_initializer())
-    saver.restore(sess, "model/model_FA.ckpt")
+    saver.restore(sess, "model/model_obj.ckpt")
     print('Model restored')
     for k in range(trainEpoch):   
         if k ==0:        
@@ -222,12 +222,12 @@ with tf.Session() as sess:
     plt.ylim([0.0, 1.05])
     plt.xlabel('Recall')
     plt.ylabel('Precision')
-    plt.title('Extension of FA Precision-Recall curve to multi-class')
+    plt.title('Extension of obj Precision-Recall curve to multi-class')
     plt.legend(lines, labels, loc=(0.55, 0.55), prop=dict(size=8))
 
     
     sess.close()
     
-plt.savefig('FA_precision-recall.png')
+plt.savefig('obj_precision-recall.png')
     
                    
