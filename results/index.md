@@ -108,7 +108,7 @@ with tf.name_scope('C4_Pool'):
 <td>
 <img src="multiple_loss.jpg" width="24%"/>
 <img src="multiple_acc.jpg"  width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
+<img src="pobj_precision-recall.png" width="24%"/>
 <img src="placeholder.jpg" width="24%"/>
 </td>
 </tr>
