@@ -19,18 +19,18 @@ class Evaluator(object):
         num_hits = 0
         progress_bar = tqdm(total=len(self._dataset))
 
-        for batch_index, (hand_images, head_images, labels) in enumerate(self._dataloader):
+        for batch_index, (head_images, hand_images, fa_labels, ges_labels, obj_labels) in enumerate(self._dataloader):
             hand_images = Variable(hand_images, volatile=True).cuda()
             head_images = Variable(head_images, volatile=True).cuda()
-            labels = labels.cuda()
+            obj_labels = obj_labels.cuda()
 
-            logits = model.eval().forward(hand_images, head_images)
-            probabilities = torch.nn.functional.softmax(logits)
-            predictions = probabilities.data.max(dim=1)[1]
+            _, _, obj_logits = model.eval().forward(hand_images, head_images)
+            obj_probabilities = torch.nn.functional.softmax(obj_logits)
+            obj_predictions = obj_probabilities.data.max(dim=1)[1]
 
-            num_hits += (predictions == labels).sum()
+            num_hits += (obj_predictions == obj_labels).sum()
 
-            progress_bar.update(len(labels))
+            progress_bar.update(len(obj_labels))
 
         accuracy = num_hits / len(self._dataset)
         return accuracy

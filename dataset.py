@@ -31,9 +31,10 @@ class Dataset(dataset.Dataset):
                 numbers = ['4', '5', '6'] if not environment == 'lab' else ['5', '6', '7', '8']
 
             for side in ['left', 'right']:
-                for num in numbers:
-                    self._labels['{:s}/obj/{:s}/{:s}'.format(environment, side, num)] = np.load(
-                        os.path.join(path_to_data, 'labels', environment, 'obj_{:s}{:s}.npy'.format(side, num)))
+                for task in ['FA', 'ges', 'obj']:
+                    for num in numbers:
+                        self._labels['{:s}/{:s}/{:s}/{:s}'.format(environment, task, side, num)] = np.load(
+                            os.path.join(path_to_data, 'labels', environment, '{:s}_{:s}{:s}.npy'.format(task, side, num)))
 
     def __len__(self):
         return len(self._path_to_hand_images)
@@ -72,10 +73,11 @@ class Dataset(dataset.Dataset):
 
         image_index = int(re.match('.*?(\d+)\.png', path_to_hand_image_components[-1]).group(1)) - 1
 
-        label = self._labels['{:s}/obj/{:s}/{:d}'.format(environment, side, num)][image_index]
-        label = int(label)
+        fa_label = int(self._labels['{:s}/{:s}/{:s}/{:d}'.format(environment, 'FA', side, num)][image_index])
+        ges_label = int(self._labels['{:s}/{:s}/{:s}/{:d}'.format(environment, 'ges', side, num)][image_index])
+        obj_label = int(self._labels['{:s}/{:s}/{:s}/{:d}'.format(environment, 'obj', side, num)][image_index])
 
-        return hand_image, head_image, label
+        return hand_image, head_image, fa_label, ges_label, obj_label
 
     class Mode(Enum):
         TRAIN = 'train'
@@ -109,10 +111,10 @@ if __name__ == '__main__':
 
         plt.figure()
         for i, index in enumerate(indices):
-            head_image, hand_image, label = dataset[index]
+            head_image, hand_image, fa_label, ges_label, obj_label = dataset[index]
             plt.subplot(3, 2, i + 1)
             plt.imshow(head_image.permute(1, 2, 0).cpu().numpy())
-            print('label = {:d}'.format(label))
+            print('label (FA/ges/obj) = {:d}/{:d}/{:d}'.format(fa_label, ges_label, obj_label))
         plt.show()
 
     main()

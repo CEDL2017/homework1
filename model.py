@@ -19,11 +19,14 @@ class Model(nn.Module):
         fc6 = [it for i, it in enumerate(pretrained_net.classifier.children()) if i < 4]
         self._fc6 = nn.Sequential(*fc6)
 
-        self._classifier = nn.Sequential(
+        self._fc7 = nn.Sequential(
             nn.Linear(8192, 4096),
-            nn.ReLU(True),
-            nn.Linear(4096, 24)
+            nn.ReLU(True)
         )
+
+        self._fa_logits = nn.Linear(4096, 2)
+        self._ges_logits = nn.Linear(4096, 13)
+        self._obj_logits = nn.Linear(4096, 24)
 
     def forward(self, hand_images, head_images):
         hand_features = self._feature(hand_images)
@@ -36,13 +39,21 @@ class Model(nn.Module):
         head_fc6 = self._fc6(head_features)
 
         features = torch.cat([hand_fc6, head_fc6], dim=1)
-        logits = self._classifier(features)
-        return logits
+
+        features = self._fc7(features)
+
+        fa_logits = self._fa_logits(features)
+        ges_logits = self._ges_logits(features)
+        obj_logits = self._obj_logits(features)
+
+        return fa_logits, ges_logits, obj_logits
 
     @staticmethod
-    def loss(logits, labels):
-        cross_entropy = torch.nn.functional.cross_entropy(input=logits, target=labels)
-        return cross_entropy
+    def loss(fa_logits, ges_logits, obj_logits, fa_labels, ges_labels, obj_labels):
+        fa_cross_entropy = torch.nn.functional.cross_entropy(input=fa_logits, target=fa_labels)
+        ges_cross_entropy = torch.nn.functional.cross_entropy(input=ges_logits, target=ges_labels)
+        obj_cross_entropy = torch.nn.functional.cross_entropy(input=obj_logits, target=obj_labels)
+        return fa_cross_entropy, ges_cross_entropy, obj_cross_entropy
 
     def save(self, path_to_dir, step, optimizer, maximum=5):
         path_to_models = glob.glob(os.path.join(path_to_dir, Model.CHECKPOINT_FILENAME_PATTERN.format('*')))

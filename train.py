@@ -44,15 +44,17 @@ def _train(path_to_data_dir, path_to_logs_dir, path_to_restore_checkpoint_file):
     should_continue = True
 
     while should_continue:
-        for batch_index, (hand_images, head_images, labels) in enumerate(dataloader):
+        for batch_index, (head_images, hand_images, fa_labels, ges_labels, obj_labels) in enumerate(dataloader):
             hand_images = Variable(hand_images).cuda()
             head_images = Variable(head_images).cuda()
-            labels = Variable(labels).cuda()
+            fa_labels = Variable(fa_labels).cuda()
+            ges_labels = Variable(ges_labels).cuda()
+            obj_labels = Variable(obj_labels).cuda()
 
-            logits = model.train().forward(hand_images, head_images)
+            fa_logits, ges_logits, obj_logits = model.train().forward(hand_images, head_images)
 
-            cross_entropy = Model.loss(logits, labels)
-            loss = cross_entropy
+            fa_cross_entropy, ges_cross_entropy, obj_cross_entropy = Model.loss(fa_logits, ges_logits, obj_logits, fa_labels, ges_labels, obj_labels)
+            loss = fa_cross_entropy + ges_cross_entropy + obj_cross_entropy
 
             learning_rate = _adjust_learning_rate(optimizer, step=step, initial_lr=initial_learning_rate,
                                                   decay_steps=decay_steps, decay_rate=decay_rate)
@@ -61,7 +63,7 @@ def _train(path_to_data_dir, path_to_logs_dir, path_to_restore_checkpoint_file):
             loss.backward()
             optimizer.step()
             step += 1
-            num_samples += len(labels)
+            num_samples += len(obj_labels)
 
             if step % num_steps_to_show_loss == 0:
                 elapsed_time = time.time() - start_time
@@ -69,6 +71,8 @@ def _train(path_to_data_dir, path_to_logs_dir, path_to_restore_checkpoint_file):
                 start_time, num_samples, duration = time.time(), 0, 0.0
                 print('step = {:d}, loss = {:f}, learning_rate = {:f} ({:.1f} examples/sec)'.format(
                     step, loss.data[0], learning_rate, examples_per_sec))
+                print('=> fa_cross_entropy = {:f}, ges_cross_entropy = {:f}, obj_cross_entropy = {:f}'.format(
+                    fa_cross_entropy.data[0], ges_cross_entropy.data[0], obj_cross_entropy.data[0]))
                 losses.extend([[step, loss.data[0]]])
 
             if step % num_steps_to_snapshot == 0 or step % num_steps_to_train == 0:
