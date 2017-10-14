@@ -46,7 +46,8 @@ class Dataset(dataset.Dataset):
         head_image = transforms.Image.open(path_to_head_image)
 
         transform = transforms.Compose([
-            transforms.Scale(300),
+            transforms.Scale(256),
+            transforms.RandomCrop(224) if self._mode == Dataset.Mode.TRAIN else transforms.CenterCrop(224),
             Dataset.RandomHorizontalFlip(0.5 if self._mode == Dataset.Mode.TRAIN else 0),
             transforms.ToTensor(),
             transforms.Normalize(mean=[0.485, 0.456, 0.406],

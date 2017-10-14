@@ -13,29 +13,29 @@ class Model(nn.Module):
     def __init__(self):
         super().__init__()
         pretrained_net = models.alexnet(pretrained=True)
+
         self._feature = pretrained_net.features
-        self._fc6 = nn.Sequential(
-            nn.Linear(256 * 8 * 15, 4096),
-            nn.ReLU(True),
-            nn.Dropout()
-        )
+
+        fc6 = [it for i, it in enumerate(pretrained_net.classifier.children()) if i < 4]
+        self._fc6 = nn.Sequential(*fc6)
+
         self._classifier = nn.Sequential(
             nn.Linear(8192, 4096),
             nn.ReLU(True),
-            nn.Dropout(),
-            nn.Linear(4096, 24),
+            nn.Linear(4096, 24)
         )
 
     def forward(self, hand_images, head_images):
         hand_features = self._feature(hand_images)
-        hand_features = hand_features.view(-1, 256 * 8 * 15)
-        hand_features = self._fc6(hand_features)
+        head_features = self._feature(head_images)
 
-        head_feature = self._feature(head_images)
-        head_feature = head_feature.view(-1, 256 * 8 * 15)
-        head_feature = self._fc6(head_feature)
+        hand_features = hand_features.view(-1, 256 * 6 * 6)
+        head_features = head_features.view(-1, 256 * 6 * 6)
 
-        features = torch.cat([hand_features, head_feature], dim=1)
+        hand_fc6 = self._fc6(hand_features)
+        head_fc6 = self._fc6(head_features)
+
+        features = torch.cat([hand_fc6, head_fc6], dim=1)
         logits = self._classifier(features)
         return logits
 
