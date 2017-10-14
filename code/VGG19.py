@@ -32,7 +32,6 @@ test_batch_xs, test_batch_ys =input_data.batch_generate(test_image, test_label, 
 xs = tf.placeholder(tf.float32, [None, 224, 224, 3])
 ys = tf.placeholder(tf.float32, [None, out_size])
 keep_prob = tf.placeholder(tf.float32)
-#image = tf.reshape(xs, [-1, 200, 200, 3])
 
 # VGG structure
 # conv_layer1
@@ -110,7 +109,6 @@ for i in range(epoch):
     for iteration in range(int(N_sample / batch_size)):
         if coord.should_stop():
             break
-        #print("aaaaaaa")
         count += 1
         tot_count += batch_size 
         image_batch, label_batch = sess.run([batch_xs, batch_ys])
@@ -146,6 +144,4 @@ print('test accuracy: %.4f' % tot_test_accuracy)
 coord.request_stop()       
 coord.join(threads)
 sess.close()
-
-
 
