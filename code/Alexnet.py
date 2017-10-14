@@ -32,7 +32,6 @@ test_batch_xs, test_batch_ys =input_data.batch_generate(test_image, test_label, 
 xs = tf.placeholder(tf.float32, [None, 200, 200, 3])
 ys = tf.placeholder(tf.float32, [None, out_size])
 keep_prob = tf.placeholder(tf.float32)
-#image = tf.reshape(xs, [-1, 200, 200, 3])
 
 # Alexnet structure
 # conv_layer1
@@ -131,6 +130,4 @@ print('test accuracy: %.2f' % tot_test_accuracy)
 coord.request_stop()       
 coord.join(threads)
 sess.close()
-
-
 
