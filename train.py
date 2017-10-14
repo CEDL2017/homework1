@@ -19,13 +19,13 @@ def _adjust_learning_rate(optimizer, step, initial_lr, decay_steps, decay_rate):
 
 
 def _train(path_to_data_dir, path_to_logs_dir, path_to_restore_checkpoint_file):
-    batch_size = 64
+    batch_size = 128
     initial_learning_rate = 1e-3
-    decay_steps = 8000
+    decay_steps = 10000
     decay_rate = 0.1
     num_steps_to_show_loss = 20
     num_steps_to_snapshot = 1000
-    num_steps_to_train = 10000
+    num_steps_to_train = 40000
 
     dataset = Dataset(path_to_data=path_to_data_dir, mode=Dataset.Mode.TRAIN)
     dataloader = DataLoader(dataset, batch_size, shuffle=True, num_workers=8)
