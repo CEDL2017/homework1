@@ -1,0 +1,2 @@
+model_checkpoint_path: "/home/viplab/Desktop/petersci/CEDL_HW1/code/checkpoints_VGG/model.ckpt-18740"
+all_model_checkpoint_paths: "/home/viplab/Desktop/petersci/CEDL_HW1/code/checkpoints_VGG/model.ckpt-18740"
