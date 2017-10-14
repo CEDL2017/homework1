@@ -19,7 +19,7 @@ def _adjust_learning_rate(optimizer, step, initial_lr, decay_steps, decay_rate):
 
 
 def _train(path_to_data_dir, path_to_logs_dir, path_to_restore_checkpoint_file):
-    batch_size = 32
+    batch_size = 64
     initial_learning_rate = 1e-3
     decay_steps = 8000
     decay_rate = 0.1

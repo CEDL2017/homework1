@@ -14,7 +14,7 @@ class Model(nn.Module):
         super().__init__()
         self._feature = models.alexnet(pretrained=True).features
         self._classifier = nn.Sequential(
-            nn.Linear(256 * 14 * 26, 4096),
+            nn.Linear(256 * 8 * 15, 4096),
             nn.ReLU(True),
             nn.Dropout(),
             nn.Linear(4096, 4096),
@@ -25,7 +25,7 @@ class Model(nn.Module):
 
     def forward(self, x):
         feature = self._feature(x)
-        feature = feature.view(-1, 256 * 14 * 26)
+        feature = feature.view(-1, 256 * 8 * 15)
         logit = self._classifier(feature)
         return logit
 

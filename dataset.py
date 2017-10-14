@@ -42,7 +42,7 @@ class Dataset(dataset.Dataset):
         image = transforms.Image.open(path_to_image)
 
         transform = transforms.Compose([
-            transforms.Scale(500),
+            transforms.Scale(300),
             transforms.RandomHorizontalFlip(),
             transforms.ToTensor(),
             transforms.Normalize(mean=[0.485, 0.456, 0.406],
