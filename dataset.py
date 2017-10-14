@@ -18,10 +18,10 @@ class Dataset(dataset.Dataset):
         assert isinstance(mode, Dataset.Mode)
 
         self._mode = mode
-        self._path_to_images = []
-        for part in ['Rhand', 'Lhand']:
-            self._path_to_images.extend(
-                glob.glob('{:s}/frames/{:s}/*/*/{:s}/*.png'.format(path_to_data, mode.value, part)))
+        self._path_to_hand_images = []
+        for hand in ['Rhand', 'Lhand']:
+            self._path_to_hand_images.extend(
+                glob.glob('{:s}/frames/{:s}/*/*/{:s}/*.png'.format(path_to_data, mode.value, hand)))
         self._labels = defaultdict(str)
 
         for environment in ['house', 'lab', 'office']:
@@ -36,11 +36,14 @@ class Dataset(dataset.Dataset):
                         os.path.join(path_to_data, 'labels', environment, 'obj_{:s}{:s}.npy'.format(side, num)))
 
     def __len__(self):
-        return len(self._path_to_images)
+        return len(self._path_to_hand_images)
 
     def __getitem__(self, index):
-        path_to_image = self._path_to_images[index]
-        image = transforms.Image.open(path_to_image)
+        path_to_hand_image = self._path_to_hand_images[index]
+        path_to_head_image = re.sub('[L|R]hand', 'head', path_to_hand_image)
+
+        hand_image = transforms.Image.open(path_to_hand_image)
+        head_image = transforms.Image.open(path_to_head_image)
 
         transform = transforms.Compose([
             transforms.Scale(300),
@@ -49,26 +52,29 @@ class Dataset(dataset.Dataset):
             transforms.Normalize(mean=[0.485, 0.456, 0.406],
                                  std=[0.229, 0.224, 0.225])
         ])
-        image = transform(image)
 
-        path_to_image_components = path_to_image.split('/')
-        environment = path_to_image_components[-4]
+        hand_image = transform(hand_image)
+        head_image = transform(head_image)
 
-        num = int(path_to_image_components[-3])
+        path_to_hand_image_components = path_to_hand_image.split('/')
+        environment = path_to_hand_image_components[-4]
+
+        num = int(path_to_hand_image_components[-3])
         if self._mode == Dataset.Mode.TEST:
             num += 3
             if environment == 'lab':
                 num += 1
 
-        assert path_to_image_components[-2] in ['Lhand', 'Rhand']
-        part = 'left' if path_to_image_components[-2] == 'Lhand' else 'right'
+        hand = path_to_hand_image_components[-2]
+        assert hand in ['Lhand', 'Rhand']
+        side = 'left' if hand == 'Lhand' else 'right'
 
-        image_index = int(re.match('.*?(\d+)\.png', path_to_image_components[-1]).group(1)) - 1
+        image_index = int(re.match('.*?(\d+)\.png', path_to_hand_image_components[-1]).group(1)) - 1
 
-        label = self._labels['{:s}/obj/{:s}/{:d}'.format(environment, part, num)][image_index]
+        label = self._labels['{:s}/obj/{:s}/{:d}'.format(environment, side, num)][image_index]
         label = int(label)
 
-        return image, label
+        return hand_image, head_image, label
 
     class Mode(Enum):
         TRAIN = 'train'
@@ -102,9 +108,9 @@ if __name__ == '__main__':
 
         plt.figure()
         for i, index in enumerate(indices):
-            image, label = dataset[index]
+            head_image, hand_image, label = dataset[index]
             plt.subplot(3, 2, i + 1)
-            plt.imshow(image.permute(1, 2, 0).cpu().numpy())
+            plt.imshow(head_image.permute(1, 2, 0).cpu().numpy())
             print('label = {:d}'.format(label))
         plt.show()
 

@@ -21,11 +21,11 @@ def _adjust_learning_rate(optimizer, step, initial_lr, decay_steps, decay_rate):
 def _train(path_to_data_dir, path_to_logs_dir, path_to_restore_checkpoint_file):
     batch_size = 128
     initial_learning_rate = 1e-3
-    decay_steps = 10000
+    decay_steps = 2500
     decay_rate = 0.1
     num_steps_to_show_loss = 20
     num_steps_to_snapshot = 1000
-    num_steps_to_train = 40000
+    num_steps_to_train = 10000
 
     dataset = Dataset(path_to_data=path_to_data_dir, mode=Dataset.Mode.TRAIN)
     dataloader = DataLoader(dataset, batch_size, shuffle=True, num_workers=8)
@@ -44,11 +44,12 @@ def _train(path_to_data_dir, path_to_logs_dir, path_to_restore_checkpoint_file):
     should_continue = True
 
     while should_continue:
-        for batch_index, (images, labels) in enumerate(dataloader):
-            images = Variable(images).cuda()
+        for batch_index, (hand_images, head_images, labels) in enumerate(dataloader):
+            hand_images = Variable(hand_images).cuda()
+            head_images = Variable(head_images).cuda()
             labels = Variable(labels).cuda()
 
-            logits = model.train().forward(images)
+            logits = model.train().forward(hand_images, head_images)
 
             cross_entropy = Model.loss(logits, labels)
             loss = cross_entropy
@@ -60,7 +61,7 @@ def _train(path_to_data_dir, path_to_logs_dir, path_to_restore_checkpoint_file):
             loss.backward()
             optimizer.step()
             step += 1
-            num_samples += len(images)
+            num_samples += len(labels)
 
             if step % num_steps_to_show_loss == 0:
                 elapsed_time = time.time() - start_time

@@ -12,22 +12,32 @@ class Model(nn.Module):
 
     def __init__(self):
         super().__init__()
-        self._feature = models.alexnet(pretrained=True).features
-        self._classifier = nn.Sequential(
+        pretrained_net = models.alexnet(pretrained=True)
+        self._feature = pretrained_net.features
+        self._fc6 = nn.Sequential(
             nn.Linear(256 * 8 * 15, 4096),
             nn.ReLU(True),
-            nn.Dropout(),
-            nn.Linear(4096, 4096),
+            nn.Dropout()
+        )
+        self._classifier = nn.Sequential(
+            nn.Linear(8192, 4096),
             nn.ReLU(True),
             nn.Dropout(),
             nn.Linear(4096, 24),
         )
 
-    def forward(self, x):
-        feature = self._feature(x)
-        feature = feature.view(-1, 256 * 8 * 15)
-        logit = self._classifier(feature)
-        return logit
+    def forward(self, hand_images, head_images):
+        hand_features = self._feature(hand_images)
+        hand_features = hand_features.view(-1, 256 * 8 * 15)
+        hand_features = self._fc6(hand_features)
+
+        head_feature = self._feature(head_images)
+        head_feature = head_feature.view(-1, 256 * 8 * 15)
+        head_feature = self._fc6(head_feature)
+
+        features = torch.cat([hand_features, head_feature], dim=1)
+        logits = self._classifier(features)
+        return logits
 
     @staticmethod
     def loss(logits, labels):

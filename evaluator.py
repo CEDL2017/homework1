@@ -19,11 +19,12 @@ class Evaluator(object):
         num_hits = 0
         progress_bar = tqdm(total=len(self._dataset))
 
-        for batch_index, (images, labels) in enumerate(self._dataloader):
-            images = Variable(images, volatile=True).cuda()
+        for batch_index, (hand_images, head_images, labels) in enumerate(self._dataloader):
+            hand_images = Variable(hand_images, volatile=True).cuda()
+            head_images = Variable(head_images, volatile=True).cuda()
             labels = labels.cuda()
 
-            logits = model.eval().forward(images)
+            logits = model.eval().forward(hand_images, head_images)
             probabilities = torch.nn.functional.softmax(logits)
             predictions = probabilities.data.max(dim=1)[1]
 
