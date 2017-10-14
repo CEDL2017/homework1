@@ -14,7 +14,7 @@ class Evaluator(object):
                                                        shuffle=False, num_workers=8)
 
     def evaluate(self, model):
-        model.cuda().eval()
+        model.cuda()
 
         num_hits = 0
         progress_bar = tqdm(total=len(self._dataset))
@@ -23,7 +23,7 @@ class Evaluator(object):
             images = Variable(images, volatile=True).cuda()
             labels = labels.cuda()
 
-            logits = model.train().forward(images)
+            logits = model.eval().forward(images)
             probabilities = torch.nn.functional.softmax(logits)
             predictions = probabilities.data.max(dim=1)[1]
 
