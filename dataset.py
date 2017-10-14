@@ -1,5 +1,6 @@
 import glob
 import os
+import random
 import re
 from collections import defaultdict
 from enum import Enum
@@ -43,7 +44,7 @@ class Dataset(dataset.Dataset):
 
         transform = transforms.Compose([
             transforms.Scale(300),
-            transforms.RandomHorizontalFlip(),
+            Dataset.RandomHorizontalFlip(0.5 if self._mode == Dataset.Mode.TRAIN else 0),
             transforms.ToTensor(),
             transforms.Normalize(mean=[0.485, 0.456, 0.406],
                                  std=[0.229, 0.224, 0.225])
@@ -81,6 +82,16 @@ class Dataset(dataset.Dataset):
                 return Dataset.Mode.TEST
             else:
                 raise ValueError()
+
+    class RandomHorizontalFlip(transforms.RandomHorizontalFlip):
+        def __init__(self, prob=0.5):
+            super().__init__()
+            self._prob = prob
+
+        def __call__(self, img):
+            if random.random() < self._prob:
+                return img.transpose(transforms.Image.FLIP_LEFT_RIGHT)
+            return img
 
 if __name__ == '__main__':
     def main():
