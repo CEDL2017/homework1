@@ -7,19 +7,25 @@ The project is related to
 * Cheng-Sheng Chan, Shou-Zhong Chen, Pei-Xuan Xie, Chiung-Chih Chang, Min Sun, "Recognition from Hand Cameras: A Revisit with Deep Learning." ECCV 2016
 * Alex Krizhevsky, Ilya Sutskever, Geoffery E. Hinton, "ImageNet Classification with Deep Convolutional Neural Networks"
 * Karen Simonyan, Andrew Zisserman, "Very Deep Convolutional Networks for Large-Scale Image Recognition"
+
 在本次作業中我們需要將提供的training image, training label讀入tensorflow中，訓練完後再利用testing data做測試，而這次的資料有分為左右手camera的資料以及頭部camera的資料，
 透過這些camera可以讓機器針對使用者日常接觸的物體作分類以及判斷，不過因為頭部的資料是沒有label的，在本次作業中我只讀取左右手的資料來做訓練以及測試
 
 ## Implementation
 
 1. input data
+   
    在input_data.py這個檔案裡我分為兩部分，一個是讀取image和label並將他們配對，使得image能對應到正確的label，另一個則是將這些data分成一個一個的batch，以方便我們做training
-   * read_data():
-   function:
-   在function中我定義傳入的為image所在的路徑以及label的路徑，且若train為True的話，我們讀取的是training的image和label，而若train為False的話，則讀取testing的image和label
+   
+* read_data():
+   
+   function: 
+      
    ```python
    def read_data(file_dir, label_dir, train = True):
    ```
+   在function中我定義傳入的為image所在的路徑以及label的路徑，且若train為True的話，我們讀取的是training的image和label，而若train為False的話，則讀取testing的image和label
+
    for image:
    ```python
     image_list = []
@@ -60,7 +66,8 @@ The project is related to
    ```
    接著我們再利用np.random.shuffle()來將配好的image和label打亂，因為batch中如果圖片較隨機的話就不會讓機器在同一個batch一直看到類似的圖片，train出來的結果會比較真實
 
-   * batch_generate():
+* batch_generate():
+
    而在generate batch時我使用一個queue來存取batch，這樣每次取出來的都會是不同的資料，並且在這邊做image的resize，
    因為原本1920x1080的大小太大了，所以先做resize之後再丟到network裡面做訓練，最後需要將其轉換成one hot的型態以方便進行classification   
    
@@ -73,6 +80,7 @@ The project is related to
    ```
 
 2. Alexnet model 
+
    根據原本的Alexnet paper，他們每層捲積核的數目分別為96, 256.384,384,256，兩層fully connected layer的neuron數目各為4096，最後輸出1000種類別，
    由於我們這次需要便是的只有object，且只有24種類別，因此我將輸出由1000改為24，而每層的捲積和數目也變淺一些，而在fully connected layer的neuron樹則各為1024，
    一方面因為我們要分辨的種類比較少。另一方面也是受限於GPU的記憶體大小，常常架構寫得太大就會跳出記憶體不足的問題
@@ -119,6 +127,7 @@ The project is related to
    ```
 
 3. VGG19 model
+
    VGG19的網路架構與Alexnet非常像，只是在convolution layer裡多做了幾次convolution，同時因為做norm會降低training的效率，所以將norm給拿掉，
    同樣因為VGG用來分辨1000種物體，而我們只須分別24種，因此在輸出的地方須做更改，同時我也減小了每個convolution的深度以及最後fc層的大小
    
@@ -173,6 +182,7 @@ The project is related to
    ```
 
 4. train and test
+
    在tensorflow裡面我們需要開session來跑我們要訓練的網路，在此處我將iteration的數量定為總image數除以batch size，因為不一定整除，所以還須將其轉換為int，
    而訓練方式是每一次都將一個batch丟進network做訓練，之後換下一個batch，直到跑完所有的batch後，就跑完一個epoch，在本次作業中我設定epoch數目為20，
    並在每一個epoch之後print出這個epoch平均的loss以及training的accuracy，等跑完20個epoch後再將testing的資料丟進去計算test的accuracy
