@@ -96,13 +96,10 @@ for i in range(epoch):
     for iteration in range(int(N_sample / batch_size)):
         if coord.should_stop():
             break
-        #print("aaaaaaa")
         count += 1
         tot_count += batch_size 
         image_batch, label_batch = sess.run([batch_xs, batch_ys])
-        #print("33333")
         train_step = sess.run(train, feed_dict = {xs: image_batch, ys: label_batch})
-        #print("44444")
         acc_correct = sess.run(accuracy, feed_dict = {xs: image_batch, ys: label_batch})
         compute_accuracy = acc_correct + compute_accuracy
         if iteration % 50 == 0:
