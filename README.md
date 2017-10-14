@@ -5,7 +5,7 @@
 ## Overview
 
 <center>
-<img src="README_files/overview.png" alt="overview" style="float:middle;">####架構圖!!!
+<img src="README_files/overview.png" alt="overview" style="float:middle;">
 </center>
 
 The project is related to 
