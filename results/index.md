@@ -241,24 +241,16 @@ The project is related to
 在此處比較Alexnet以及VGG19兩個網路架構的結果，由下圖可以看出經由Alexnet訓練之後的正確率為50%，然而可以發現training data的loss卻沒有顯著的下降，
 因為在train以及testing的效果都不是很好，原先想法是可能是underfitting，因此將原本的Alexnet換成VGG19的網路架構，
 
-<center>
-<img src="pictures/Alex_test.png" alt="Alex_test" style="float:middle;">
-</center>
+![Alex_test](picture/Alex_test.png)
 
 替換成VGG19後的結果如下圖所示，後來想到也有可能是網路太深使得產生gradient vanishing的問題，所以在VGG19的地方將每個convolution的深度做了調整，將它們變淺
 但看起來效果並不是特別明顯，之後可能會採用ResNet來測試是否能改善這樣的問題
 
-<center>
-<img src="picture/VGG_epoch1.png" alt="VGG_epoch1" style="float:middle;">
-</center>
+![VGG_epoch1](picture/VGG_epoch1.png)
 
-<center>
-<img src="picture/VGG_epoch2.png" alt="VGG_epoch1" style="float:middle;">
-</center>
+![VGG_epoch2](picture/VGG_epoch2.png)
 
-<center>
-<img src="picture/VGG_epoch20.png" alt="VGG_epoch1" style="float:middle;">
-</center>
+![VGG_epoch20](picture/VGG_epoch20.png)
 
 ### test accuracy
 * AlexNet: 50%
