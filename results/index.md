@@ -54,6 +54,6 @@ $ source ${HW1_ROOT_DIR}/run_eval.sh
 * Accuracy = 
 * mean average precision (mAP) = 
 
-|Training loss|precision-recall|confusion matrix|
+|training loss|precision-recall|confusion matrix|
 |:---:|:---:|:---:|
-|<img src="placeholder.jpg" width="250"/>|<img src="placeholder.jpg" width="250"/>|<img src="placeholder.jpg" width="300"/>|
+|<img src="./index_files/training_loss.jpg" width="250"/>|<img src="./precision_recall.jpg" width="250"/>|<img src="confusion_matrix.jpg" width="300"/>|
