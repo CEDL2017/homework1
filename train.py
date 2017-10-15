@@ -3,6 +3,8 @@ import os
 
 import numpy as np
 import time
+
+import torch
 import torch.optim as optim
 from torch.autograd import Variable
 from torch.utils.data import DataLoader
@@ -42,6 +44,8 @@ def _train(path_to_data_dir, path_to_logs_dir, path_to_restore_checkpoint_file):
 
     start_time, num_samples = time.time(), 0
     should_continue = True
+    num_obj_samples = np.array([7228, 746, 342, 197, 190, 832, 811, 230, 529, 1166, 129, 87, 14, 32, 65, 51, 64, 125, 613, 458, 546, 438, 33, 66])
+    obj_weight = torch.FloatTensor(1 - (num_obj_samples / sum(num_obj_samples))).cuda()
 
     while should_continue:
         for batch_index, (head_images, hand_images, fa_labels, ges_labels, obj_labels) in enumerate(dataloader):
@@ -53,7 +57,7 @@ def _train(path_to_data_dir, path_to_logs_dir, path_to_restore_checkpoint_file):
 
             fa_logits, ges_logits, obj_logits = model.train().forward(hand_images, head_images)
 
-            fa_cross_entropy, ges_cross_entropy, obj_cross_entropy = Model.loss(fa_logits, ges_logits, obj_logits, fa_labels, ges_labels, obj_labels)
+            fa_cross_entropy, ges_cross_entropy, obj_cross_entropy = Model.loss(fa_logits, ges_logits, obj_logits, fa_labels, ges_labels, obj_labels, obj_weight)
             loss = fa_cross_entropy + ges_cross_entropy + obj_cross_entropy
 
             learning_rate = _adjust_learning_rate(optimizer, step=step, initial_lr=initial_learning_rate,
