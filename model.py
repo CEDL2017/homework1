@@ -3,8 +3,8 @@ import os
 
 import torch
 import torch.nn as nn
-import torchvision.models as models
 import torch.nn.functional
+import torchvision.models as models
 
 
 class Model(nn.Module):
@@ -12,16 +12,17 @@ class Model(nn.Module):
 
     def __init__(self):
         super().__init__()
-        pretrained_net = models.alexnet(pretrained=True)
+        pretrained_net = models.vgg16_bn(pretrained=True)
 
         self._feature = pretrained_net.features
 
-        fc6 = [it for i, it in enumerate(pretrained_net.classifier.children()) if i < 4]
+        fc6 = [it for i, it in enumerate(pretrained_net.classifier.children()) if i < 3]
         self._fc6 = nn.Sequential(*fc6)
 
         self._fc7 = nn.Sequential(
             nn.Linear(8192, 4096),
-            nn.ReLU(True)
+            nn.ReLU(True),
+            nn.Dropout(),
         )
 
         self._fa_logits = nn.Linear(4096, 2)
@@ -32,8 +33,8 @@ class Model(nn.Module):
         hand_features = self._feature(hand_images)
         head_features = self._feature(head_images)
 
-        hand_features = hand_features.view(-1, 256 * 6 * 6)
-        head_features = head_features.view(-1, 256 * 6 * 6)
+        hand_features = hand_features.view(-1, 512 * 7 * 7)
+        head_features = head_features.view(-1, 512 * 7 * 7)
 
         hand_fc6 = self._fc6(hand_features)
         head_fc6 = self._fc6(head_features)
