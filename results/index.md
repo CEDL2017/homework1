@@ -25,7 +25,7 @@ $ SLIM_DIR=${HW1_ROOT_DIR}/workspace/models/research/slim
 $ python ${SLIM_DIR}/download_and_convert_data.py --dataset_name=CEDLhw1 \
 						  --dataset_dir=${HW1_ROOT_DIR}/data/reformed_train
 ```
-3. Training: We use "Inception-ResNet-v2" network structure whose trained model over ImageNet reaches highest accuracy in tf-slim, as shown in [Pretrained Models section](https://github.com/tensorflow/models/tree/master/research/slim). Pretrained model can be installed from [here](http://download.tensorflow.org/models/inception_resnet_v2_2016_08_30.tar.gz). Our training code is modified from [tf-slim training code](https://github.com/tensorflow/models/blob/master/research/slim/train_image_classifier.py), where numerous parameters can be set. There is an easy script that carries out training,
+3. Training: We use "Inception-ResNet-v2" network structure whose trained model over ImageNet reaches highest accuracy in tf-slim, as shown in [Pretrained Models section](https://github.com/tensorflow/models/tree/master/research/slim), and finetune on the last fully-connected layer over our own handcam dataset. Pretrained model can be installed from [here](http://download.tensorflow.org/models/inception_resnet_v2_2016_08_30.tar.gz). Our training code is modified from [tf-slim training code](https://github.com/tensorflow/models/blob/master/research/slim/train_image_classifier.py), where numerous parameters can be set. There is an easy script that carries out training,
 ```
   # modify TRAIN_DIR, DATASET_DIR, CHECKPOINT_DIR, SLIM_DIR in ${HW1_ROOT_DIR}/run_training.sh
   # also train_image_classifier_CEDLhw1.py has numerous argument to be set
