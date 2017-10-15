@@ -1,25 +1,52 @@
-# Your Name <span style="color:red">(id)</span>
+# 王尊玄 <span style="color:red">(106061521)</span>
 
-#Project 5: Deep Classification
+#Project 1: Deep Classification
 
 ## Overview
 The project is related to 
-> quote
+> 
 
 
 ## Implementation
-1. One
-	* item
-	* item
-2. Two
+<center>
+<img src="https://1.bp.blogspot.com/-O7AznVGY9js/V8cV_wKKsMI/AAAAAAAABKQ/maO7n2w3dT4Pkcmk7wgGqiSX5FUW2sfZgCLcB/s1600/image00.png" width="600"/>
+</center>
 
+1. Reform dataset: as directory structure of the original dataset is quite "abnormal" in classification, we reform the dataset to reformed dataset with diferrent directory structure. This can be done by doing:
 ```
-Code highlights
+  # modify train_dir, test_dir, labels_root_dir in ${HW1_ROOT_DIR}/reform_dataset.py
+$ python reform_dataset.py
+```
+2. Convert data to TFrecord: to accelerate training process, we serialize and pack all images to .tfrecord file. This can be done by doing:
+```
+$ SLIM_DIR=${HW1_ROOT_DIR}/workspace/models/research/slim
+  # modify _NUM_VALIDATION in ${SLIM_DIR}/datasets/download_and_convert_CEDLhw1.py
+  # modify SPLITS_TO_SIZE in ${SLIM_DIR}/datasets/cedlhw1.py
+$ python ${SLIM_DIR}/download_and_convert_data.py --dataset_name=CEDLhw1 \
+						  --dataset_dir=${HW1_ROOT_DIR}/data/reformed_train
+```
+3. Training: We use "Inception-ResNet-v2" network structure whose trained model over ImageNet reaches highest accuracy in tf-slim, as shown in [Pretrained Models section](https://github.com/tensorflow/models/tree/master/research/slim). Pretrained model can be installed from [here](http://download.tensorflow.org/models/inception_resnet_v2_2016_08_30.tar.gz). Our training code is modified from [tf-slim training code](https://github.com/tensorflow/models/blob/master/research/slim/train_image_classifier.py), where numerous parameters can be set. There is an easy script that carries out training,
+```
+  # modify TRAIN_DIR, DATASET_DIR, CHECKPOINT_DIR, SLIM_DIR in ${HW1_ROOT_DIR}/run_training.sh
+  # also train_image_classifier_CEDLhw1.py has numerous argument to be set
+  # note that SLIM_DIR=${HW1_ROOT_DIR}/workspace
+$ source ${HW1_ROOT_DIR}/run_training.sh
+```
+4. Evaluation: Our evaluation code is modified from [tf-slim evaluation code](https://github.com/tensorflow/models/blob/master/research/slim/eval_image_classifier.py). The following metrics are computed:
+	* accuracy
+	* precision-recall plot
+	* confusion matrix
+```
+  # modify TRAIN_DIR, CHECKPOINT_DIR, DATASET_DIR, SLIM_DIR in ${HW1_ROOT_DIR}/run_training.sh
+  # note that SLIM_DIR=${HW1_ROOT_DIR}/workspace and RESULTS_DIR is not used
+$ source ${HW1_ROOT_DIR}/run_eval.sh
 ```
 
 ## Installation
-* Other required packages.
-* How to compile from source?
+* Python
+* [tensorflow](https://github.com/tensorflow/tensorflow)
+* [tf-slim](https://github.com/tensorflow/models/tree/master/research/slim)
+* [sklearn](http://scikit-learn.org/stable/)
 
 ### Results
 
