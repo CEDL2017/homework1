@@ -51,25 +51,9 @@ $ source ${HW1_ROOT_DIR}/run_eval.sh
 
 ### Results
 
-<table border=1>
-<tr>
-<td>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg"  width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-</td>
-</tr>
+* Accuracy = 
+* mean average precision (mAP) = 
 
-<tr>
-<td>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg"  width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-<img src="placeholder.jpg" width="24%"/>
-</td>
-</tr>
-
-</table>
-
-
+|Training loss|precision-recall|confusion matrix|
+|:---:|:---:|:---:|
+|<img src="placeholder.jpg" width="250"/>|<img src="placeholder.jpg" width="250"/>|<img src="placeholder.jpg" width="300"/>|
