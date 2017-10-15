@@ -33,9 +33,9 @@ $ python ${SLIM_DIR}/download_and_convert_data.py --dataset_name=CEDLhw1 \
 $ source ${HW1_ROOT_DIR}/run_training.sh
 ```
 4. Evaluation: Our evaluation code is modified from [tf-slim evaluation code](https://github.com/tensorflow/models/blob/master/research/slim/eval_image_classifier.py). The following metrics are computed:
-	* accuracy
-	* precision-recall plot
-	* confusion matrix
+	* [accuracy](http://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html)
+	* [precision-recall plot](http://scikit-learn.org/stable/auto_examples/model_selection/plot_precision_recall.html)
+	* [confusion matrix](http://scikit-learn.org/stable/auto_examples/model_selection/plot_confusion_matrix.html)
 ```
   # modify TRAIN_DIR, CHECKPOINT_DIR, DATASET_DIR, SLIM_DIR in ${HW1_ROOT_DIR}/run_training.sh
   # note that SLIM_DIR=${HW1_ROOT_DIR}/workspace and RESULTS_DIR is not used
