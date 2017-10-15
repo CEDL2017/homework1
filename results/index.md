@@ -4,7 +4,8 @@
 
 ## Overview
 The project is related to 
-> 
+> object classification over images captured from dashcam on both hands. There are 24 object classes to be recognized,
+```Obj = { 'free','computer','cellphone','coin','ruler','thermos-bottle','whiteboard-pen','whiteboard-eraser','pen','cup','remote-control-TV','remote-control-AC','switch','windows','fridge','cupboard','water-tap','toy','kettle','bottle','cookie','book','magnet','lamp-switch'}```. Our goal is to achieve high accuracy in classifying objects in handcam images.
 
 
 ## Implementation
