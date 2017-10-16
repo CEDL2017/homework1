@@ -8,7 +8,7 @@ The project is related to
 > 標準(benchmark): AlexNet > 60%
 
 ## Implementation
-1. (92%) AlexNet
+1. (54%) AlexNet
 	* 將input data轉成 ndarray(227,227,3)
 	* 右手的資料，將其左右翻轉 (思路:讓右手的data跟左手的data角度一致化)
 	* 使用AlexNet進行訓練
