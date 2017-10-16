@@ -84,9 +84,9 @@ import matplotlib.pyplot as plt  <br />
 <table border=1>
 <tr>
 <td>
-![image] https://github.com/smileyung/homework1/blob/master/results/img/AlexAcc.png
-![image] https://github.com/smileyung/homework1/blob/master/results/img/AlexLoss.png
-![image] https://github.com/smileyung/homework1/blob/master/results/img/AlexTestAcc.png	
+![image](https://github.com/smileyung/homework1/blob/master/results/img/AlexAcc.png)
+![image](https://github.com/smileyung/homework1/blob/master/results/img/AlexLoss.png)
+![image](https://github.com/smileyung/homework1/blob/master/results/img/AlexTestAcc.png)	
 	
 <img src="placeholder.jpg" width="24%"/>
 <img src="placeholder.jpg"  width="24%"/>
