@@ -99,8 +99,8 @@ import matplotlib.pyplot as plt  <br />
 </tr>
 
 accuracy = 54% (in round 94) <br />
-(MAX) Test Accuracy= 0.541553241303 <br />
-(MAX) Test Loss= 3.43139602775
+Test Accuracy= 0.541553241303 <br />
+Test Loss= 3.43139602775
 
 <tr>
 <td>
