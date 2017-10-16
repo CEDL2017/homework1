@@ -8,7 +8,7 @@ The project is related to
 > 標準(benchmark): AlexNet > 60%
 
 ## Implementation
-1. (54%) <a href="https://github.com/smileyung/homework1/blob/master/code/(54%25)%20AlexNet.ipynb_v2.0.ipynb/" title="AlexNet Search">AlexNet</a>
+1. (54%) *<a href="https://github.com/smileyung/homework1/blob/master/code/(54%25)%20AlexNet.ipynb_v2.0.ipynb/" title="AlexNet Search">AlexNet</a>
 
 
 (https://github.com/smileyung/homework1/blob/master/code/(54%25)%20AlexNet.ipynb_v2.0.ipynb "AlexNet")
