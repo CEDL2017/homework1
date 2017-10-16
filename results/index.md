@@ -8,15 +8,12 @@ The project is related to
 > 標準(benchmark): AlexNet > 60%
 
 ## Implementation
-1. (54%) *<a href="https://github.com/smileyung/homework1/blob/master/code/(54%25)%20AlexNet.ipynb_v2.0.ipynb/" title="AlexNet Search">AlexNet</a>
-
-
-(https://github.com/smileyung/homework1/blob/master/code/(54%25)%20AlexNet.ipynb_v2.0.ipynb "AlexNet")
+1. (54%) AlexNet
 	* 將input data轉成 ndarray(227,227,3)
 	* 右手的資料，將其左右翻轉 (思路:讓右手的data跟左手的data角度一致化)
 	* 使用AlexNet進行訓練
 	* 訓練過程使用的資料有做shuffle (訓練資料分布較為均勻)
-	* (227,227,3)的資料略大，於是分批讀取、訓練
+	* <a href="https://github.com/smileyung/homework1/blob/master/code/(54%25)%20AlexNet.ipynb_v2.0.ipynb/" title="AlexNet Search">AlexNet</a>
 2. (53%) CNN_basic
 	* 原本是用來預測cifar10的model (71%原精準度)
 	* 容易訓練、易懂好寫
