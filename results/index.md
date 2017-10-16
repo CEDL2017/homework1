@@ -8,7 +8,10 @@ The project is related to
 > 標準(benchmark): AlexNet > 60%
 
 ## Implementation
-1. (54%) (https://github.com/smileyung/homework1/blob/master/code/(54%25)%20AlexNet.ipynb_v2.0.ipynb "AlexNet")
+1. (54%) <p> <a href="https://github.com/smileyung/homework1/blob/master/code/(54%25)%20AlexNet.ipynb_v2.0.ipynb/" title="AlexNet">Google</a>
+
+
+(https://github.com/smileyung/homework1/blob/master/code/(54%25)%20AlexNet.ipynb_v2.0.ipynb "AlexNet")
 	* 將input data轉成 ndarray(227,227,3)
 	* 右手的資料，將其左右翻轉 (思路:讓右手的data跟左手的data角度一致化)
 	* 使用AlexNet進行訓練
