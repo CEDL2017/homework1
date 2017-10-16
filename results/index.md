@@ -98,9 +98,9 @@ import matplotlib.pyplot as plt  <br />
 </td>
 </tr>
 
-
-(Average) Test Accuracy= 0.918689968214 <br />
-(Average) Test Loss= 0.275209411445 <br />
+accuracy = 54% (in round 94) <br />
+(MAX) Test Accuracy= 0.541553241303 <br />
+(MAX) Test Loss= 3.43139602775
 
 <tr>
 <td>
