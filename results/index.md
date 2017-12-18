@@ -60,7 +60,7 @@ anaconda default packages<p>
 e.g. ```python Two_stream_ResNet-152_with_InceptionResNetV2_FE_batch32_dropout01.py```
 
 ## Access trained parameters and records
-[Link](https://drive.google.com/drive/folders/0B4-rB9HD2WbEQUQ3SHpoWlhOMEE)
+[Link](https://drive.google.com/drive/folders/1svSJnO6R-WnDiyybhcuqEvpYEzQroH77?usp=sharing)
 Download from the "Link", then replace the "./save" folder.
 
 ### Results
