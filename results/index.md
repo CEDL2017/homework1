@@ -5,7 +5,7 @@
 ## Overview
 The project is related to 
 > Make a classifier for dataset: handcam.
-> Motify from mobilenet.
+> Modify from mobilenet.
 > Training settings is in script.
 > Use three loss source in handcam only.
 
@@ -32,7 +32,7 @@ handcamobj loads the object labels and the images.
 handcamges loads the gesture labels and the images.
 
 4. nets
-I motified the mobilenet as the file "mobilenet2". The output of the model increase to three labels, to fit the homework task.
+I modified the mobilenet as the file "mobilenet2". The output of the model increase to three labels, to fit the homework task.
 
 ```
 end_points['Logits'] = logits
