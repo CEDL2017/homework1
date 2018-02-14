@@ -8,7 +8,9 @@ The best result testing on total test data of fine tuning each model:
 ### Inception-Resnet-v2: 
 	streaming accuracy: 50%
 ### vgg-16:
-	streaming accuracy: 45%
+	streaming accuracy: 45%  
+  
+Obiviously the result wasn't proper tuned, but the way may work if properly revised or implenmented on other datasets.
 
 ### Reference:
 - Thesis:<br />
