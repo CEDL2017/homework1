@@ -10,7 +10,7 @@ The best result testing on total test data of fine tuning each model:
 ### vgg-16:
 	streaming accuracy: 45%  
   
-Obiviously the result wasn't proper tuned, but the way may work if properly revised or implenmented on other datasets.
+Obiviously the model wasn't proper tuned, but the way may work if properly revised or implenmented on other datasets.
 
 ### Reference:
 - Thesis:<br />
