@@ -4,7 +4,7 @@
 
 # Deep Classification
 
-** See for the final report details in file *result/index.md* **  
+**See for the final report details in file *result/index.md***  
 
 ## Brief
 * ***+2 extra credit of the whole semester***
