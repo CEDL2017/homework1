@@ -1,10 +1,12 @@
+**See for the final report details in [here](https://github.com/Thanatine/Transfer-Learning-on-Image-Classification-TF-Slim/blob/master/results/index.md)**  
+
 <center>
 <img src="README_files/overview.png" alt="overview" style="float:middle;">
 </center>
 
 # Deep Classification
 
-**See for the final report details in file *result/index.md***  
+
 
 ## Brief
 * ***+2 extra credit of the whole semester***
